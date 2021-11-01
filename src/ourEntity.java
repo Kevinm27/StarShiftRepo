@@ -12,21 +12,21 @@ import acm.graphics.GImage;
 
 public class ourEntity {
 	//***** private variables *****//
-	//private Locations entityLocation = new Locations(0,0);		// ~~~~ change string to struct Location; idk if I did that right
+	private Locations entityLocation = new Locations(0,0);		// arrayList of Locations	
 	private int health;
 	private int speed;
 	private boolean isVertical, isHorizontal;
 	private GImage image;
 		
 	//***** public variables *****//
-	//public ArrayList<Projectile> bullets = new ArrayList<Projectile>();	// ~~~~ change String to Projectile
+	public ArrayList<Projectile> bullets = new ArrayList<Projectile>();	
 	public EntityType type = null;								// Entity Type needs to be defined
 	
 	
 	//**** Set Functions *****//
-//	void setEntityLocation(Locations location) {				// check for legal location elsewhere (?)
-//		this.entityLocation = location;
-//	}
+	void setEntityLocation(Locations location) {				// check for legal location elsewhere (?)
+		this.entityLocation = location;
+	}
 	void setHealth(int hp) {
 		this.health = hp;
 	}
@@ -44,9 +44,9 @@ public class ourEntity {
 	}
 	
 	//***** Get Functions *****//
-//	Locations getEntityLocation() {
-//		return this.entityLocation;
-//	}
+	Locations getEntityLocation() {
+		return this.entityLocation;
+	}
 	int getHealth() {
 		return this.health;
 	}
@@ -64,8 +64,10 @@ public class ourEntity {
 	}
 	
 	//***** Fundamental Functions *****//
-	void move() {
-		
+	void move() {								// write move! 
+												// takes in an ActionEvent e for press and hold WASD
+												// MAYBE - event listeners needs to be included in this class 
+												// calls canMove check: if (go thru with move) else (return)
 	}
 	boolean fire() {
 		return false;	
