@@ -2,7 +2,7 @@
  * @author MeganA
  * This class will be the parent class to all the entities in the game (enemies and player).
  * Objects of this class can move, fire projectiles, and take damage. This class will create the framework 
- * for the game�s Enemy ships and the player�s playerShip. It will hold an array list of Projectiles 
+ * for the game's Enemy ships and the player's playerShip. It will hold an array list of Projectiles 
  * that can access projectile objects.
  */
 
@@ -70,7 +70,7 @@ public class ourEntity {
 												// calls canMove check: if (go thru with move) else (return)
 	}
 	boolean fire() {
-		if(entityType != EntityType.SCOOTER) {
+		if(type != EntityType.SCOOTER) {
 			
 			return true;
 		} else {
