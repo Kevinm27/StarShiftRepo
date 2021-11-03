@@ -6,8 +6,8 @@
  * that can access projectile objects.
  */
 
-import java.util.ArrayList;		// import the ArrayList class
-import java.util.Timer;			// need more research into this
+import java.util.ArrayList;										// import the ArrayList class
+import java.util.Timer;											// refer to TimerLab for use
 import acm.graphics.GImage;
 
 public class ourEntity {
@@ -40,7 +40,7 @@ public class ourEntity {
 		this.isHorizontal = isHoriz;
 	}
 	void setImage(EntityType shipType) {
-		this.image.setImage("SHIP IMAGE"); 					// help with graphic please
+		this.image.setImage("SHIP IMAGE"); 						// help with graphic please
 	}
 	
 	//***** Get Functions *****//
