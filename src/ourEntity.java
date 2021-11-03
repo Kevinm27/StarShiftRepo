@@ -17,7 +17,6 @@ public class ourEntity {
 	private int speed;
 	private boolean isVertical, isHorizontal;
 	private GImage image;
-	private EntityType entityType;	
 	
 	//***** public variables *****//
 	public ArrayList<Projectile> bullets = new ArrayList<Projectile>();	
