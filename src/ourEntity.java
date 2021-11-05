@@ -9,8 +9,9 @@
 import java.util.ArrayList;										// import the ArrayList class
 import java.util.Timer;											// refer to TimerLab for use
 import acm.graphics.GImage;
+import acm.program.GraphicsProgram;
 
-public class ourEntity {
+public class ourEntity extends GraphicsProgram {
 	//***** private variables *****//
 	private Locations entityLocation = new Locations(0,0);		// arrayList of Locations	
 	private int health;
@@ -25,6 +26,13 @@ public class ourEntity {
 	public static final String IMG_EXTENSION = ".png";
 	
 	//**** Set Functions *****//
+	
+	ourEntity(EntityType type){
+		this.type = type;
+		image = new GImage("milleniumFalcon.png", 200, 200);
+		add(image);
+	}
+	
 	void setEntityLocation(Locations location) {				// check for legal location elsewhere (?)
 		this.entityLocation = location;
 	}
@@ -79,8 +87,21 @@ public class ourEntity {
 		}
 		
 	}
+	
 	Timer fireRateTimer() {
 		return null;
-	}	
+	}
+
+	public void init() {
+		setSize(700, 700);
+	}
 	
+	public void run() {
+		ourEntity newEntity = new ourEntity(EntityType.SCOOTER);
+		
+	}
+	
+	public static void main(String[] args) {
+		new ourEntity(EntityType.SCOOTER).start();
+	}
 }
