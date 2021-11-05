@@ -30,7 +30,7 @@ public class ourEntity extends GraphicsProgram {
 	ourEntity(EntityType type){
 		this.type = type;
 		image = new GImage("milleniumFalcon.png", 200, 200);
-		add(image);
+		
 	}
 	
 	void setEntityLocation(Locations location) {				// check for legal location elsewhere (?)
@@ -98,7 +98,7 @@ public class ourEntity extends GraphicsProgram {
 	
 	public void run() {
 		ourEntity newEntity = new ourEntity(EntityType.SCOOTER);
-		
+		add(image);
 	}
 	
 	public static void main(String[] args) {
