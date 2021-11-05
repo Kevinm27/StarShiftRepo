@@ -20,8 +20,9 @@ public class ourEntity {
 	
 	//***** public variables *****//
 	public ArrayList<Projectile> bullets = new ArrayList<Projectile>();	
-	public EntityType type = null;								// Entity Type needs to be defined
-	
+	public EntityType type = null;								// Entity Type needs to be defined when object is made
+	public static final String IMG_FILENAME_PATH = "ships/";
+	public static final String IMG_EXTENSION = ".png";
 	
 	//**** Set Functions *****//
 	void setEntityLocation(Locations location) {				// check for legal location elsewhere (?)
@@ -39,8 +40,8 @@ public class ourEntity {
 	void setIsHorizontal(boolean isHoriz) {
 		this.isHorizontal = isHoriz;
 	}
-	void setImage(EntityType shipType) {
-		this.image.setImage("SHIP IMAGE"); 						// help with graphic please
+	void setImage(EntityType shipType) {										// help with graphics
+		this.image.setImage(IMG_FILENAME_PATH + shipType + IMG_EXTENSION);		// PLEASE MAKE IMAGE NAMES SAME AS EntityTypes
 	}
 	
 	//***** Get Functions *****//
@@ -68,7 +69,7 @@ public class ourEntity {
 												// takes in an ActionEvent e for press and hold WASD
 												// MAYBE - event listeners needs to be included in this class 
 												// calls canMove check: if (go thru with move) else (return)
-	}
+	}											// ^ should be in PlayerShip, since Enemy doesn't need this function
 	boolean fire() {
 		if(type != EntityType.SCOOTER) {
 			
@@ -80,7 +81,6 @@ public class ourEntity {
 	}
 	Timer fireRateTimer() {
 		return null;
-	}
-	
+	}	
 	
 }
