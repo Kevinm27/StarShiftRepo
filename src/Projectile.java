@@ -21,6 +21,8 @@ class Projectile {
 	    this.isFriendly = isFriendly;
 	  }
 
+	  
+	  
 	  public int getDamage(){
 	    return this.damage;
 	  }
