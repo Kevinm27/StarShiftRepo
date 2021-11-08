@@ -3,6 +3,7 @@ import acm.graphics.GImage;
 public class playerShip {
 	ourEntity player;
 	Locations playerLocation;
+	Projectile bullet;
 	
 	void moveX(int x) {
 		//will need a check for if the player is in bounds, can do in here or in level (discuss)
@@ -18,4 +19,15 @@ public class playerShip {
 		player.setEntityLocation(playerLocation);
 	}
 	
+	void shoot(int x, int y) {
+		//will shoot (move)  bullets in appropriate direction
+	}
+	
+	int getHealth() {
+		return player.getHealth();
+	}
+	
+	void setHealth(int h) {
+		player.setHealth(h);
+	}
 }

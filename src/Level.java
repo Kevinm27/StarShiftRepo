@@ -11,19 +11,19 @@ public class Level {
 	private boolean levelWon;
 	private int pauseCount = 0;
 	
-	//Win Conditions + Checks
-	
-	void setWinCondition() {
-		
-	}
+	//Level Win Check
 	
 	boolean isLevelWon() {
-		
-		return false;
+		if (enemies.size() < 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
-	boolean isLevelLost(ourEntity playerShip) {
-		if(playerShip.getHealth() < 1) {
+	boolean isLevelLost(playerShip player) {
+		if(player.getHealth() < 1) {
 			return true;
 		}
 		return false;
