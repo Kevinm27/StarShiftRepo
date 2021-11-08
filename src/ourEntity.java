@@ -73,11 +73,6 @@ public class ourEntity extends GraphicsProgram {
 	}
 	
 	//***** Fundamental Functions *****//
-	void move() {								// write move! 
-												// takes in an ActionEvent e for press and hold WASD
-												// MAYBE - event listeners needs to be included in this class 
-												// calls canMove check: if (go thru with move) else (return)
-	}											// ^ should be in PlayerShip, since Enemy doesn't need this function
 	boolean fire() {
 		if(type != EntityType.SCOOTER) {
 			
