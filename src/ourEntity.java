@@ -16,6 +16,7 @@ public class ourEntity extends GraphicsProgram {
 	private Locations entityLocation = new Locations(0,0);		// arrayList of Locations	
 	private int health;
 	private int speed;
+	private boolean friendly;									// IsFriendly should be here instead of logic
 	private boolean isVertical, isHorizontal;
 	private GImage image;
 	
@@ -33,7 +34,7 @@ public class ourEntity extends GraphicsProgram {
 		
 	}
 	
-	void setEntityLocation(Locations location) {				// check for legal location elsewhere (?)
+	void setEntityLocation(Locations location) {				// check for legal location elsewhere (?) Could be in logic
 		this.entityLocation = location;
 	}
 	void setHealth(int hp) {
@@ -47,6 +48,9 @@ public class ourEntity extends GraphicsProgram {
 	}
 	void setIsHorizontal(boolean isHoriz) {
 		this.isHorizontal = isHoriz;
+	}
+	void setIsFriendly(boolean isFriendly) {
+		this.friendly = isFriendly; 
 	}
 	void setImage(EntityType shipType) {										// help with graphics
 		this.image.setImage(IMG_FILENAME_PATH + shipType + IMG_EXTENSION);		// PLEASE MAKE IMAGE NAMES SAME AS EntityTypes
@@ -68,11 +72,23 @@ public class ourEntity extends GraphicsProgram {
 	boolean getIsHorizontal() {
 		return this.isHorizontal;
 	}
+	boolean getIsFriendly() {
+		return this.friendly;
+	}
 	GImage getImage() {
 		return this.image; 	
 	}
 	
+	ArrayList<Projectile> getBulletArrayList() {//Added getter for the array list
+		return bullets;
+	}
+	
 	//***** Fundamental Functions *****//
+	void move() {								// write move! 
+												// takes in an ActionEvent e for press and hold WASD
+												// MAYBE - event listeners needs to be included in this class 
+												// calls canMove check: if (go thru with move) else (return)
+	}											// ^ should be in PlayerShip, since Enemy doesn't need this function
 	boolean fire() {
 		if(type != EntityType.SCOOTER) {
 			

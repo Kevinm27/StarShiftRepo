@@ -1,31 +1,44 @@
+import java.util.ArrayList;
 
 public class Logic {
-	private boolean friendly;
+	//	private boolean friendly; should be in ourEntity 
 	private boolean collision;
 	
 	public Logic(boolean friendly, boolean collision) {
-		this.friendly = friendly;
+	//	this.friendly = friendly;
 		this.collision = collision;
-	}
-	
-	public void setFriendly(boolean friendly) {
-		this.friendly = friendly;
 	}
 	public void setCollisionStatus(boolean collision) {
 		this.collision = collision;
 	}
+	public boolean getCollisionStatus() {
+		return this.collision;
+	}
+	/*
+	public void setFriendly(boolean friendly) {
+		//	this.friendly = friendly;
+	}
+	
 	
 	public boolean getFriendly() {
 		return this.friendly;
 	}
-	public boolean getCollisionStatus() {
-		return this.collision;
-	}
+	*/
 	
 	
-	public boolean collides() {
-		//Finish this once all ships are in an arraylist with their own propper GImage or GRec\t
+	
+	public boolean collides(ourEntity playerShip, ArrayList<ourEntity> enemies, ArrayList<Projectile> bullets) {
+		//Check Ship with all bullets and enemy ships
+		//Start writing once we can see the ship on the screen
+		for(int i = 0; i < enemies.size(); i++) {
+			for(int j = 0; j < bullets.size(); j++) {
+				//if(playerShip.getEntityLocation() == )) {
+					
+				}
+		}
+		
 		return false;
+
 	}
 	
 	
