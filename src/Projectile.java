@@ -3,22 +3,14 @@ class Projectile {
 	  private int distance;
 	  private boolean isVertical;
 	  private boolean isHorizontal;
-	  private boolean isFriendly;
+	  private boolean friendly;
 	  Locations projectileLocation; 
-	  //GImage projectile???
-	  //Timer? StackOverflow says System.currentTimeMillis()
-	  //LINK https://stackoverflow.com/questions/10820033/make-a-simple-timer-in-java/14323134
-	  //long startTime = System.currentTimeMillis();
-	  //long elapsedTime = System.currentTimeMillis - startTime
-	  //long elapsedSeconds = elapsedTime / 1000;
-	  //long secondsDisplay = elapsedSeconds % 60;
-
-	  public Projectile(int damage, int distance, boolean isVertical, boolean isHorizontal, boolean isFriendly){
+	  Projectile(int damage, int distance, boolean isVertical, boolean isHorizontal, boolean friendly){
 	    this.damage = damage;
 	    this.distance = distance;
 	    this.isVertical = isVertical;
 	    this.isHorizontal = isHorizontal;
-	    this.isFriendly = isFriendly;
+	    this.friendly = friendly;
 	  }
 
 	  
@@ -34,6 +26,12 @@ class Projectile {
 	  }
 	  public void setDistance(int distance){
 	    this.distance = distance;
+	  }
+	  public void setFriendly(boolean friendly) {
+		  this.friendly = friendly;
+	  }
+	  public boolean isFriendly() {
+		  return this.friendly;
 	  }
 
 	  public boolean isVertical(){
