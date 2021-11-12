@@ -5,29 +5,52 @@ import acm.graphics.GOval;
 import acm.graphics.GRect;
 
 class Projectile implements ActionListener{
-	public static final int DELAY_MS = 25;
+	private static final int PROJECTILE_SPEED = 5;
+	private static final int DELAY_MS = 25;
+	private static final int PROJECTILE_DAMAGE = 100;
+	
 	  private int speed;
 	  private int damage;
-	  private int distance;
-	  private boolean isVertical;
-	  private boolean isHorizontal;
 	  private boolean friendly;
+	  
 	  private GOval oval; //placeholder for projectile image
 	  private float angle;
 	  private Timer t;
 	  Locations projectileLocation; 
-	  Projectile(int damage, int distance, boolean isVertical, boolean isHorizontal, boolean friendly, Locations projectileLocation, GRect target){
-	    this.damage = damage;
-	    this.distance = distance;
-	    this.isVertical = isVertical;
-	    this.isHorizontal = isHorizontal;
-	    this.friendly = friendly;
-	    speed = 5;
+	  
+	  /*
+	   * This is the default constructor for enemy projectiles. The firing method is going to work
+	   * by grabbing the player's starting angle at the time the projectile fired, and it will then
+	   * continue traveling in that direction until it hits the player or leaves the screen
+	   */
+	  Projectile(Locations projectileLocation, GRect target){
+	    damage = PROJECTILE_DAMAGE;
+	    friendly = false;
+	    speed = PROJECTILE_SPEED;
 	    this.projectileLocation = projectileLocation;
 	    oval = new GOval(10, 10, projectileLocation.getX(), projectileLocation.getY());
+	    
 	    angle = getAngle(target);
+	    
 	    t = new Timer(DELAY_MS, this);
 	    t.start();
+	  }
+	  
+	  /*
+	   * this is the default constructor for player projectiles. they're going to derive the
+	   * angle of travel of the projectile based on a keyboard input.
+	   */
+	  Projectile(Locations projectileLocation, float angle){
+		  damage = PROJECTILE_DAMAGE;
+		    friendly = true;
+		    speed = PROJECTILE_SPEED;
+		    this.projectileLocation = projectileLocation;
+		    oval = new GOval(10, 10, projectileLocation.getX(), projectileLocation.getY());
+		    
+		    this.angle = angle;
+		    
+		    t = new Timer(DELAY_MS, this);
+		    t.start();
 	  }
 
 	  @Override
@@ -43,12 +66,7 @@ class Projectile implements ActionListener{
 	  public void setDamage(int damage){
 	    this.damage = damage;
 	  }
-	  public int getDistance(){
-	    return this.distance;
-	  }
-	  public void setDistance(int distance){
-	    this.distance = distance;
-	  }
+	  
 	  public void setFriendly(boolean friendly) {
 		  this.friendly = friendly;
 	  }
@@ -56,18 +74,6 @@ class Projectile implements ActionListener{
 		  return this.friendly;
 	  }
 
-	  public boolean isVertical(){
-	    return this.isVertical;
-	  }
-	  public void setIsVertical(boolean isVertical){
-	    this.isVertical = isVertical;
-	  }
-	  public boolean isHorizontal(){
-	    return this.isHorizontal;
-	  }
-	  public void setIsHorizontal(boolean isHorizontal){
-	    this.isHorizontal = isHorizontal;
-	  }
 
 	  public void setProjectileLocation(int x, int y){
 	    this.projectileLocation.setX(x);
