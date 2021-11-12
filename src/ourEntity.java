@@ -14,7 +14,7 @@ import acm.program.GraphicsProgram;
 
 public class ourEntity extends GraphicsProgram {
 	//***** private variables *****//
-	private Locations entityLocation = new Locations(0,0);		// arrayList of Locations	
+	private Locations entityLocation;		// arrayList of Locations	
 	private int health;
 	private int speed;
 	private boolean friendly;									// IsFriendly should be here instead of logic
@@ -28,8 +28,12 @@ public class ourEntity extends GraphicsProgram {
 	public static final String IMG_FILENAME_PATH = "ships/";
 	public static final String IMG_EXTENSION = ".png";
 	
-	//**** Set Functions *****//
+	//***** constructor *****//
+	public ourEntity() {
+		entityLocation = new Locations(0,0);					// originally on line 17
+	}
 	
+	//**** Set Functions *****//
 	ourEntity(EntityType type){
 		if(type == EntityType.PLAYER) {
 			health = 300;
@@ -42,7 +46,6 @@ public class ourEntity extends GraphicsProgram {
 			image = new GImage("milleniumFalcon.png", 200, 200);
 		}
 	}
-	
 	void setEntityLocation(Locations location) {				// check for legal location elsewhere (?) Could be in logic
 		this.entityLocation = location;
 	}
