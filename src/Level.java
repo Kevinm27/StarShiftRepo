@@ -4,28 +4,13 @@ import java.util.ArrayList;
 public class Level {
 
 	private ArrayList<ourEntity> enemies = new ArrayList<> ();
-	private playerShip player = new playerShip();
+	private playerShip player;
 	//if we need playerShip as a component of the ArrayList
 	//rewrite the code to iterate through the list looking for instance of playerShip
 	private boolean isPaused = false;
 	private boolean inBounds;
 	private boolean levelWon;
 	
-	// playerShip getter
-	playerShip getPlayerShip() {
-		return player;
-	}
-	
-	//Check if the Player is in Bounds
-	
-	void isInBounds (int programHeight, int programWidth, ourEntity entity) {
-		if (entity.getEntityLocation().getX() < programWidth && entity.getEntityLocation().getY() < programHeight) {
-			inBounds = true;
-		}
-		else {
-			inBounds = false;
-		}
-	}
 	
 	//Level Win Check
 	
