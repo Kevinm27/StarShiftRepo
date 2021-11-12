@@ -1,9 +1,12 @@
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import acm.graphics.GOval;
 import acm.graphics.GRect;
 
-class Projectile {
+class Projectile implements ActionListener{
 	public static final int DELAY_MS = 25;
-	
+	  private int speed;
 	  private int damage;
 	  private int distance;
 	  private boolean isVertical;
@@ -11,19 +14,28 @@ class Projectile {
 	  private boolean friendly;
 	  private GOval oval; //placeholder for projectile image
 	  private float angle;
+	  private Timer t;
 	  Locations projectileLocation; 
-	  Projectile(int damage, int distance, boolean isVertical, boolean isHorizontal, boolean friendly, Locations projectileLocation){
+	  Projectile(int damage, int distance, boolean isVertical, boolean isHorizontal, boolean friendly, Locations projectileLocation, GRect target){
 	    this.damage = damage;
 	    this.distance = distance;
 	    this.isVertical = isVertical;
 	    this.isHorizontal = isHorizontal;
 	    this.friendly = friendly;
+	    speed = 5;
 	    this.projectileLocation = projectileLocation;
 	    oval = new GOval(10, 10, projectileLocation.getX(), projectileLocation.getY());
-	    
+	    angle = getAngle(target);
+	    t = new Timer(DELAY_MS, this);
+	    t.start();
 	  }
 
-	  
+	  @Override
+	  public void actionPerformed(ActionEvent e) {
+		  oval.movePolar(speed, angle);
+		  projectileLocation.setX((int) oval.getX());
+		  projectileLocation.setY((int) oval.getY());
+	  }
 	  
 	  public int getDamage(){
 	    return this.damage;
