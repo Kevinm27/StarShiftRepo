@@ -172,6 +172,7 @@ public class Level {
 			}
 			else {
 				play();
+				isPaused = false;
 			}
 		}
 		
