@@ -9,7 +9,20 @@ public class playerShip{
 	playerShip(){
 		player = new ourEntity(EntityType.PLAYER);
 	}
-	int moveX(int x) {
+	
+	
+	//Check if the Player is in Bounds
+	
+	boolean isInBounds (int programHeight, int programWidth, ourEntity entity) {
+		if (entity.getEntityLocation().getX() > programWidth || entity.getEntityLocation().getY() > programHeight) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	void moveX(int x) {
 		//Updates the Position of the Player's Ship with respect to the X Axis
 		//Will need a check for if the Player is in bounds, can do in here or in level (discuss)
 		
