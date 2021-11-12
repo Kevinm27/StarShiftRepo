@@ -9,6 +9,7 @@
 import java.util.ArrayList;										// import the ArrayList class
 import java.util.Timer;											// refer to TimerLab for use
 import acm.graphics.GImage;
+import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 
 public class ourEntity extends GraphicsProgram {
@@ -19,6 +20,7 @@ public class ourEntity extends GraphicsProgram {
 	private boolean friendly;									// IsFriendly should be here instead of logic
 	private boolean isVertical, isHorizontal;
 	private GImage image;
+	private GRect rect; //placeholder for image
 	
 	//***** public variables *****//
 	public ArrayList<Projectile> bullets = new ArrayList<Projectile>();	
@@ -29,9 +31,16 @@ public class ourEntity extends GraphicsProgram {
 	//**** Set Functions *****//
 	
 	ourEntity(EntityType type){
-		this.type = type;
-		image = new GImage("milleniumFalcon.png", 200, 200);
-		
+		if(type == EntityType.PLAYER) {
+			health = 300;
+			speed = 3;
+			friendly = true;
+			rect = new GRect(50, 50, 200, 200);
+		}
+		else {
+			this.type = type;
+			image = new GImage("milleniumFalcon.png", 200, 200);
+		}
 	}
 	
 	void setEntityLocation(Locations location) {				// check for legal location elsewhere (?) Could be in logic

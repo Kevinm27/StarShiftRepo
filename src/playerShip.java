@@ -1,13 +1,15 @@
 import acm.graphics.GImage;
 
-public class playerShip {
+public class playerShip{
 	ourEntity player;
 	Locations playerLocation;
 	Locations bulletLocation;
 	Projectile bullet;
 	
-	
-	void moveX(int x) {
+	playerShip(){
+		player = new ourEntity(EntityType.PLAYER);
+	}
+	int moveX(int x) {
 		//Updates the Position of the Player's Ship with respect to the X Axis
 		//Will need a check for if the Player is in bounds, can do in here or in level (discuss)
 		
