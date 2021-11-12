@@ -8,7 +8,20 @@ public class Level {
 	//if we need playerShip as a component of the ArrayList
 	//rewrite the code to iterate through the list looking for instance of playerShip
 	private boolean isPaused = false;
+	private boolean inBounds;
 	private boolean levelWon;
+	
+	
+	//Check if the Player is in Bounds
+	
+	void isInBounds (int programHeight, int programWidth, ourEntity entity) {
+		if (entity.getEntityLocation().getX() < programWidth && entity.getEntityLocation().getY() < programHeight) {
+			inBounds = true;
+		}
+		else {
+			inBounds = false;
+		}
+	}
 	
 	//Level Win Check
 	
