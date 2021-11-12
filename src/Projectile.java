@@ -1,16 +1,26 @@
+import acm.graphics.GOval;
+import acm.graphics.GRect;
+
 class Projectile {
+	public static final int DELAY_MS = 25;
+	
 	  private int damage;
 	  private int distance;
 	  private boolean isVertical;
 	  private boolean isHorizontal;
 	  private boolean friendly;
+	  private GOval oval; //placeholder for projectile image
+	  private float angle;
 	  Locations projectileLocation; 
-	  Projectile(int damage, int distance, boolean isVertical, boolean isHorizontal, boolean friendly){
+	  Projectile(int damage, int distance, boolean isVertical, boolean isHorizontal, boolean friendly, Locations projectileLocation){
 	    this.damage = damage;
 	    this.distance = distance;
 	    this.isVertical = isVertical;
 	    this.isHorizontal = isHorizontal;
 	    this.friendly = friendly;
+	    this.projectileLocation = projectileLocation;
+	    oval = new GOval(10, 10, projectileLocation.getX(), projectileLocation.getY());
+	    
 	  }
 
 	  
@@ -54,7 +64,15 @@ class Projectile {
 	  public Locations getProjectileLocation(){
 	    return this.projectileLocation;
 	  }
-
+	  
+	  /*this class grabs the angle of a target relative to the position of the projectile
+	   * 
+	   */
+	  public float getAngle(GRect target) {
+		    return (float) Math.toDegrees(Math.atan2(target.getX() + (target.getWidth() / 2) - projectileLocation.getX(),
+		    		target.getY() + (target.getHeight() / 2) - projectileLocation.getY()));
+		}
+	  
 	  //still need to include the timer
 	  //still need to include
 	  
