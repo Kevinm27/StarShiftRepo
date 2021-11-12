@@ -7,9 +7,8 @@ public class Level {
 	private playerShip player;
 	//if we need playerShip as a component of the ArrayList
 	//rewrite the code to iterate through the list looking for instance of playerShip
-	private boolean isPaused;
+	private boolean isPaused = false;
 	private boolean levelWon;
-	private int pauseCount = 0;
 	
 	//Level Win Check
 	
@@ -166,11 +165,10 @@ public class Level {
 		//Will check if the player hit the Escape Key, pausing the game accordingly
 		
 		int id = e.getID();
-		
 		if (id == 27) {
-			pauseCount++;
-			if(pauseCount % 2 != 0) {
+			if(isPaused == false) {
 				pause();
+				isPaused = true;
 			}
 			else {
 				play();
