@@ -1,13 +1,14 @@
 import acm.graphics.GImage;
 
-public class playerShip{
+public class playerShip extends ourEntity {
 	ourEntity player;
 	Locations playerLocation;
 	Locations bulletLocation;
 	Projectile bullet;
 	
-	playerShip(){
+	playerShip() {
 		player = new ourEntity(EntityType.PLAYER);
+		player.setHealth(300);
 	}
 	
 	
