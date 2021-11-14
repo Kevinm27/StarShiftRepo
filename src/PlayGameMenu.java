@@ -49,6 +49,7 @@ public class PlayGameMenu extends GraphicsPane {
 		
 		no = new GButton("No", app.getWidth()/2 + 25, app.getHeight()/2, BUTTON_SIZE, BUTTON_SIZE);
 		no.setFillColor(Color.RED);
+		no.setVisible(false);
 	}
 
 	@Override
@@ -76,19 +77,15 @@ public class PlayGameMenu extends GraphicsPane {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		//popUp.sendToBack();
 		if (obj == level1) {
 			this.level1Clicked = true;
 			sendPopUpToFront();
-			
-
 		}
 		else if(this.level1Clicked) {
 			this.level1Clicked = false;
 			if(obj == yes) {
 				sendPopUpToBack();
-				program.switchToMenu(); // for now to test it
-				
+				program.switchToMenu(); // for now to test it	
 			}
 			else if(obj == no) {
 				sendPopUpToBack();
@@ -98,7 +95,6 @@ public class PlayGameMenu extends GraphicsPane {
 		else if (obj == level2) {
 			this.level2Clicked = true;
 			sendPopUpToFront();
-
 		}
 		else if(level2Clicked) {
 			this.level2Clicked = false;
@@ -109,7 +105,6 @@ public class PlayGameMenu extends GraphicsPane {
 			else if(obj == no) {
 				sendPopUpToBack();
 				program.switchToPlayGameMenu();
-
 			}
 		}
 		if (obj == backButton) {
@@ -122,7 +117,6 @@ public class PlayGameMenu extends GraphicsPane {
 		level1.sendToBack();
 		level2.sendToBack();
 		backButton.sendToBack();
-		System.out.println("mousepressed0");
 		yes.sendToFront();
 		yes.setVisible(true);
 		no.setVisible(true);
