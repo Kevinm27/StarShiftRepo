@@ -19,6 +19,7 @@ public class PlayGameMenu extends GraphicsPane {
 	private GLabel confirmText;
 	private final int BUTTON_SIZE = 50;
 	private boolean level1Clicked = false;
+	private boolean level2Clicked = false;
 
 
 	public PlayGameMenu(MainApplication app) {
@@ -78,62 +79,64 @@ public class PlayGameMenu extends GraphicsPane {
 		//popUp.sendToBack();
 		if (obj == level1) {
 			this.level1Clicked = true;
-			confirmText.setVisible(true);
+			sendPopUpToFront();
 			
-			level1.sendToBack();
-			level2.sendToBack();
-			backButton.sendToBack();
-			System.out.println("mousepressed0");
-			yes.sendToFront();
-			yes.setVisible(true);
-			no.setVisible(true);
-			no.sendToFront();
 
 		}
 		else if(this.level1Clicked) {
-			System.out.println("mousepressed");
 			this.level1Clicked = false;
 			if(obj == yes) {
-				confirmText.setVisible(false);
-				yes.sendToBack();
-				yes.setVisible(false);
-				no.sendToBack();
-				no.setVisible(false);
-				level1.sendToFront();
-				level2.sendToFront();
-				backButton.sendToFront();
+				sendPopUpToBack();
 				program.switchToMenu(); // for now to test it
 				
 			}
-			if(obj == no) {
-				confirmText.setVisible(false);
-				yes.sendToBack();
-				yes.setVisible(false);
-				no.setVisible(false);
-				no.sendToBack();
-				level1.sendToFront();
-				level2.sendToFront();
-				backButton.sendToFront();
+			else if(obj == no) {
+				sendPopUpToBack();
 				program.switchToPlayGameMenu();
 			}
-			
 		}
-		/*
-		if (obj == level2) {
-			obj = program.getElementAt(e.getX(), e.getY());
-			if(obj == yes) {
-				//switch to game screen
-				program.switchToMenu(); // for now to play test
+		else if (obj == level2) {
+			this.level2Clicked = true;
+			sendPopUpToFront();
+
+		}
+		else if(level2Clicked) {
+			this.level2Clicked = false;
+			if(obj == yes) { // We can make a method called setScreen so we have less redundancy
+				sendPopUpToBack();
+				program.switchToMenu(); // for now to test it
 			}
-			if(obj == no) {
-				program.switchToMenu();
+			else if(obj == no) {
+				sendPopUpToBack();
+				program.switchToPlayGameMenu();
+
 			}
 		}
-		*/
-		
 		if (obj == backButton) {
 			program.switchToMenu();
 		}
+	}
+	
+	public void sendPopUpToFront() {
+		confirmText.setVisible(true);
+		level1.sendToBack();
+		level2.sendToBack();
+		backButton.sendToBack();
+		System.out.println("mousepressed0");
+		yes.sendToFront();
+		yes.setVisible(true);
+		no.setVisible(true);
+		no.sendToFront();
+	}
+	public void sendPopUpToBack() {
+		confirmText.setVisible(false);
+		yes.sendToBack();
+		yes.setVisible(false);
+		no.setVisible(false);
+		no.sendToBack();
+		level1.sendToFront();
+		level2.sendToFront();
+		backButton.sendToFront();
 	}
 
 }
