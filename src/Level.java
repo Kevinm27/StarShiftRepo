@@ -3,14 +3,18 @@ import java.util.ArrayList;
 
 public class Level {
 
-	private ArrayList<ourEntity> enemies = new ArrayList<> ();
+	private ArrayList<Enemy> enemies = new ArrayList<> ();
 	private playerShip player;
 	//if we need playerShip as a component of the ArrayList
 	//rewrite the code to iterate through the list looking for instance of playerShip
 	private boolean isPaused = false;
-	private boolean inBounds;
-	private boolean levelWon = false;
 	
+	
+	//Level Constructor
+	public Level(ArrayList<Enemy> enemies, playerShip player) {
+		
+		
+	}
 	
 	//Level Win Check
 	
