@@ -64,22 +64,22 @@ public class Level {
 			
 			if (key == 'w') {
 				//move player up
-				player.moveY(1);
+				player.movePolar(90);
 			}
 		
 			if (key == 'a') {
 				//move player left
-				player.moveX(-1);
+				player.movePolar(180);
 			}
 		
 			if (key == 's') {
 				//move player down
-				player.moveY(-1);
+				player.movePolar(270);
 			}
 		
 			if (key == 'd') {
 				//move player right
-				player.moveX(1);
+				player.movePolar(0);
 			}
 			
 			
@@ -90,22 +90,22 @@ public class Level {
 			
 			if (id == 38) {
 				//shoot up
-				player.shootY(1);
+				player.shootPolar(90);
 			}
 			
 			if (id == 37) {
 				//shoot left
-				player.shootX(-1);
+				player.shootPolar(180);
 			}
 			
 			if (id == 40) {
 				//shoot down
-				player.shootY(-1);
+				player.shootPolar(270);
 			}
 			
 			if (id == 39) {
 				//shoot right
-				player.shootX(1);
+				player.shootPolar(0);
 			}
 			
 		}
@@ -120,7 +120,7 @@ public class Level {
 		//Stops the Movement of the Player's Ship
 		//Will check the Char of the Key Released to check if it corresponds to WASD Keys 
 		//If this fails, we may need to take in a string and check for key combinations
-		
+		/*
 		if (key == 'w') {
 			//stop move up
 			player.moveY(0);
@@ -167,6 +167,8 @@ public class Level {
 			player.shootX(0);
 		}
 		
+	
+	*/
 	}
 	
 	void KeyTyped(KeyEvent e) {

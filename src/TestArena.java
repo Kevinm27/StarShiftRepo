@@ -20,17 +20,19 @@ public class TestArena extends GraphicsProgram {
 	
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;	
+	/*
 	playerShip thePlayer;
 	Locations thePlayerStart;
 	ArrayList<Enemy> theEnemies;
 	ArrayList<Locations> theEnemyStart;
 	Level myLevel = new Level(theEnemies, theEnemyStart, thePlayer, thePlayerStart);
-	
+	*/
 	public static void main(String[] args) {
 		new TestArena().start();
 	}
 
 	public void run() {												// checking that myLevel and theLevel is accessible
+		/*
 		Level theLevel = new Level();
 		System.out.println("For theLevel: declared as a local variable: ");
 		System.out.println(theLevel.getPlayerShip().getHealth());
@@ -45,8 +47,9 @@ public class TestArena extends GraphicsProgram {
 		myLevel.getPlayerShip().moveX(12);
 		System.out.println("should move 50 right");
 		System.out.println("new x of ship: " + myLevel.getPlayerShip().getEntityLocation().getX());		// null pointer exception
-		
-		
+		*/
+		Projectile bullet1 = new Projectile(new Locations(100, 50), 315);
+		add(bullet1.getOval());
 		
 		visualArena();
 		
@@ -68,7 +71,7 @@ public class TestArena extends GraphicsProgram {
 		add(text);
 		
 		//add(myLevel.getPlayerShip().getImage()); // gives error
-		
+		add(text);
 		
 	}
 	

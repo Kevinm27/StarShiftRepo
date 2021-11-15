@@ -1,8 +1,9 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Timer;
+//import javax.swing.Timer;
 
-//import java.util.Timer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import acm.graphics.GImage;
 import acm.graphics.GRect;
@@ -21,8 +22,11 @@ public class playerShip extends ourEntity implements ActionListener{
 	private int fireDelay = 100;
 	private boolean canMove = true;
 	private boolean canShoot = true;
-	private Timer moveTimer; //this timer is a cooldown for movement
-	private Timer shotTimer; //this timer is a cooldown for shooting
+	private Timer moveTimer = new Timer(); //this timer is a cooldown for movement
+	private Timer shotTimer = new Timer(); //this timer is a cooldown for shooting
+	private TimerTask moveTask = new MoveTask();
+	private TimerTask shootTask = new ShootTask();
+
 	private Projectile newBullet; 
 	playerShip() {
 		//player = new ourEntity(EntityType.PLAYER);
@@ -31,19 +35,23 @@ public class playerShip extends ourEntity implements ActionListener{
 		friendly = true;
 		rect = new GRect(20, 20, 200, 200);
 		type = EntityType.PLAYER;
-		
-		moveTimer = new Timer(DELAY_MS, this);
-		shotTimer = new Timer(DELAY_MS, this);
 	}
 
-	@Override
-	  public void actionPerformed(ActionEvent e) {
-		  canMove = true;
-		  canShoot = true;
-		  moveTimer.stop();
-		  shotTimer.stop();
-	  }
 	
+	class MoveTask extends TimerTask
+	{
+	    public void run()
+	    {
+	        canMove = true;
+	    }
+	}
+	class ShootTask extends TimerTask
+	{
+	    public void run()
+	    {
+	        canShoot = true;
+	    }
+	}
 	
 	/**Checks if the ship is within the bounds of the level, and pushes the ship into place if it is not
 	 * 
@@ -87,7 +95,7 @@ public class playerShip extends ourEntity implements ActionListener{
 			return false; //returns false if not enough time has passed
 		}
 		else {
-			moveTimer.start(); //starts movement cooldown timer
+			
 			rect.movePolar(speed, angle);
 			entityLocation = new Locations(rect.getX(),rect.getY());
 			
@@ -95,6 +103,7 @@ public class playerShip extends ourEntity implements ActionListener{
 				entityLocation = new Locations(rect.getX(),rect.getY());
 			}
 			canMove = false; //set canMove to false so it cannot be immediately called again
+			moveTimer.schedule(moveTask, DELAY_MS); //starts movement cooldown timer
 			return true;
 		}
 	}
@@ -110,57 +119,11 @@ public class playerShip extends ourEntity implements ActionListener{
 			return false;
 		}
 		else {
-			shotTimer.start();
 			newBullet = new Projectile(entityLocation, angle);
 			bullets.add(newBullet);
 			canShoot = false;
+			shotTimer.schedule(shootTask, fireDelay);
 			return true;
 		}
 	}
-	
-	/* none of this code is important right now
-	boolean moveX() {
-		//Updates the Position of the Player's Ship with respect to the X Axis
-		//Will need a check for if the Player is in bounds, can do in here or in level (discuss)
-		if(canMove == false) {
-			return false;
-		}
-		else {
-			moveTimer.start();
-			int distMX = getEntityLocation().getX() + x;
-			playerLocation = new Locations(distMX ,getEntityLocation().getY());
-			setEntityLocation(playerLocation);
-			canMove = false;
-			return true;
-		}
-		
-		
-	}
-	
-	boolean moveY(int y) {
-		//Updates the Position of the Player's Ship with respect to the Y Axis
-		//Will need a check for if the Player is in bounds, can do in here or in level (discuss)
-		
-		int distMY = player.getEntityLocation().getY() + y;
-		playerLocation = new Locations(player.getEntityLocation().getX(), distMY);
-		player.setEntityLocation(playerLocation);
-		return true;
-	}
-	
-	void shootX(int x) {
-		//Updates the Position of the Player's Bullets with respect to the X Axis
-		
-		int bullX = bullet.getProjectileLocation().getX() + x;
-		bullet.setProjectileLocation(bullX, bullet.getProjectileLocation().getY());
-		
-	}
-	
-	void shootY(int y) {
-		//Updates the Position of the Player's Bullets with respect to the Y Axis
-		
-		int bullY = bullet.getProjectileLocation().getY() + y;
-		bullet.setProjectileLocation(bullet.getProjectileLocation().getX(), bullY);
-		
-	}
-	*/
 }

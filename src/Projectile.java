@@ -1,24 +1,28 @@
-import javax.swing.Timer;
-
+//import javax.swing.Timer;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import acm.graphics.GOval;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 
-class Projectile extends GraphicsProgram implements ActionListener{
+class Projectile extends GraphicsProgram {
 	private static final int PROJECTILE_SPEED = 5;
 	private static final int DELAY_MS = 25;
 	private static final int PROJECTILE_DAMAGE = 100;
+	private static final int WINDOW_WIDTH = 600;
+	private static final int WINDOW_HEIGHT = 600;
 	
 	  private int speed;
 	  private int damage;
 	  private boolean friendly;
 	  
 	  private GOval oval; //placeholder for projectile image
+	  
+	  
 	  private float angle;
-	  private Timer t;
+	  private Timer moveTimer = new Timer();
+	  private TimerTask moveTask = new MoveTask();
 	  Locations projectileLocation; 
 	  
 	  /*
@@ -32,11 +36,10 @@ class Projectile extends GraphicsProgram implements ActionListener{
 	    speed = PROJECTILE_SPEED;
 	    this.projectileLocation = projectileLocation;
 	    oval = new GOval(10, 10, projectileLocation.getX(), projectileLocation.getY());
+	    oval.setFilled(true);
 	    oval.setColor(Color.RED);
 	    angle = getAngle(target);
-	    
-	    t = new Timer(DELAY_MS, this);
-	    t.start();
+	    moveTimer.schedule(moveTask, 0, DELAY_MS);
 	  }
 	  
 	  /*
@@ -48,19 +51,19 @@ class Projectile extends GraphicsProgram implements ActionListener{
 		    friendly = true;
 		    speed = PROJECTILE_SPEED;
 		    this.projectileLocation = projectileLocation;
-		    oval = new GOval(10, 10, projectileLocation.getX(), projectileLocation.getY());
+		    oval = new GOval(projectileLocation.getX(), projectileLocation.getY(),10 ,10 );
+		    oval.setFilled(true);
 		    oval.setColor(Color.BLUE);
 		    this.angle = angle;
-		    
-		    t = new Timer(DELAY_MS, this);
-		    t.start();
+		    moveTimer.schedule(moveTask, 0, DELAY_MS);
 	  }
 
-	  @Override
-	  public void actionPerformed(ActionEvent e) {
-		  oval.movePolar(speed, angle);
-		  projectileLocation.setX(oval.getX());
-		  projectileLocation.setY(oval.getY());
+	  class MoveTask extends TimerTask{
+		  public void run() {
+			  oval.movePolar(speed, angle);
+			  projectileLocation.setX(oval.getX());
+			  projectileLocation.setY(oval.getY());
+		  }
 	  }
 	  
 	  public int getDamage(){
@@ -76,7 +79,12 @@ class Projectile extends GraphicsProgram implements ActionListener{
 	  public boolean isFriendly() {
 		  return this.friendly;
 	  }
-
+	  public GOval getOval() {
+		  return oval;
+	  }
+	  public void setOval(GOval oval) {
+		  this.oval = oval;
+	  }
 
 	  public void setProjectileLocation(double x, double y){
 	    this.projectileLocation = new Locations(x, y);
@@ -92,17 +100,16 @@ class Projectile extends GraphicsProgram implements ActionListener{
 		    return (float) Math.toDegrees(Math.atan2(target.getX() + (target.getWidth() / 2) - projectileLocation.getX(),
 		    		target.getY() + (target.getHeight() / 2) - projectileLocation.getY()));
 		}
-	  
-	  //still need to include the timer
-	  //still need to include
-	  
-	  public static void main(String[] args) {
-	    System.out.println("Hello PRojecriles");
-	  }
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
+		Projectile bullet1 = new Projectile(new Locations(100, 50), 315);
+	}
+	public void init() {
+		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	}
+	
+	public static void main(String args[]) {
+		new Projectile(new Locations(200, 200), 90).start();
 	}
 	}
