@@ -12,6 +12,7 @@ public class MainApplication extends GraphicsProgram {
 	private SomePane somePane;
 	private MenuPane menu;
 	private PlayGameMenu playGameScn;
+	private ShipCustomPane shipCustom;
 	private OptionsMenu options;
 	
 	/* Method: setupInteractions
@@ -106,6 +107,7 @@ public class MainApplication extends GraphicsProgram {
 		menu = new MenuPane(this);
 		playGameScn = new PlayGameMenu(this);
 		options = new OptionsMenu(this);
+		shipCustom = new ShipCustomPane(this);
 		setupInteractions();
 		switchToMenu();
 	}
@@ -120,6 +122,10 @@ public class MainApplication extends GraphicsProgram {
 	
 	public void switchToPlayGameMenu() {
 		switchToScreen(playGameScn);
+	}
+	
+	public void switchToShipCustom() {
+		switchToScreen(shipCustom);
 	}
 	
 	public void switchToOptions() {
