@@ -1,7 +1,9 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.MouseEvent;
 
 import acm.graphics.GImage;
+import acm.graphics.GLabel;
 import acm.graphics.GObject;
 
 public class MenuPane extends GraphicsPane {
@@ -10,12 +12,15 @@ public class MenuPane extends GraphicsPane {
 	private MainApplication program; 
 								
 	private GImage background;
-//	private GButton rect;
-	private GButton plyGameButt;
-	private GButton shipCustom;
-	private GButton optionsButt;
-	private GButton exit;
-	private final int BUTTON_SIZE = 50;
+	private GLabel playGame;
+	private GLabel shipCustom;
+	private GLabel options;
+	private GLabel exit;
+	private boolean exitBool;
+	private GLabel confirm;
+	private GLabel yes;
+	private GLabel no;
+	private final int SHIFT = 50;
 
 	public MenuPane(MainApplication app) {
 		super();
@@ -24,58 +29,98 @@ public class MenuPane extends GraphicsPane {
 		background = new GImage("Background.jpg");
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		
-		//rect = new GButton("Next", app.getWidth()/2-BUTTON_SIZE/2, app.getHeight()/2, BUTTON_SIZE, BUTTON_SIZE);
-		//rect.setFillColor(Color.RED);
+		playGame = new GLabel("Play Game", app.getWidth()/2-SHIFT/2, app.getHeight()/2-SHIFT*2);
+		playGame.setFont(new Font("Space", Font.BOLD, 20));
+		playGame.setColor(Color.GREEN);
 		
-		plyGameButt = new GButton("Play Game", app.getWidth()/2-BUTTON_SIZE/2, app.getHeight()/2-BUTTON_SIZE*2, BUTTON_SIZE, BUTTON_SIZE);
-		plyGameButt.setFillColor(Color.GREEN);
+		shipCustom = new GLabel("Customize",app.getWidth()/2-SHIFT/2, app.getHeight()/2-SHIFT);
+		shipCustom.setFont(new Font("Space", Font.BOLD, 20));
+		shipCustom.setColor(Color.PINK);
 		
-		shipCustom = new GButton("Customize",app.getWidth()/2-BUTTON_SIZE/2, app.getHeight()/2-BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
-		shipCustom.setFillColor(Color.pink);
+		options = new GLabel("Options", app.getWidth()/2-SHIFT/2, app.getHeight()/2);
+		options.setFont(new Font("Space", Font.BOLD, 20));
+		options.setColor(Color.CYAN);
 		
-		optionsButt = new GButton("Options", app.getWidth()/2-BUTTON_SIZE/2, app.getHeight()/2, BUTTON_SIZE, BUTTON_SIZE);
-		optionsButt.setFillColor(Color.cyan);
+		exit = new GLabel("Exit", app.getWidth()/2-SHIFT/2, app.getHeight()/2 + SHIFT);
+		exit.setFont(new Font("Space", Font.BOLD, 20));
+		exit.setColor(Color.RED);
 		
+		confirm = new GLabel("Are You Sure?", app.getWidth()/2-SHIFT/2, app.getHeight()/2-SHIFT*2);
+		confirm.setFont(new Font("Space", Font.BOLD, 20));
+		confirm.setColor(Color.WHITE);
+		confirm.sendToBack();
 		
+		yes = new GLabel("Yes", app.getWidth()/2 - 2*SHIFT, app.getHeight()/2 - SHIFT);
+		yes.setFont(new Font("Space", Font.BOLD, 20));
+		yes.setColor(Color.WHITE);
+		yes.sendToBack();
+		
+		no = new GLabel("No", app.getWidth()/2 - 2*SHIFT + 100, app.getHeight()/2 - SHIFT);
+		no.setFont(new Font("Space", Font.BOLD, 20));
+		no.setColor(Color.WHITE);
+		no.sendToBack();
+	
 	}
 
 	@Override
 	public void showContents() {
+		program.add(confirm);
+		program.add(yes);
+		program.add(no);
 		program.add(background);
-		
-		//program.add(rect);
-		program.add(plyGameButt);
+		program.add(playGame);
 		program.add(shipCustom);
-		program.add(optionsButt);
+		program.add(options);
+		program.add(exit);
 	}
 
 	@Override
 	public void hideContents() {
+		program.remove(confirm);
+		program.remove(yes);
+		program.remove(no);
 		program.remove(background);
-
-		//program.remove(rect);
-		program.remove(plyGameButt);
-		program.add(shipCustom);
-		program.remove(optionsButt);
+		program.remove(playGame);
+		program.remove(shipCustom);
+		program.remove(options);
+		program.remove(exit);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-//		if (obj == rect) {
-//			program.switchToSome();
-//		}
 		
-		if (obj == plyGameButt) {
+		if (obj == playGame) {
 			program.switchToPlayGameMenu();
 		}
 		
-		if(obj == shipCustom) {
+		else if(obj == shipCustom) {
 			program.switchToShipCustom();
 		}
 		
-		if (obj == optionsButt) {
+		else if (obj == options) {
 			program.switchToOptions();
+		}
+		
+		else if(obj == exit) {
+			this.exitBool = true;
+			playGame.sendToBack();
+			shipCustom.sendToBack();
+			options.sendToBack();
+			exit.sendToBack();
+			confirm.sendToFront();
+			yes.sendToFront();
+			no.sendToFront();
+			System.out.println("IN EXIT");
+		}
+		else if(exitBool) {
+			exitBool = false;
+			if(obj == yes) {
+				System.exit(0);
+			}
+			if(obj == no) {
+				program.switchToMenu();
+			}
 		}
 	}
 }

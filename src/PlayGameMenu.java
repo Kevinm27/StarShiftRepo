@@ -1,9 +1,6 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
-
-import javax.swing.text.AttributeSet.ColorAttribute;
-
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
@@ -13,11 +10,14 @@ public class PlayGameMenu extends GraphicsPane {
 	private MainApplication program;
 	
 	private GImage background;
-	private GButton yes;
-	private GButton no;
+	private GLabel yes;
+	private GLabel no;
 	private GLabel levelSelect;
 	private GLabel level1;
 	private GLabel level2;
+	private GLabel level3;
+	private GLabel level4;
+	private GLabel level5;
 	private GLabel backButton;
 	private GLabel confirmText;
 	private final int BUTTON_SIZE = 50;
@@ -34,32 +34,38 @@ public class PlayGameMenu extends GraphicsPane {
 		
 		levelSelect = new GLabel("Level Select", app.getWidth()/2 - 50, app.getHeight()/2 - 150);
 		levelSelect.setFont(new Font("Space", Font.BOLD, 20));
-		levelSelect.setColor(Color.white);
+		levelSelect.setColor(Color.WHITE);
 		
 		level1 = new GLabel("1", app.getWidth()/2-2*BUTTON_SIZE, app.getHeight()/2-2*BUTTON_SIZE);
 		level1.setFont(new Font("Space", Font.BOLD, 18));
-		level1.setColor(Color.white);
+		level1.setColor(Color.WHITE);
 		
 		level2 = new GLabel("2", app.getWidth()/2-BUTTON_SIZE + 10, app.getHeight()/2-2*BUTTON_SIZE);
 		level2.setFont(new Font("Space", Font.BOLD, 18));
-		level2.setColor(Color.white);
+		level2.setColor(Color.WHITE);
+		
+		level3 = new GLabel("3", app.getWidth()/2-BUTTON_SIZE + 20, app.getHeight()/2-2*BUTTON_SIZE);
+		level3.setFont(new Font("Space", Font.BOLD, 18));
+		level3.setColor(Color.WHITE);
 		
 		backButton = new GLabel("Back", app.getWidth()/2-BUTTON_SIZE/2, app.getHeight()/2);
 		backButton.setFont(new Font("Space", Font.BOLD, 18));
-		backButton.setColor(Color.white);
+		backButton.setColor(Color.WHITE);
 		
 		confirmText = new GLabel("Start Game?", app.getWidth()/2 - 60, app.getHeight() / 2 - 100);
 		confirmText.setFont(new Font("Space", Font.BOLD, 18));
 		confirmText.sendToBack();
-		confirmText.setColor(Color.white);
+		confirmText.setColor(Color.WHITE);
 
-		yes = new GButton("Yes", app.getWidth()/2-2*BUTTON_SIZE + 25, app.getHeight()/2, BUTTON_SIZE, BUTTON_SIZE);
+		yes = new GLabel("Yes", app.getWidth()/2-2*BUTTON_SIZE + 25, app.getHeight()/2);
+		yes.setFont(new Font("Space", Font.BOLD, 18));
 		yes.sendToBack();
-		yes.setFillColor(Color.BLUE);
+		yes.setColor(Color.GREEN);
 		
-		no = new GButton("No", app.getWidth()/2 + 25, app.getHeight()/2, BUTTON_SIZE, BUTTON_SIZE);
+		no = new GLabel("No", app.getWidth()/2 + 25, app.getHeight()/2);
+		no.setFont(new Font("Space", Font.BOLD, 18));
 		no.sendToBack();
-		no.setFillColor(Color.RED);
+		no.setColor(Color.RED);
 	}
 
 	@Override
@@ -71,6 +77,9 @@ public class PlayGameMenu extends GraphicsPane {
 		program.add(levelSelect);
 		program.add(level1);
 		program.add(level2);
+		program.add(level3);
+		program.add(level4);
+		program.add(level5);
 		program.add(backButton);
 	}
 
@@ -80,6 +89,9 @@ public class PlayGameMenu extends GraphicsPane {
 		program.remove(levelSelect);
 		program.remove(level1);
 		program.remove(level2);
+		program.add(level3);
+		program.add(level4);
+		program.add(level5);
 		program.remove(backButton);
 		program.remove(yes);
 		program.remove(no);
@@ -96,11 +108,9 @@ public class PlayGameMenu extends GraphicsPane {
 		else if(this.level1Clicked) {
 			this.level1Clicked = false;
 			if(obj == yes) {
-				sendPopUpToBack();
 				program.switchToMenu(); // for now to test it	
 			}
 			else if(obj == no) {
-				sendPopUpToBack();
 				program.switchToPlayGameMenu();
 			}
 		}
@@ -112,11 +122,9 @@ public class PlayGameMenu extends GraphicsPane {
 		else if(level2Clicked) {
 			this.level2Clicked = false;
 			if(obj == yes) { // We can make a method called setScreen so we have less redundancy
-				sendPopUpToBack();
-				program.switchToMenu(); // for now to test it
+				program.switchToPlayGameMenu(); // for now to test it
 			}
 			else if(obj == no) {
-				sendPopUpToBack();
 				program.switchToPlayGameMenu();
 			}
 		}
@@ -133,15 +141,6 @@ public class PlayGameMenu extends GraphicsPane {
 		backButton.sendToBack();
 		yes.sendToFront();
 		no.sendToFront();
-	}
-	public void sendPopUpToBack() {
-		confirmText.sendToBack();
-		yes.sendToBack();
-		no.sendToBack();
-		level1.sendToFront();
-		level2.sendToFront();
-		levelSelect.sendToBack();
-		backButton.sendToFront();
 	}
 
 }
