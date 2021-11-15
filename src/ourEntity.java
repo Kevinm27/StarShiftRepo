@@ -126,7 +126,7 @@ public class ourEntity extends GraphicsProgram {
 	
 	public void run() {
 		ourEntity newEntity = new ourEntity(EntityType.SCOOTER);
-		add(image);
+		add(newEntity.getImage());
 	}
 	
 	public static void main(String[] args) {

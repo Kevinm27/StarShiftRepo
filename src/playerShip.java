@@ -45,23 +45,24 @@ public class playerShip extends ourEntity implements ActionListener{
 	}
 	
 
-	boolean movePolar(int angle) {
-		//Updates the Position of the Player's Ship with respect to the X Axis
+	boolean movePolar(float angle) {
+		//Updates the Position of the Player's Ship based on angle of input
 		//Will need a check for if the Player is in bounds, can do in here or in level (discuss)
-		if(canMove == false) {
-			return false;
+		
+		if(canMove == false) { //checks if enough time has passed since the last move
+			return false; //returns false if not enough time has passed
 		}
 		else {
-			moveTimer.start();
+			moveTimer.start(); //starts movement cooldown timer
 			rect.movePolar(speed, angle);
-			entityLocation = new Locations((int) rect.getX(),(int) rect.getY());
-			canMove = false;
+			entityLocation = new Locations(rect.getX(),rect.getY());
+			canMove = false; //set canMove to false so it cannot be immediately called again
 			return true;
 		}
 		
 		
 	}
-	
+	/* none of this code is important right now
 	boolean moveX() {
 		//Updates the Position of the Player's Ship with respect to the X Axis
 		//Will need a check for if the Player is in bounds, can do in here or in level (discuss)
@@ -105,12 +106,5 @@ public class playerShip extends ourEntity implements ActionListener{
 		bullet.setProjectileLocation(bullet.getProjectileLocation().getX(), bullY);
 		
 	}
-	
-	int getHealth() {
-		return player.getHealth();
-	}
-	
-	void setHealth(int h) {
-		player.setHealth(h);
-	}
+	*/
 }
