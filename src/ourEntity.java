@@ -14,13 +14,14 @@ import acm.program.GraphicsProgram;
 
 public class ourEntity extends GraphicsProgram {
 	//***** private variables *****//
-	private Locations entityLocation;		// arrayList of Locations	
-	private int health;
-	private int speed;
-	private boolean friendly;									// IsFriendly should be here instead of logic
-	private boolean isVertical, isHorizontal;
-	private GImage image;
-	private GRect rect; //placeholder for image
+	protected Locations entityLocation;			
+	protected int health;
+	protected int speed;
+	protected boolean friendly;									// IsFriendly should be here instead of logic
+	protected boolean isVertical, isHorizontal;
+	protected GImage image;
+	protected GRect rect; //placeholder for image
+	
 	
 	//***** public variables *****//
 	public ArrayList<Projectile> bullets = new ArrayList<Projectile>();	
@@ -40,11 +41,10 @@ public class ourEntity extends GraphicsProgram {
 			speed = 3;
 			friendly = true;
 			rect = new GRect(50, 50, 200, 200);
-			image = new GImage("milleniumFalcon.png", 200, 200);
 		}
 		else {
 			this.type = type;
-			//image = new GImage("milleniumFalcon.png", 200, 200);
+			image = new GImage("milleniumFalcon.png", 200, 200);
 		}
 	}
 	void setEntityLocation(Locations location) {				// check for legal location elsewhere (?) Could be in logic
@@ -65,8 +65,12 @@ public class ourEntity extends GraphicsProgram {
 	void setIsFriendly(boolean isFriendly) {
 		this.friendly = isFriendly; 
 	}
+	void setEntityType(EntityType type) {
+		this.type = type;
+	}
 	void setImage(EntityType shipType) {										// help with graphics
-		this.image.setImage(IMG_FILENAME_PATH + shipType + IMG_EXTENSION);		// PLEASE MAKE IMAGE NAMES SAME AS EntityTypes
+		//this.image.setImage(IMG_FILENAME_PATH + shipType + IMG_EXTENSION);		// PLEASE MAKE IMAGE NAMES SAME AS EntityTypes
+		rect = new GRect(20, 20, 200, 200);
 	}
 	
 	//***** Get Functions *****//
@@ -88,8 +92,8 @@ public class ourEntity extends GraphicsProgram {
 	boolean getIsFriendly() {
 		return this.friendly;
 	}
-	GRect getImage() {				// change from GImage
-		return this.rect; 	
+	GImage getImage() {
+		return this.image; 	
 	}
 	
 	ArrayList<Projectile> getBulletArrayList() {//Added getter for the array list
@@ -97,11 +101,11 @@ public class ourEntity extends GraphicsProgram {
 	}
 	
 	//***** Fundamental Functions *****//
-//	void move() {								// write move! 
-//												// takes in an ActionEvent e for press and hold WASD
-//												// MAYBE - event listeners needs to be included in this class 
-//												// calls canMove check: if (go thru with move) else (return)
-//	}											// ^ should be in PlayerShip, since Enemy doesn't need this function
+	void move() {								// write move! 
+												// takes in an ActionEvent e for press and hold WASD
+												// MAYBE - event listeners needs to be included in this class 
+												// calls canMove check: if (go thru with move) else (return)
+	}											// ^ should be in PlayerShip, since Enemy doesn't need this function
 	boolean fire() {
 		if(type != EntityType.SCOOTER) {
 			
@@ -122,7 +126,7 @@ public class ourEntity extends GraphicsProgram {
 	
 	public void run() {
 		ourEntity newEntity = new ourEntity(EntityType.SCOOTER);
-		add(image);
+		add(newEntity.getImage());
 	}
 	
 	public static void main(String[] args) {

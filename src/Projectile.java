@@ -59,8 +59,8 @@ class Projectile extends GraphicsProgram implements ActionListener{
 	  @Override
 	  public void actionPerformed(ActionEvent e) {
 		  oval.movePolar(speed, angle);
-		  projectileLocation.setX((int) oval.getX());
-		  projectileLocation.setY((int) oval.getY());
+		  projectileLocation.setX(oval.getX());
+		  projectileLocation.setY(oval.getY());
 	  }
 	  
 	  public int getDamage(){
@@ -78,9 +78,8 @@ class Projectile extends GraphicsProgram implements ActionListener{
 	  }
 
 
-	  public void setProjectileLocation(int x, int y){
-	    this.projectileLocation.setX(x);
-	    this.projectileLocation.setY(y);
+	  public void setProjectileLocation(double x, double y){
+	    this.projectileLocation = new Locations(x, y);
 	  }
 	  public Locations getProjectileLocation(){
 	    return this.projectileLocation;
