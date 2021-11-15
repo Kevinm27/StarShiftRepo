@@ -1,10 +1,13 @@
 import javax.swing.Timer;
+
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import acm.graphics.GOval;
 import acm.graphics.GRect;
+import acm.program.GraphicsProgram;
 
-class Projectile implements ActionListener{
+class Projectile extends GraphicsProgram implements ActionListener{
 	private static final int PROJECTILE_SPEED = 5;
 	private static final int DELAY_MS = 25;
 	private static final int PROJECTILE_DAMAGE = 100;
@@ -29,7 +32,7 @@ class Projectile implements ActionListener{
 	    speed = PROJECTILE_SPEED;
 	    this.projectileLocation = projectileLocation;
 	    oval = new GOval(10, 10, projectileLocation.getX(), projectileLocation.getY());
-	    
+	    oval.setColor(Color.RED);
 	    angle = getAngle(target);
 	    
 	    t = new Timer(DELAY_MS, this);
@@ -38,7 +41,7 @@ class Projectile implements ActionListener{
 	  
 	  /*
 	   * this is the default constructor for player projectiles. they're going to derive the
-	   * angle of travel of the projectile based on a keyboard input.
+	   * angle of travel for the projectile based on keyboard inputs.
 	   */
 	  Projectile(Locations projectileLocation, float angle){
 		  damage = PROJECTILE_DAMAGE;
@@ -46,7 +49,7 @@ class Projectile implements ActionListener{
 		    speed = PROJECTILE_SPEED;
 		    this.projectileLocation = projectileLocation;
 		    oval = new GOval(10, 10, projectileLocation.getX(), projectileLocation.getY());
-		    
+		    oval.setColor(Color.BLUE);
 		    this.angle = angle;
 		    
 		    t = new Timer(DELAY_MS, this);
@@ -97,4 +100,10 @@ class Projectile implements ActionListener{
 	  public static void main(String[] args) {
 	    System.out.println("Hello PRojecriles");
 	  }
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 	}
