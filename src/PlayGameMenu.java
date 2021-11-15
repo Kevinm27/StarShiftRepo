@@ -13,9 +13,10 @@ public class PlayGameMenu extends GraphicsPane {
 	private GImage background;
 	private GButton yes;
 	private GButton no;
-	private GButton level1;
-	private GButton level2;
-	private GButton backButton;
+	private GLabel levelSelect;
+	private GLabel level1;
+	private GLabel level2;
+	private GLabel backButton;
 	private GLabel confirmText;
 	private final int BUTTON_SIZE = 50;
 	private boolean level1Clicked = false;
@@ -29,14 +30,19 @@ public class PlayGameMenu extends GraphicsPane {
 		background = new GImage("Background.jpg");
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		
-		level1 = new GButton("Level 1", app.getWidth()/2-2*BUTTON_SIZE, app.getHeight()/2-2*BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
-		level1.setFillColor(Color.BLUE);
+		levelSelect = new GLabel("Level Select", app.getWidth()/2 - 50, app.getHeight()/2 - 150);
+		levelSelect.setFont(new Font("Space", Font.BOLD, 20));
+		levelSelect.setColor(Color.white);
 		
-		level2 = new GButton("Level 2", app.getWidth()/2-BUTTON_SIZE, app.getHeight()/2-2*BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
-		level2.setFillColor(Color.RED);
+		level1 = new GLabel("1", app.getWidth()/2-2*BUTTON_SIZE, app.getHeight()/2-2*BUTTON_SIZE);
+		level1.setFont(new Font("Space", Font.BOLD, 18));
+		level1.setColor(Color.white);
 		
-		backButton = new GButton("Back", app.getWidth()/2-BUTTON_SIZE/2, app.getHeight()/2, BUTTON_SIZE, BUTTON_SIZE);
-		backButton.setFillColor(Color.magenta);
+		level2 = new GLabel("2", app.getWidth()/2-BUTTON_SIZE, app.getHeight()/2-2*BUTTON_SIZE);
+		level2.setFont(new Font("Space", Font.BOLD, 18));
+		level2.setColor(Color.white);
+		
+		backButton = new GLabel("Back", app.getWidth()/2-BUTTON_SIZE/2, app.getHeight()/2);
 		
 		confirmText = new GLabel("Start Game?", app.getWidth()/2 - 60, app.getHeight() / 2 - 100);
 		confirmText.setFont(new Font("Space", Font.BOLD, 18));
@@ -55,6 +61,7 @@ public class PlayGameMenu extends GraphicsPane {
 	@Override
 	public void showContents() {
 		program.add(background);
+		program.add(levelSelect);
 		program.add(level1);
 		program.add(level2);
 		program.add(backButton);
@@ -66,6 +73,7 @@ public class PlayGameMenu extends GraphicsPane {
 	@Override
 	public void hideContents() {
 		program.remove(background);
+		program.remove(levelSelect);
 		program.remove(level1);
 		program.remove(level2);
 		program.remove(backButton);

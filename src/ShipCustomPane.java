@@ -9,9 +9,11 @@ public class ShipCustomPane extends GraphicsPane{
 	private MainApplication program;
 	private GImage background;
 	private GLabel title;
-	private GButton returnButton;
-	private GButton leftArrow;
-	private GButton rightArrow;
+	private GLabel returnButton;
+	private GImage shipType;
+	private GLabel change;
+	private GImage leftArrow;
+	private GImage rightArrow;
 	private GButton save;
 	private final int BUTTON_SIZE = 50;
 
@@ -22,13 +24,23 @@ public class ShipCustomPane extends GraphicsPane{
 		background = new GImage("background.jpg");
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 
-		title = new GLabel("Ship\nCustomization", app.getWidth() / 2, app.getHeight() / 2);
-		title.setFont(new Font("Serif", Font.BOLD, 20));
+		title = new GLabel("Ship\nCustomization", app.getWidth() / 2 - 100, app.getHeight() / 2 - 200);
+		title.setFont(new Font("Serif", Font.BOLD, 25));
+		title.setColor(Color.white);
 	
-		returnButton = new GButton("Return to Menu",app.getWidth()/2 - 200, app.getHeight()/2-BUTTON_SIZE, BUTTON_SIZE * 2, BUTTON_SIZE);
+		returnButton = new GLabel("Return to Menu",app.getWidth()/2 - 250, app.getHeight()/2-BUTTON_SIZE);
+		returnButton.setFont(new Font("Serif", Font.BOLD, 20));
+		returnButton.setColor(Color.white);
 		
-		leftArrow = new GButton("Arrow.jpg", app.getWidth()/2 + 200, app.getHeight()/2-BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
 		
+		change = new GLabel("Ship Color", app.getWidth()/2 + 125, app.getHeight() / 2 - BUTTON_SIZE + 25);
+		change.setFont(new Font("Serif", Font.BOLD, 20));
+		change.setColor(Color.magenta);
+		
+		leftArrow = new GImage("leftArrow.jpg", app.getWidth()/2 + 100, app.getHeight()/2 - BUTTON_SIZE + 50); //fix later
+		leftArrow.setSize(55,40);
+		rightArrow = new GImage("rightArrow.jpg", app.getWidth()/2 + 200, app.getHeight()/2-BUTTON_SIZE + 50);
+		rightArrow.setSize(55,40);
 	}
 
 	@Override
@@ -37,6 +49,9 @@ public class ShipCustomPane extends GraphicsPane{
 		program.add(background);
 		program.add(title);
 		program.add(returnButton);
+		program.add(leftArrow);
+		program.add(rightArrow);
+		program.add(change);
 		
 	}
 
@@ -46,10 +61,29 @@ public class ShipCustomPane extends GraphicsPane{
 		program.remove(background);
 		program.remove(title);
 		program.add(returnButton);
+		program.add(leftArrow);
+		program.add(rightArrow);
+		program.add(change);
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
+		GObject obj = program.getElementAt(e.getX(), e.getY());
+		if(obj == returnButton) {
+			program.switchToMenu();
+		}
+		else if(obj == leftArrow) {
+			//change the gimage for the ship temporarily
+			program.switchToMenu();
+		}
+		else if(obj == rightArrow) {
+			//change the gimage for the ship temporarily
+			program.switchToMenu();
+		}
+		else if(obj == save) {
+			//save the ship / change it permanently
+			program.switchToMenu();
+		}
 		
 	}
 
