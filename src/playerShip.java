@@ -10,6 +10,7 @@ public class playerShip extends ourEntity {
 		player = new ourEntity(EntityType.PLAYER);
 		player.setHealth(300);
 	}
+
 	
 	
 	//Check if the Player is in Bounds
@@ -23,6 +24,7 @@ public class playerShip extends ourEntity {
 		}
 	}
 	
+
 	void moveX(int x) {
 		//Updates the Position of the Player's Ship with respect to the X Axis
 		//Will need a check for if the Player is in bounds, can do in here or in level (discuss)
