@@ -9,7 +9,7 @@ public class Level {
 	//rewrite the code to iterate through the list looking for instance of playerShip
 	private boolean isPaused = false;
 	private boolean inBounds;
-	private boolean levelWon;
+	private boolean levelWon = false;
 	
 	
 	//Level Win Check
