@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 
+import javax.swing.text.AttributeSet.ColorAttribute;
+
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
@@ -38,36 +40,38 @@ public class PlayGameMenu extends GraphicsPane {
 		level1.setFont(new Font("Space", Font.BOLD, 18));
 		level1.setColor(Color.white);
 		
-		level2 = new GLabel("2", app.getWidth()/2-BUTTON_SIZE, app.getHeight()/2-2*BUTTON_SIZE);
+		level2 = new GLabel("2", app.getWidth()/2-BUTTON_SIZE + 10, app.getHeight()/2-2*BUTTON_SIZE);
 		level2.setFont(new Font("Space", Font.BOLD, 18));
 		level2.setColor(Color.white);
 		
 		backButton = new GLabel("Back", app.getWidth()/2-BUTTON_SIZE/2, app.getHeight()/2);
+		backButton.setFont(new Font("Space", Font.BOLD, 18));
+		backButton.setColor(Color.white);
 		
 		confirmText = new GLabel("Start Game?", app.getWidth()/2 - 60, app.getHeight() / 2 - 100);
 		confirmText.setFont(new Font("Space", Font.BOLD, 18));
+		confirmText.sendToBack();
 		confirmText.setColor(Color.white);
-		confirmText.setVisible(false);
 
 		yes = new GButton("Yes", app.getWidth()/2-2*BUTTON_SIZE + 25, app.getHeight()/2, BUTTON_SIZE, BUTTON_SIZE);
+		yes.sendToBack();
 		yes.setFillColor(Color.BLUE);
-		yes.setVisible(false);
 		
 		no = new GButton("No", app.getWidth()/2 + 25, app.getHeight()/2, BUTTON_SIZE, BUTTON_SIZE);
+		no.sendToBack();
 		no.setFillColor(Color.RED);
-		no.setVisible(false);
 	}
 
 	@Override
 	public void showContents() {
+		program.add(yes);
+		program.add(no);
+		program.add(confirmText);
 		program.add(background);
 		program.add(levelSelect);
 		program.add(level1);
 		program.add(level2);
 		program.add(backButton);
-		program.add(yes);
-		program.add(no);
-		program.add(confirmText);
 	}
 
 	@Override
@@ -100,8 +104,9 @@ public class PlayGameMenu extends GraphicsPane {
 				program.switchToPlayGameMenu();
 			}
 		}
-		else if (obj == level2) {
+		if (obj == level2) {
 			this.level2Clicked = true;
+			System.out.println("obj == level2");
 			sendPopUpToFront();
 		}
 		else if(level2Clicked) {
@@ -121,23 +126,21 @@ public class PlayGameMenu extends GraphicsPane {
 	}
 	
 	public void sendPopUpToFront() {
-		confirmText.setVisible(true);
+		confirmText.sendToFront();
+		levelSelect.sendToBack();
 		level1.sendToBack();
 		level2.sendToBack();
 		backButton.sendToBack();
 		yes.sendToFront();
-		yes.setVisible(true);
-		no.setVisible(true);
 		no.sendToFront();
 	}
 	public void sendPopUpToBack() {
-		confirmText.setVisible(false);
+		confirmText.sendToBack();
 		yes.sendToBack();
-		yes.setVisible(false);
-		no.setVisible(false);
 		no.sendToBack();
 		level1.sendToFront();
 		level2.sendToFront();
+		levelSelect.sendToBack();
 		backButton.sendToFront();
 	}
 
