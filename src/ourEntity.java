@@ -69,8 +69,7 @@ public class ourEntity extends GraphicsProgram {
 		this.type = type;
 	}
 	void setImage(EntityType shipType) {										// help with graphics
-		//this.image.setImage(IMG_FILENAME_PATH + shipType + IMG_EXTENSION);		// PLEASE MAKE IMAGE NAMES SAME AS EntityTypes
-		rect = new GRect(20, 20, 200, 200);
+		this.image.setImage(IMG_FILENAME_PATH + shipType + IMG_EXTENSION);		// PLEASE MAKE IMAGE NAMES SAME AS EntityTypes
 	}
 	
 	//***** Get Functions *****//
