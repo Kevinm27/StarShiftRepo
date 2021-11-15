@@ -4,6 +4,7 @@ import acm.util.*;
 import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.security.KeyStore.TrustedCertificateEntry;
+import java.util.ArrayList;
 
 import javax.print.attribute.standard.Media;
 
@@ -19,7 +20,11 @@ public class TestArena extends GraphicsProgram {
 	
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;	
-	Level myLevel = new Level();
+	playerShip thePlayer;
+	Locations thePlayerStart;
+	ArrayList<Enemy> theEnemies;
+	ArrayList<Locations> theEnemyStart;
+	Level myLevel = new Level(theEnemies, theEnemyStart, thePlayer, thePlayerStart);
 	
 	public static void main(String[] args) {
 		new TestArena().start();

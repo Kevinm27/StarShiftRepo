@@ -11,9 +11,12 @@ public class Level {
 	
 	
 	//Level Constructor
-	public Level(ArrayList<Enemy> enemies, playerShip player) {
+	public Level(ArrayList<Enemy> enemies, ArrayList<Locations> enemyStartLocations, playerShip player, Locations playerStartLocation) {
+		player.setEntityLocation(playerStartLocation);
 		
-		
+		for(int i = 0; i < enemies.size(); i++) {
+			
+		}
 	}
 	
 	//Level Win Check
