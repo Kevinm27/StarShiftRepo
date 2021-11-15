@@ -15,7 +15,7 @@ public class Level {
 		player.setEntityLocation(playerStartLocation);
 		
 		for(int i = 0; i < enemies.size(); i++) {
-			
+			enemies.get(i).setEntityLocation(enemyStartLocations.get(i));
 		}
 	}
 	
