@@ -41,7 +41,9 @@ public class TestArena extends GraphicsProgram {
 		System.out.println("should move 50 right");
 		System.out.println("new x of ship: " + myLevel.getPlayerShip().getEntityLocation().getX());		// null pointer exception
 		
-		//visualArena();
+		
+		
+		visualArena();
 		
 	}
 	
@@ -61,6 +63,7 @@ public class TestArena extends GraphicsProgram {
 		add(text);
 		
 		//add(myLevel.getPlayerShip().getImage()); // gives error
+		
 		
 	}
 	
