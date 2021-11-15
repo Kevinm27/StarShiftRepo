@@ -40,10 +40,11 @@ public class ourEntity extends GraphicsProgram {
 			speed = 3;
 			friendly = true;
 			rect = new GRect(50, 50, 200, 200);
+			image = new GImage("milleniumFalcon.png", 200, 200);
 		}
 		else {
 			this.type = type;
-			image = new GImage("milleniumFalcon.png", 200, 200);
+			//image = new GImage("milleniumFalcon.png", 200, 200);
 		}
 	}
 	void setEntityLocation(Locations location) {				// check for legal location elsewhere (?) Could be in logic
