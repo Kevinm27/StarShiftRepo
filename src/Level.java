@@ -1,10 +1,15 @@
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class Level {
+import acm.program.GraphicsProgram;
+
+public class Level extends GraphicsProgram implements KeyListener{
 
 	private ArrayList<Enemy> enemies = new ArrayList<> ();
 	private playerShip player;
+	
+
 	//if we need playerShip as a component of the ArrayList
 	//rewrite the code to iterate through the list looking for instance of playerShip
 	private boolean isPaused = false;
@@ -19,8 +24,26 @@ public class Level {
 		}
 	}
 	
-	//Level Win Check
+	/**level constructor (for Luke to play around with PlayerShip)
+	 * 
+	 * @return
+	 */
+	Level(playerShip player){
+		this.player = player;
+	}
 	
+	public playerShip getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(playerShip player) {
+		this.player = player;
+	}
+	
+	/**Level Win Check
+	 * 
+	 * @return
+	 */
 	boolean isLevelWon() {
 		if (enemies.size() < 1) {
 			return true;
@@ -49,11 +72,12 @@ public class Level {
 	}
 	
 	//Listeners
-	
-	void KeyPressed(KeyEvent e) {
-		
+
+	public void KeyPressed(KeyEvent e) {
 		char key = e.getKeyChar();
 		int id = e.getID();
+		System.out.println(key);
+
 		
 		while (true) {
 			
@@ -189,4 +213,18 @@ public class Level {
 		
 	}
 	
+	
+	public void run() {
+		addKeyListeners();
+		Projectile bullet1 = new Projectile(new Locations(100, 50), 315);
+		
+		add(player.getRect());
+	}
+	public void init() {
+		setSize(800, 600);
+	}
+	
+	public static void main(String args[]) {
+		new Level(new playerShip(new Locations(200, 200))).start();
+	}
 }

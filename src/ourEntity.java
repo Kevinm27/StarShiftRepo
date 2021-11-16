@@ -94,7 +94,9 @@ public class ourEntity extends GraphicsProgram {
 	GImage getImage() {
 		return this.image; 	
 	}
-	
+	GRect getRect() {
+		return this.rect;
+	}
 	ArrayList<Projectile> getBulletArrayList() {//Added getter for the array list
 		return bullets;
 	}

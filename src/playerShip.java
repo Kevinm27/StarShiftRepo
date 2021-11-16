@@ -28,12 +28,14 @@ public class playerShip extends ourEntity implements ActionListener{
 	private TimerTask shootTask = new ShootTask();
 
 	private Projectile newBullet; 
-	playerShip() {
+	playerShip(Locations entityLocation) {
 		//player = new ourEntity(EntityType.PLAYER);
 		health = 300;
 		speed = 3;
 		friendly = true;
-		rect = new GRect(20, 20, 200, 200);
+		this.entityLocation = entityLocation;
+		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
+		rect.setFilled(true);
 		type = EntityType.PLAYER;
 	}
 

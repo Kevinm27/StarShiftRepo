@@ -24,9 +24,10 @@ public class TestArena extends GraphicsProgram {
 	playerShip thePlayer;
 	Locations thePlayerStart;
 	ArrayList<Enemy> theEnemies;
-	ArrayList<Locations> theEnemyStart;
-	Level myLevel = new Level(theEnemies, theEnemyStart, thePlayer, thePlayerStart);
+	ArrayList<Locations> theEnemyStart; 
 	*/
+	Level myLevel;
+	
 	public static void main(String[] args) {
 		new TestArena().start();
 	}
@@ -48,6 +49,8 @@ public class TestArena extends GraphicsProgram {
 		System.out.println("should move 50 right");
 		System.out.println("new x of ship: " + myLevel.getPlayerShip().getEntityLocation().getX());		// null pointer exception
 		*/
+		myLevel = new Level(new playerShip(new Locations(200, 200)));
+		add(myLevel.getPlayer().getRect());
 		Projectile bullet1 = new Projectile(new Locations(100, 50), 315);
 		add(bullet1.getOval());
 		
