@@ -9,7 +9,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 
 	private ArrayList<Enemy> enemies = new ArrayList<> ();
 	private playerShip player;
-	
+	private Projectile newBullet;
 
 	//if we need playerShip as a component of the ArrayList
 	//rewrite the code to iterate through the list looking for instance of playerShip
@@ -88,7 +88,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 	//Listeners
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		int key = e.getKeyCode();
 		int id = e.getID();
 		System.out.println(e.getKeyChar());
@@ -129,21 +128,29 @@ public class Level extends GraphicsProgram implements KeyListener{
 			if (key == KeyEvent.VK_UP) {
 				//shoot up
 				player.shoot(90);
+				newBullet = player.getNewBullet();
+				add(newBullet.getOval());
 			}
 			
 			if (key == KeyEvent.VK_LEFT) {
 				//shoot left
 				player.shoot(180);
+				newBullet = player.getNewBullet();
+				add(newBullet.getOval());
 			}
 			
 			if (key == KeyEvent.VK_DOWN) {
 				//shoot down
 				player.shoot(270);
+				newBullet = player.getNewBullet();
+				add(newBullet.getOval());
 			}
 			
 			if (key == KeyEvent.VK_RIGHT) {
 				//shoot right
 				player.shoot(0);
+				newBullet = player.getNewBullet();
+				add(newBullet.getOval());
 			}
 	}
 	

@@ -30,6 +30,7 @@ public class playerShip extends ourEntity{
 	 */
 	public boolean move(float angle) {
 		if(movePolar(angle)) {
+			moveTimer = new Timer();
 			moveTimer.schedule(moveTask, DELAY_MS); //starts movement cooldown timer
 			return true;
 			

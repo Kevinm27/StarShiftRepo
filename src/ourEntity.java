@@ -36,6 +36,8 @@ public class ourEntity extends GraphicsProgram {
 	
 	protected GImage image;
 	public GRect rect; //placeholder for image
+	protected Projectile newBullet; //used for creating/firing projectiles
+
 	
 	/* HOW THESE TIMERS WORK
 	 * 
@@ -59,7 +61,6 @@ public class ourEntity extends GraphicsProgram {
 	protected TimerTask moveTask = new MoveTask();
 	protected TimerTask shootTask = new ShootTask();
 	
-	protected Projectile newBullet; //used for creating/firing projectiles
 	
 	
 	//***** public variables *****//
@@ -124,6 +125,9 @@ public class ourEntity extends GraphicsProgram {
 	GRect getRect() {
 		return this.rect;
 	}
+	Projectile getNewBullet() {
+		return this.newBullet;
+	}
 	ArrayList<Projectile> getBulletArrayList() {//Added getter for the array list
 		return bullets;
 	}
@@ -183,7 +187,6 @@ public class ourEntity extends GraphicsProgram {
 		else if(nextPosition.getY() < BOARD_BOUNDS_TOP){
 			nextPosition.setLocation(nextPosition.getX(), BOARD_BOUNDS_TOP);
 		}
-		
 		return new GPoint(nextPosition.getX(), nextPosition.getY());
 	}
 	
@@ -198,9 +201,7 @@ public class ourEntity extends GraphicsProgram {
 		}
 		else {
 			//moves the ship to a position within the bounds of the screen
-			rect.setLocation(moveWithinBounds(angle));
-			
-			  //runs isInBounds and corrects entityLocation to sit within bounds of board if needed
+			rect.setLocation(moveWithinBounds(angle));//runs isInBounds and corrects entityLocation to sit within bounds of board if needed
 				
 			canMove = false; //set canMove to false so it cannot be immediately called again
 			return true;
@@ -222,7 +223,7 @@ public class ourEntity extends GraphicsProgram {
 		else {
 			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
 			bullets.add(newBullet);
-			canShoot = false;
+			//canShoot = false;
 			return true;
 		}
 	}
