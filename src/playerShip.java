@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import acm.graphics.GImage;
+import acm.graphics.GPoint;
 import acm.graphics.GRect;
 
 public class playerShip extends ourEntity implements ActionListener{
@@ -22,24 +23,49 @@ public class playerShip extends ourEntity implements ActionListener{
 	private int fireDelay = 100;
 	private boolean canMove = true;
 	private boolean canShoot = true;
+	
+	/* HOW THESE TIMERS WORK
+	 * 
+	 * moveTimer is started by using a schedule function, like this: moveTimer.schedule(TimerTask, initialDelay)
+	 * The TimerTask is explained near the TimerTask classes
+	 * the initial delay is how long you want to wait until triggering the TimerTask.
+	 * 
+	 * If you want your timer to loop, you call it like this: shootTimer.schedule(TimerTask, initial delay, loop delay)
+	 * the first 2 parameters are the same
+	 * loop delay is how long you wish to wait before triggering the TimerTask again after the initial delay.
+	 * it will continue to loop afterwards.
+	 * 
+	 * example: if you declared it like this: moveTimer.schedule(moveTask, 200, 50), here's how the delays work
+	 * 1st move: 200 delay
+	 * 2nd move: 50 delay
+	 * 3rd move -> infinity: 50 delay
+	 * 
+	 */
 	private Timer moveTimer = new Timer(); //this timer is a cooldown for movement
 	private Timer shotTimer = new Timer(); //this timer is a cooldown for shooting
 	private TimerTask moveTask = new MoveTask();
 	private TimerTask shootTask = new ShootTask();
-
+	
 	private Projectile newBullet; 
-	playerShip(Locations entityLocation) {
+	playerShip(GPoint entityLocation) {
 		//player = new ourEntity(EntityType.PLAYER);
 		health = 300;
 		speed = 3;
 		friendly = true;
-		this.entityLocation = entityLocation;
 		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
 		rect.setFilled(true);
 		type = EntityType.PLAYER;
 	}
 
-	
+	/**TimerTasks are a type of function that are called once a timer goes off. Whenever the timer 
+	 * is triggered or hits a certain delay, the TimerTask run() function is executed. Specific TimerTask
+	 * classes are accessed by name. This is why the shotTimer uses the ShootTask while the moveTimer uses
+	 * the MoveTask
+	 * 
+	 * 
+	 * @author lukeb
+	 *
+	 */
 	class MoveTask extends TimerTask
 	{
 	    public void run()
@@ -62,23 +88,23 @@ public class playerShip extends ourEntity implements ActionListener{
 	 */
 	private boolean isInBounds () {
 		//if the ship is too far to the right
-		if (entityLocation.getX() > BOARD_BOUNDS_RIGHT - rect.getWidth()) {
-			rect.setLocation(BOARD_BOUNDS_RIGHT - rect.getWidth(), entityLocation.getY());
+		if (rect.getX() > BOARD_BOUNDS_RIGHT - rect.getWidth()) {
+			rect.setLocation(BOARD_BOUNDS_RIGHT - rect.getWidth(), rect.getY());
 			return false;
 		}
 		//if the ship is too far to the left
-		else if (entityLocation.getX() < BOARD_BOUNDS_LEFT) {
-			rect.setLocation(BOARD_BOUNDS_LEFT, entityLocation.getY());
+		else if (rect.getX() < BOARD_BOUNDS_LEFT) {
+			rect.setLocation(BOARD_BOUNDS_LEFT, rect.getY());
 			return false;
 		}
 		//if the ship is below the board
-		else if(entityLocation.getY() > BOARD_BOUNDS_BOTTOM - rect.getHeight()){
-			rect.setLocation(entityLocation.getX(), BOARD_BOUNDS_BOTTOM - rect.getHeight());
+		else if(rect.getY() > BOARD_BOUNDS_BOTTOM - rect.getHeight()){
+			rect.setLocation(rect.getX(), BOARD_BOUNDS_BOTTOM - rect.getHeight());
 			return false;
 		}
 		//if the ship is above the board
-		else if(entityLocation.getY() < BOARD_BOUNDS_TOP){
-			rect.setLocation(entityLocation.getX(), BOARD_BOUNDS_TOP);
+		else if(rect.getY() < BOARD_BOUNDS_TOP){
+			rect.setLocation(rect.getX(), BOARD_BOUNDS_TOP);
 			return false;
 		}
 		//if everything is fine
@@ -99,16 +125,15 @@ public class playerShip extends ourEntity implements ActionListener{
 		else {
 			
 			rect.movePolar(speed, angle);
-			entityLocation = new Locations(rect.getX(),rect.getY());
 			
-			if(!isInBounds()) { //runs isInBounds and corrects entityLocation to sit within bounds of board if needed
-				entityLocation = new Locations(rect.getX(),rect.getY());
-			}
+			isInBounds();  //runs isInBounds and corrects entityLocation to sit within bounds of board if needed
+				
 			canMove = false; //set canMove to false so it cannot be immediately called again
 			moveTimer.schedule(moveTask, DELAY_MS); //starts movement cooldown timer
 			return true;
 		}
 	}
+	
 	/**
 	 * 
 	 * @param angle the angle at which the player wants to fire the projectile
@@ -121,7 +146,7 @@ public class playerShip extends ourEntity implements ActionListener{
 			return false;
 		}
 		else {
-			newBullet = new Projectile(entityLocation, angle);
+			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
 			bullets.add(newBullet);
 			canShoot = false;
 			shotTimer.schedule(shootTask, fireDelay);

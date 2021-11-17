@@ -3,6 +3,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.Color;
 import acm.graphics.GOval;
+import acm.graphics.GPoint;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 
@@ -23,18 +24,16 @@ class Projectile extends GraphicsProgram {
 	  private float angle;
 	  private Timer moveTimer = new Timer();
 	  private TimerTask moveTask = new MoveTask();
-	  Locations projectileLocation; 
 	  
 	  /*
 	   * This is the default constructor for enemy projectiles. The firing method is going to work
 	   * by grabbing the player's starting angle at the time the projectile fired, and it will then
 	   * continue traveling in that direction until it hits the player or leaves the screen
 	   */
-	  Projectile(Locations projectileLocation, GRect target){
+	  Projectile(GPoint projectileLocation, GRect target){
 	    damage = PROJECTILE_DAMAGE;
 	    friendly = false;
 	    speed = PROJECTILE_SPEED;
-	    this.projectileLocation = projectileLocation;
 	    oval = new GOval(10, 10, projectileLocation.getX(), projectileLocation.getY());
 	    oval.setFilled(true);
 	    oval.setColor(Color.RED);
@@ -46,23 +45,21 @@ class Projectile extends GraphicsProgram {
 	   * this is the default constructor for player projectiles. they're going to derive the
 	   * angle of travel for the projectile based on keyboard inputs.
 	   */
-	  Projectile(Locations projectileLocation, float angle){
+	  Projectile(GPoint projectileLocation, float angle){
 		  damage = PROJECTILE_DAMAGE;
 		    friendly = true;
 		    speed = PROJECTILE_SPEED;
-		    this.projectileLocation = projectileLocation;
 		    oval = new GOval(projectileLocation.getX(), projectileLocation.getY(),10 ,10 );
 		    oval.setFilled(true);
 		    oval.setColor(Color.BLUE);
 		    this.angle = angle;
 		    moveTimer.schedule(moveTask, 0, DELAY_MS);
 	  }
-
+	  
+	  
 	  class MoveTask extends TimerTask{
 		  public void run() {
 			  oval.movePolar(speed, angle);
-			  projectileLocation.setX(oval.getX());
-			  projectileLocation.setY(oval.getY());
 		  }
 	  }
 	  
@@ -86,30 +83,25 @@ class Projectile extends GraphicsProgram {
 		  this.oval = oval;
 	  }
 
-	  public void setProjectileLocation(double x, double y){
-	    this.projectileLocation = new Locations(x, y);
-	  }
-	  public Locations getProjectileLocation(){
-	    return this.projectileLocation;
-	  }
 	  
 	  /*this class grabs the angle of a target relative to the position of the projectile
 	   * 
 	   */
 	  public float getAngle(GRect target) {
-		    return (float) Math.toDegrees(Math.atan2(target.getX() + (target.getWidth() / 2) - projectileLocation.getX(),
-		    		target.getY() + (target.getHeight() / 2) - projectileLocation.getY()));
+		    return (float) Math.toDegrees(Math.atan2(target.getX() + (target.getWidth() / 2) - oval.getX(),
+		    		target.getY() + (target.getHeight() / 2) - oval.getY()));
 		}
 
 	@Override
 	public void run() {
-		Projectile bullet1 = new Projectile(new Locations(100, 50), 315);
+		Projectile bullet1 = new Projectile(new GPoint(100, 50), 315);
+		add(bullet1.getOval());
 	}
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
 	
 	public static void main(String args[]) {
-		new Projectile(new Locations(200, 200), 90).start();
+		new Projectile(new GPoint(200, 200), 90).start();
 	}
 	}

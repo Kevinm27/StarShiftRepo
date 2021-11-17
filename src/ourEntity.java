@@ -13,8 +13,7 @@ import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 
 public class ourEntity extends GraphicsProgram {
-	//***** private variables *****//
-	protected Locations entityLocation;			
+	//***** private variables *****//		
 	protected int health;
 	protected int speed;
 	protected boolean friendly;									// IsFriendly should be here instead of logic
