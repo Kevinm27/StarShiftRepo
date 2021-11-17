@@ -61,6 +61,15 @@ public class Level extends GraphicsProgram implements KeyListener{
 		return false;
 	}
 	
+	
+	public void run() {
+		//Projectile bullet1 = new Projectile(new GPoint(100, 50), 315);
+		
+		add(player.getRect());
+		addKeyListeners();
+	}
+	
+	
 	//Console Functions
 	
 	void pause() {
@@ -214,13 +223,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 		
 	}
 	
-	
-	public void run() {
-		addKeyListeners();
-		//Projectile bullet1 = new Projectile(new GPoint(100, 50), 315);
-		
-		add(player.getRect());
-	}
 	public void init() {
 		setSize(800, 600);
 	}
