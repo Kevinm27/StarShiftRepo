@@ -6,10 +6,15 @@
  */
 
 public class Enemy extends ourEntity {
-
+	
 	Enemy(EntityType type) {						// just to get rid of red squiggly
-		super(type);								// will need to look into more
-		// TODO Auto-generated constructor stub
+		health = 200;
+		if (type == EntityType.SCOOTER) {
+			speed = 3;
+		}
+		else if (type == EntityType.SHOOTER) {
+			speed = 2;
+		}
 	}
 													// move rates need to be a thing in the first place
 	void movePattern(EntityType type) {				// takes in Type to change move rates

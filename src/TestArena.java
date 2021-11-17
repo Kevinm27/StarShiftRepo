@@ -29,7 +29,7 @@ public class TestArena extends GraphicsProgram {
 	public void run() {												
 		myLevel = new Level(new playerShip(new GPoint(200,200)));
 		add(myLevel.getPlayer().getRect());
-		Projectile bullet1 = new Projectile(new GPoint(100,50), (float)315);
+		//Projectile bullet1 = new Projectile(new GPoint(100,50), (float)315);
 		//add(bullet1.getOval());
 		
 		visualArena();

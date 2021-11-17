@@ -26,6 +26,22 @@ class Projectile extends GraphicsProgram {
 	  private TimerTask moveTask = new MoveTask();
 	  
 	  /*
+	   * this is the default constructor for player projectiles. they're going to derive the
+	   * angle of travel for the projectile based on keyboard inputs.
+	   */
+	  Projectile(GPoint projectileLocation, float angle){
+		  damage = PROJECTILE_DAMAGE;
+		    friendly = true;
+		    speed = PROJECTILE_SPEED;
+		    oval = new GOval(projectileLocation.getX(), projectileLocation.getY(),10 ,10 );
+		    oval.setFilled(true);
+		    oval.setColor(Color.BLUE);
+		    this.angle = angle;
+		    moveTimer.schedule(moveTask, 0, DELAY_MS);
+	  }
+	  
+	  
+	  /*
 	   * This is the default constructor for enemy projectiles. The firing method is going to work
 	   * by grabbing the player's starting angle at the time the projectile fired, and it will then
 	   * continue traveling in that direction until it hits the player or leaves the screen
@@ -41,20 +57,7 @@ class Projectile extends GraphicsProgram {
 	    moveTimer.schedule(moveTask, 0, DELAY_MS);
 	  }
 	  
-	  /*
-	   * this is the default constructor for player projectiles. they're going to derive the
-	   * angle of travel for the projectile based on keyboard inputs.
-	   */
-	  Projectile(GPoint projectileLocation, float angle){
-		  damage = PROJECTILE_DAMAGE;
-		    friendly = true;
-		    speed = PROJECTILE_SPEED;
-		    oval = new GOval(projectileLocation.getX(), projectileLocation.getY(),10 ,10 );
-		    oval.setFilled(true);
-		    oval.setColor(Color.BLUE);
-		    this.angle = angle;
-		    moveTimer.schedule(moveTask, 0, DELAY_MS);
-	  }
+	 
 	  
 	  
 	  class MoveTask extends TimerTask{
