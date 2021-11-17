@@ -55,7 +55,7 @@ public class ourEntity extends GraphicsProgram {
 	 * 
 	 */
 	protected Timer moveTimer = new Timer(); //this timer is a cooldown for movement
-	protected Timer shotTimer = new Timer(); //this timer is a cooldown for shooting
+	protected Timer shootTimer = new Timer(); //this timer is a cooldown for shooting
 	protected TimerTask moveTask = new MoveTask();
 	protected TimerTask shootTask = new ShootTask();
 	
@@ -148,36 +148,37 @@ public class ourEntity extends GraphicsProgram {
 		public void run() {canShoot = true;}
 	}
 	
-	/**Checks if the ship is within the bounds of the level, and pushes the ship into place if it is not
+	/**Creates a copy of the ship that moves out ahead of the ship image to find the ship's 
+	 * new position after movePolar. Using this new position, the method checks if this new position
+	 * for the ship would be within the bounds of the level. If it is outside, the ship's position is
+	 * adjusted. The location of the ship after moving is returned.
 	 * 
-	 * @return true & does nothing if the ship was already in bounds
-	 * @return false if the ship was adjusted
+	 * @param angle the direction you're going to move your ship
+	 * @return the next location of the ship
 	 */
-	private boolean isInBounds () {
+	protected GPoint moveWithinBounds(float angle) {
+		
+		GRect nextPosition = rect;
+		nextPosition.movePolar(speed, angle);
+	
 		//if the ship is too far to the right
-		if (rect.getX() > BOARD_BOUNDS_RIGHT - rect.getWidth()) {
-			rect.setLocation(BOARD_BOUNDS_RIGHT - rect.getWidth(), rect.getY());
-			return false;
+		if (nextPosition.getX() > BOARD_BOUNDS_RIGHT - nextPosition.getWidth()) {
+			nextPosition.setLocation(BOARD_BOUNDS_RIGHT - nextPosition.getWidth(), nextPosition.getY());
 		}
 		//if the ship is too far to the left
-		else if (rect.getX() < BOARD_BOUNDS_LEFT) {
-			rect.setLocation(BOARD_BOUNDS_LEFT, rect.getY());
-			return false;
+		else if (nextPosition.getX() < BOARD_BOUNDS_LEFT) {
+			nextPosition.setLocation(BOARD_BOUNDS_LEFT, nextPosition.getY());
 		}
 		//if the ship is below the board
-		else if(rect.getY() > BOARD_BOUNDS_BOTTOM - rect.getHeight()){
-			rect.setLocation(rect.getX(), BOARD_BOUNDS_BOTTOM - rect.getHeight());
-			return false;
+		if(nextPosition.getY() > BOARD_BOUNDS_BOTTOM - nextPosition.getHeight()){
+			nextPosition.setLocation(nextPosition.getX(), BOARD_BOUNDS_BOTTOM - nextPosition.getHeight());
 		}
 		//if the ship is above the board
-		else if(rect.getY() < BOARD_BOUNDS_TOP){
-			rect.setLocation(rect.getX(), BOARD_BOUNDS_TOP);
-			return false;
+		else if(nextPosition.getY() < BOARD_BOUNDS_TOP){
+			nextPosition.setLocation(nextPosition.getX(), BOARD_BOUNDS_TOP);
 		}
-		//if everything is fine
-		else {
-			return true;
-		}
+		
+		return new GPoint(nextPosition.getX(), nextPosition.getY());
 	}
 	
 	/**
@@ -185,18 +186,17 @@ public class ourEntity extends GraphicsProgram {
 	 * @param angle the angle at which you are moving the ship
 	 * @return false & does nothing if the move timer has not reset
 	 */
-	public boolean movePolar(float angle) {
+	protected boolean movePolar(float angle) {
 		if(canMove == false) { //checks if enough time has passed since the last move
 			return false; //returns false if not enough time has passed
 		}
 		else {
+			//moves the ship to a position within the bounds of the screen
+			rect.setLocation(moveWithinBounds(angle));
 			
-			rect.movePolar(speed, angle);
-			
-			isInBounds();  //runs isInBounds and corrects entityLocation to sit within bounds of board if needed
+			  //runs isInBounds and corrects entityLocation to sit within bounds of board if needed
 				
 			canMove = false; //set canMove to false so it cannot be immediately called again
-			moveTimer.schedule(moveTask, DELAY_MS); //starts movement cooldown timer
 			return true;
 		}
 	}
@@ -207,7 +207,7 @@ public class ourEntity extends GraphicsProgram {
 	 * @return true if a projectile has been successfully fired
 	 * @return false if the firing cooldown has not finished
 	 */
-	public boolean shootPolar(float angle) {
+	protected boolean shootPolar(float angle) {
 		//shoots a projectile based on the angle input to the function
 		if(canShoot == false) {
 			return false;
@@ -216,7 +216,7 @@ public class ourEntity extends GraphicsProgram {
 			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
 			bullets.add(newBullet);
 			canShoot = false;
-			shotTimer.schedule(shootTask, fireDelay);
+			shootTimer.schedule(shootTask, fireDelay);
 			return true;
 		}
 	}
