@@ -217,7 +217,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	
 	public void run() {
 		addKeyListeners();
-		Projectile bullet1 = new Projectile(new GPoint(100, 50), 315);
+		//Projectile bullet1 = new Projectile(new GPoint(100, 50), 315);
 		
 		add(player.getRect());
 	}

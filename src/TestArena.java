@@ -20,39 +20,17 @@ public class TestArena extends GraphicsProgram {
 	
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;	
-	/*
-	playerShip thePlayer;
-	Locations thePlayerStart;
-	ArrayList<Enemy> theEnemies;
-	ArrayList<Locations> theEnemyStart; 
-	*/
 	Level myLevel;
 	
 	public static void main(String[] args) {
 		new TestArena().start();
 	}
 
-	public void run() {												// checking that myLevel and theLevel is accessible
-		/*
-		Level theLevel = new Level();
-		System.out.println("For theLevel: declared as a local variable: ");
-		System.out.println(theLevel.getPlayerShip().getHealth());
-		System.out.println(theLevel.isLevelWon());
-		
-		System.out.println("For myLevel: declared as a member variable: ");
-		System.out.println(myLevel.getPlayerShip().getHealth());
-		System.out.println(myLevel.isLevelWon());
-		
-		System.out.println("TESTING MOVE:");
-		System.out.println("current x of ship: " + myLevel.getPlayerShip().getEntityLocation().getX());
-		myLevel.getPlayerShip().moveX(12);
-		System.out.println("should move 50 right");
-		System.out.println("new x of ship: " + myLevel.getPlayerShip().getEntityLocation().getX());		// null pointer exception
-		*/
-		myLevel = new Level(new playerShip(new Locations(200, 200)));
+	public void run() {												
+		myLevel = new Level(new playerShip(new GPoint(200,200)));
 		add(myLevel.getPlayer().getRect());
-		Projectile bullet1 = new Projectile(new Locations(100, 50), 315);
-		add(bullet1.getOval());
+		Projectile bullet1 = new Projectile(new GPoint(100,50), (float)315);
+		//add(bullet1.getOval());
 		
 		visualArena();
 		
@@ -71,9 +49,6 @@ public class TestArena extends GraphicsProgram {
 		add(box);
 		
 		GLabel text = new GLabel("TESTING", 12, 12);
-		add(text);
-		
-		//add(myLevel.getPlayerShip().getImage()); // gives error
 		add(text);
 		
 	}

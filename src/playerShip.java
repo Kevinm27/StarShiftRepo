@@ -146,7 +146,7 @@ public class playerShip extends ourEntity implements ActionListener{
 			return false;
 		}
 		else {
-			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
+			//newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
 			bullets.add(newBullet);
 			canShoot = false;
 			shotTimer.schedule(shootTask, fireDelay);
