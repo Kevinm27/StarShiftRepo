@@ -23,11 +23,23 @@ public class Enemy extends ourEntity {
 		else if (type == EntityType.SHOOTER) {
 			speed = 2;
 			fireDelay = 1000;
+			shootTimer.schedule(shootTask, 2000, 600);
 		}
+		moveTimer.schedule(moveTask, 2000, DELAY_MS); //starts movement cooldown timer
 	}
-													// move rates need to be a thing in the first place
-	void movePattern(EntityType type) {				// takes in Type to change move rates
 		
+	public float getAngle(GRect target) {
+	    return (float) Math.toDegrees(Math.atan2(
+	    		(target.getX() + (target.getWidth() / 2)) - (rect.getX() + (rect.getWidth() / 2)),
+	    		(target.getY() + (target.getHeight() / 2)) - (rect.getY() + (rect.getHeight() / 2))));
+	}
+	
+	public boolean move(float angle) {				// takes in Type to change move rates
+		if(movePolar(angle)) {
+			
+			return true;
+			
+		}else {return false;}
 	}
 
 }

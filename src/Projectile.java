@@ -91,8 +91,9 @@ class Projectile extends GraphicsProgram {
 	   * 
 	   */
 	  public float getAngle(GRect target) {
-		    return (float) Math.toDegrees(Math.atan2(target.getX() + (target.getWidth() / 2) - oval.getX(),
-		    		target.getY() + (target.getHeight() / 2) - oval.getY()));
+		    return (float) Math.toDegrees(Math.atan2(
+		    		(target.getX() + (target.getWidth() / 2)) - (oval.getX() + (oval.getWidth() / 2)),
+		    		(target.getY() + (target.getHeight() / 2)) - (oval.getY() + (oval.getHeight() / 2))));
 		}
 
 	@Override
