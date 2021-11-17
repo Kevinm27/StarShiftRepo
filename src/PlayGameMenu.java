@@ -1,14 +1,14 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
+
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
 
 public class PlayGameMenu extends GraphicsPane {
 	
-	private MainApplication program;
-	
+	private MainApplication program;	
 	private GImage background;
 	private GLabel yes;
 	private GLabel no;
@@ -20,10 +20,12 @@ public class PlayGameMenu extends GraphicsPane {
 	private GLabel level5;
 	private GLabel backButton;
 	private GLabel confirmText;
-	private final int BUTTON_SIZE = 50;
+	private final int SHIFT = 50;
 	private boolean level1Clicked = false;
 	private boolean level2Clicked = false;
-
+	private boolean level3Clicked = false;
+	private boolean level4Clicked = false;
+	private boolean level5Clicked = false;
 
 	public PlayGameMenu(MainApplication app) {
 		super();
@@ -36,19 +38,27 @@ public class PlayGameMenu extends GraphicsPane {
 		levelSelect.setFont(new Font("Space", Font.BOLD, 20));
 		levelSelect.setColor(Color.WHITE);
 		
-		level1 = new GLabel("1", app.getWidth()/2-2*BUTTON_SIZE, app.getHeight()/2-2*BUTTON_SIZE);
+		level1 = new GLabel("1", app.getWidth()/2 - 2*SHIFT + 35, app.getHeight()/2-2*SHIFT);
 		level1.setFont(new Font("Space", Font.BOLD, 18));
 		level1.setColor(Color.WHITE);
 		
-		level2 = new GLabel("2", app.getWidth()/2-BUTTON_SIZE + 10, app.getHeight()/2-2*BUTTON_SIZE);
+		level2 = new GLabel("2", app.getWidth()/2 - 2*SHIFT + 70, app.getHeight()/2-2*SHIFT);
 		level2.setFont(new Font("Space", Font.BOLD, 18));
 		level2.setColor(Color.WHITE);
 		
-		level3 = new GLabel("3", app.getWidth()/2-BUTTON_SIZE + 20, app.getHeight()/2-2*BUTTON_SIZE);
+		level3 = new GLabel("3", app.getWidth()/2 - 2*SHIFT + 105, app.getHeight()/2-2*SHIFT);
 		level3.setFont(new Font("Space", Font.BOLD, 18));
 		level3.setColor(Color.WHITE);
 		
-		backButton = new GLabel("Back", app.getWidth()/2-BUTTON_SIZE/2, app.getHeight()/2);
+		level4 = new GLabel("4", app.getWidth()/2 - 2*SHIFT + 140, app.getHeight()/2-2*SHIFT);
+		level4.setFont(new Font("Space", Font.BOLD, 18));
+		level4.setColor(Color.WHITE);
+		
+		level5 = new GLabel("5", app.getWidth()/2 - 2*SHIFT + 175, app.getHeight()/2-2*SHIFT);
+		level5.setFont(new Font("Space", Font.BOLD, 18));
+		level5.setColor(Color.WHITE);
+		
+		backButton = new GLabel("Back", app.getWidth()/2-SHIFT/2, app.getHeight()/2);
 		backButton.setFont(new Font("Space", Font.BOLD, 18));
 		backButton.setColor(Color.WHITE);
 		
@@ -57,7 +67,7 @@ public class PlayGameMenu extends GraphicsPane {
 		confirmText.sendToBack();
 		confirmText.setColor(Color.WHITE);
 
-		yes = new GLabel("Yes", app.getWidth()/2-2*BUTTON_SIZE + 25, app.getHeight()/2);
+		yes = new GLabel("Yes", app.getWidth()/2-2*SHIFT + 25, app.getHeight()/2);
 		yes.setFont(new Font("Space", Font.BOLD, 18));
 		yes.sendToBack();
 		yes.setColor(Color.GREEN);
@@ -89,42 +99,88 @@ public class PlayGameMenu extends GraphicsPane {
 		program.remove(levelSelect);
 		program.remove(level1);
 		program.remove(level2);
-		program.add(level3);
-		program.add(level4);
-		program.add(level5);
+		program.remove(level3);
+		program.remove(level4);
+		program.remove(level5);
 		program.remove(backButton);
 		program.remove(yes);
 		program.remove(no);
 		program.remove(confirmText);
 	}
-
+	//Whenever the mouse is pressed a GObject is created and is compared with all the GLabels 
+	//If a level label is clicked it sets a boolean and shows a mini screen that pop ups a yes or no label
+	//From here a simple if statement is used to switch to a different screen
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == level1) {
-			this.level1Clicked = true;
+			level1Clicked = true;
 			sendPopUpToFront();
 		}
-		else if(this.level1Clicked) {
-			this.level1Clicked = false;
+		else if(level1Clicked) {	
 			if(obj == yes) {
-				program.switchToMenu(); // for now to test it	
+				level1Clicked = false;
+				program.switchToPlayGameMenu(); // for now to test it	
 			}
 			else if(obj == no) {
+				level1Clicked = false;
 				program.switchToPlayGameMenu();
 			}
 		}
 		if (obj == level2) {
 			this.level2Clicked = true;
-			System.out.println("obj == level2");
 			sendPopUpToFront();
 		}
 		else if(level2Clicked) {
-			this.level2Clicked = false;
 			if(obj == yes) { // We can make a method called setScreen so we have less redundancy
+				level2Clicked = false;
 				program.switchToPlayGameMenu(); // for now to test it
 			}
 			else if(obj == no) {
+				level2Clicked = false;
+				program.switchToPlayGameMenu();
+			}
+		}
+		if(obj == level3) {
+			level3Clicked = true;
+			sendPopUpToFront();
+		}
+		else if(level3Clicked) {
+			if(obj == yes) {
+				level3Clicked = false;
+				program.switchToPlayGameMenu();
+			}
+			else if(obj == no){
+				level3Clicked = false;
+				program.switchToPlayGameMenu();
+			}
+		}
+		if(obj == level4) {
+			level4Clicked = true;
+			sendPopUpToFront();
+		}
+		else if(level4Clicked) {
+			
+			if(obj == yes) {
+				level4Clicked = false;
+				program.switchToPlayGameMenu();
+			}
+			else if(obj == no){
+				level4Clicked = false;
+				program.switchToPlayGameMenu();
+			}
+		}
+		if(obj == level5) {
+			level5Clicked = true;
+			sendPopUpToFront();
+		}
+		else if(level5Clicked) {
+			if(obj == yes) {
+				level5Clicked = false;
+				program.switchToPlayGameMenu();
+			}
+			else if(obj == no){
+				level5Clicked = false;
 				program.switchToPlayGameMenu();
 			}
 		}
@@ -133,14 +189,30 @@ public class PlayGameMenu extends GraphicsPane {
 		}
 	}
 	
+
 	public void sendPopUpToFront() {
-		confirmText.sendToFront();
 		levelSelect.sendToBack();
 		level1.sendToBack();
 		level2.sendToBack();
+		level3.sendToBack();
+		level4.sendToBack();
+		level5.sendToBack();
 		backButton.sendToBack();
 		yes.sendToFront();
 		no.sendToFront();
+		confirmText.sendToFront();
+
 	}
+	/*
+	public void sendPopUpToback() {
+		confirmText.sendToBack();
+		levelSelect.sendToFront();
+		level1.sendToFront();
+		level2.sendToFront();
+		backButton.sendToFront();
+		yes.sendToBack();
+		no.sendToBack();
+	}
+	*/
 
 }
