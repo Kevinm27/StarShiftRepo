@@ -149,7 +149,7 @@ public class ourEntity extends GraphicsProgram {
 	}
 	
 	/**Creates a copy of the ship that moves out ahead of the ship image to find the ship's 
-	 * new position after movePolar. Using this new position, the method checks if this new position
+	 * new position after movePolar. Using this new position, the method checks if the new position
 	 * for the ship would be within the bounds of the level. If it is outside, the ship's position is
 	 * adjusted. The location of the ship after moving is returned.
 	 * 
@@ -201,7 +201,8 @@ public class ourEntity extends GraphicsProgram {
 		}
 	}
 	
-	/**
+	/**Fires a projectile in the direction of parameter angle. Also adds this new Projectile to the 
+	 * ArrayList bullets.
 	 * 
 	 * @param angle the angle at which the player wants to fire the projectile
 	 * @return true if a projectile has been successfully fired
@@ -216,7 +217,6 @@ public class ourEntity extends GraphicsProgram {
 			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
 			bullets.add(newBullet);
 			canShoot = false;
-			shootTimer.schedule(shootTask, fireDelay);
 			return true;
 		}
 	}
