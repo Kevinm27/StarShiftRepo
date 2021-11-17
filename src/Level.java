@@ -3,6 +3,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import acm.program.GraphicsProgram;
+import acm.graphics.GPoint;
 
 public class Level extends GraphicsProgram implements KeyListener{
 
@@ -16,7 +17,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	
 	
 	//Level Constructor
-	public Level(ArrayList<Enemy> enemies, ArrayList<Locations> enemyStartLocations, playerShip player, Locations playerStartLocation) {
+	public Level(ArrayList<Enemy> enemies, ArrayList<GPoint> enemyStartLocations, playerShip player, GPoint playerStartLocation) {
 		player.setEntityLocation(playerStartLocation);
 		
 		for(int i = 0; i < enemies.size(); i++) {

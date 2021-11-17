@@ -11,6 +11,7 @@ import java.util.Timer;											// refer to TimerLab for use
 import acm.graphics.GImage;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
+import acm.graphics.GPoint;
 
 public class ourEntity extends GraphicsProgram {
 	//***** private variables *****//		
@@ -30,7 +31,7 @@ public class ourEntity extends GraphicsProgram {
 	
 	//***** constructor *****//
 	public ourEntity() {
-		entityLocation = new Locations(0,0);					// originally on line 17
+		GPoint entityLocation = new GPoint(0,0);					// originally on line 17
 	}
 	
 	//**** Set Functions *****//
@@ -46,8 +47,8 @@ public class ourEntity extends GraphicsProgram {
 			image = new GImage("milleniumFalcon.png", 200, 200);
 		}
 	}
-	void setEntityLocation(Locations location) {				// check for legal location elsewhere (?) Could be in logic
-		this.entityLocation = location;
+	void setEntityLocation(GPoint location) {				// check for legal location elsewhere (?) Could be in logic
+		rect.setLocation(location);
 	}
 	void setHealth(int hp) {
 		this.health = hp;
@@ -72,8 +73,8 @@ public class ourEntity extends GraphicsProgram {
 	}
 	
 	//***** Get Functions *****//
-	Locations getEntityLocation() {
-		return this.entityLocation;
+	GPoint getEntityLocation() {
+		return new GPoint(rect.getX(), rect.getY());
 	}
 	int getHealth() {
 		return this.health;
