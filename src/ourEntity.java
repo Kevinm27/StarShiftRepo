@@ -19,7 +19,7 @@ import acm.graphics.GPoint;
 
 public class ourEntity extends GraphicsProgram {
 	//***** private variables *****//	
-	protected static final int DELAY_MS = 25;
+	protected static final int DELAY_MS = 20;
 	//TODO: Change these values below to match the bounds of the playable margin of the screen
 	protected static final int BOARD_BOUNDS_BOTTOM = 600;
 	protected static final int BOARD_BOUNDS_RIGHT = 600;
@@ -223,7 +223,7 @@ public class ourEntity extends GraphicsProgram {
 		else {
 			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
 			bullets.add(newBullet);
-			//canShoot = false;
+			canShoot = false;
 			return true;
 		}
 	}

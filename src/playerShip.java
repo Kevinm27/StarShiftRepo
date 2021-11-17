@@ -20,6 +20,9 @@ public class playerShip extends ourEntity{
 		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
 		rect.setFilled(true);
 		type = EntityType.PLAYER;
+		
+		moveTimer.schedule(moveTask, 0, DELAY_MS); //starts movement cooldown timer
+		shootTimer.schedule(shootTask, 0, fireDelay);
 	}
 
 	/**This is the move function that playerShip will be using. It mostly just runs through movePolar 
@@ -31,9 +34,8 @@ public class playerShip extends ourEntity{
 	public boolean move(float angle) {
 		if(movePolar(angle)) {
 			moveTimer = new Timer();
-			moveTimer.schedule(moveTask, DELAY_MS); //starts movement cooldown timer
 			return true;
-			
+
 		}else {return false;}
 	}
 	
@@ -46,7 +48,7 @@ public class playerShip extends ourEntity{
 	 */
 	public boolean shoot(float angle) {
 		if(shootPolar(angle)) {
-			shootTimer.schedule(shootTask, fireDelay); //starts shooting cooldown timer
+
 			return true;
 			
 		}else {return false;}
