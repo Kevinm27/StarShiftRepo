@@ -3,6 +3,7 @@ import acm.program.*;
 import acm.util.*;
 import java.awt.*;
 import java.awt.color.ColorSpace;
+import java.awt.event.KeyListener;
 import java.security.KeyStore.TrustedCertificateEntry;
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ import javax.print.attribute.standard.Media;
 
 
 
-public class TestArena extends GraphicsProgram {
+public class TestArena extends GraphicsProgram implements KeyListener {
 	
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;	

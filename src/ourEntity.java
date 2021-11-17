@@ -35,7 +35,7 @@ public class ourEntity extends GraphicsProgram {
 	protected boolean friendly;									// IsFriendly should be here instead of logic
 	
 	protected GImage image;
-	protected GRect rect; //placeholder for image
+	public GRect rect; //placeholder for image
 	
 	/* HOW THESE TIMERS WORK
 	 * 
@@ -141,11 +141,17 @@ public class ourEntity extends GraphicsProgram {
 	 */
 	class MoveTask extends TimerTask
 	{
-	    public void run() {canMove = true;}
+	    public void run() {
+	    	canMove = true;
+	    	moveTimer = new Timer();
+	    }
 	}
 	class ShootTask extends TimerTask
 	{
-		public void run() {canShoot = true;}
+		public void run() {
+			canShoot = true;
+			shootTimer = new Timer();
+		}
 	}
 	
 	/**Creates a copy of the ship that moves out ahead of the ship image to find the ship's 

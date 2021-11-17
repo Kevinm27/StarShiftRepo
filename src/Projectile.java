@@ -99,6 +99,7 @@ class Projectile extends GraphicsProgram {
 	@Override
 	public void run() {
 		Projectile bullet1 = new Projectile(new GPoint(100, 50), 315);
+		add(oval);
 		add(bullet1.getOval());
 	}
 	public void init() {

@@ -63,12 +63,13 @@ public class Level extends GraphicsProgram implements KeyListener{
 	
 	
 	public void run() {
+		addKeyListeners();
 		float temp = 315;
 		Projectile bullet1 = new Projectile(new GPoint(100, 50), temp);
 		Projectile t = new Projectile(new GPoint(200, 200), player.getRect());
 		
 		add(player.getRect());
-		addKeyListeners();
+		
 	}    
 	
 	
@@ -85,71 +86,69 @@ public class Level extends GraphicsProgram implements KeyListener{
 	}
 	
 	//Listeners
-
-	public void KeyPressed(KeyEvent e) {
-		char key = e.getKeyChar();
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		int key = e.getKeyCode();
 		int id = e.getID();
-		System.out.println(key);
-
-		
-		while (true) {
+		System.out.println(e.getKeyChar());
 			
-			//Ship Movers
-			//Moves the Player's Ship
-			//Will Check the Char of the key pressed to check if it corresponds to WASD Keys 
-			//If this fails, we may need to take in a string and check for key combinations
-			
-			if (key == 'w') {
+			if (key == KeyEvent.VK_W) {
 				//move player up
-				player.movePolar(90);
+				player.move(90);
+				System.out.println("W key pressed.");
 			}
 		
-			if (key == 'a') {
+			if (key == KeyEvent.VK_A) {
 				//move player left
-				player.movePolar(180);
+				player.move(180);
+				System.out.println("A key pressed.");
+
 			}
 		
-			if (key == 's') {
+			if (key == KeyEvent.VK_S) {
 				//move player down
-				player.movePolar(270);
+				player.move(270);
+				System.out.println("S key pressed.");
+
 			}
 		
-			if (key == 'd') {
+			if (key == KeyEvent.VK_D) {
 				//move player right
-				player.movePolar(0);
+				player.move(0);
+				System.out.println("D key pressed.");
+
 			}
 			
+			/*Bullet Movers
+			 *Moves the Player's Bullets
+			 *Will check the ID of the key pressed to check if it corresponds to Arrow Keys
+			 *Arrow Key ID: Left:37, Up:38, Right:39, Down:40
+			*/
 			
-			//Bullet Movers
-			//Moves the Player's Bullets
-			//Will check the ID of the key pressed to check if it corresponds to Arrow Keys
-			//Arrow Key ID: Left:37, Up:38, Right:39, Down:40
-			
-			if (id == 38) {
+			if (key == KeyEvent.VK_UP) {
 				//shoot up
-				player.shootPolar(90);
+				player.shoot(90);
 			}
 			
-			if (id == 37) {
+			if (key == KeyEvent.VK_LEFT) {
 				//shoot left
-				player.shootPolar(180);
+				player.shoot(180);
 			}
 			
-			if (id == 40) {
+			if (key == KeyEvent.VK_DOWN) {
 				//shoot down
-				player.shootPolar(270);
+				player.shoot(270);
 			}
 			
-			if (id == 39) {
+			if (key == KeyEvent.VK_RIGHT) {
 				//shoot right
-				player.shootPolar(0);
+				player.shoot(0);
 			}
-			
-		}
 	}
 	
-	void KeyReleased(KeyEvent e) {
-		
+	@Override
+	public void keyReleased(KeyEvent e) {
 		char key = e.getKeyChar();
 		int id = e.getID();
 		
@@ -157,74 +156,69 @@ public class Level extends GraphicsProgram implements KeyListener{
 		//Stops the Movement of the Player's Ship
 		//Will check the Char of the Key Released to check if it corresponds to WASD Keys 
 		//If this fails, we may need to take in a string and check for key combinations
-		/*
-		if (key == 'w') {
-			//stop move up
-			player.moveY(0);
+		if (key == KeyEvent.VK_W) {
+			//move player up
 		}
-		
-		if (key == 'a') {
-			//stop left down
-			player.moveX(0);
-		}
-		
-		if (key == 's') {
-			//stop move down
-			player.moveY(0);
-		}
-		
-		if (key == 'd') {
-			//stop move right
-			player.moveX(0);
-		}
-		
-		
-		//Shoot Stoppers
-		//Stops the Movement of the Player's Bullets
-		//Will check the ID of the Key Released to check if it corresponds to Arrow Keys
-		//Arrow Key IDs: Left:37, Up:38, Right:39, Down:40
-		
-		if (id == 38) {
-			//stop shoot up
-			player.shootY(0);
-		}
-		
-		if (id == 37) {
-			//stop shoot left
-			player.shootX(0);
-		}
-		
-		if (id == 40) {
-			//stop shoot down
-			player.shootY(0);
-		}
-		
-		if (id == 39) {
-			//stop shoot right
-			player.shootX(0);
-		}
-		
 	
-	*/
+		if (key == KeyEvent.VK_A) {
+			//move player left
+
+		}
+	
+		if (key == KeyEvent.VK_S) {
+			//move player down
+
+		}
+	
+		if (key == KeyEvent.VK_D) {
+			//move player right
+
+		}
+		
+		/*Bullet Movers
+		 *Moves the Player's Bullets
+		 *Will check the ID of the key pressed to check if it corresponds to Arrow Keys
+		 *Arrow Key ID: Left:37, Up:38, Right:39, Down:40
+		*/
+		
+		if (key == KeyEvent.VK_UP) {
+			//shoot up
+		}
+		
+		if (key == KeyEvent.VK_LEFT) {
+			//shoot left
+		}
+		
+		if (key == KeyEvent.VK_DOWN) {
+			//shoot down
+		}
+		
+		if (key == KeyEvent.VK_RIGHT) {
+			//shoot right
+		}
+		
 	}
 	
-	void KeyTyped(KeyEvent e) {
+	@Override
+	public void keyTyped(KeyEvent e) {
 		//Pauses the Game
-		//Will check if the player hit the Escape Key, pausing the game accordingly
+				//Will check if the player hit the Escape Key, pausing the game accordingly
+				
+				int id = e.getID();
+				if (id == 27) {
+					if(isPaused == false) {
+						pause();
+						isPaused = true;
+					}
+					else {
+						play();
+						isPaused = false;
+					}
+				}
 		
-		int id = e.getID();
-		if (id == 27) {
-			if(isPaused == false) {
-				pause();
-				isPaused = true;
-			}
-			else {
-				play();
-				isPaused = false;
-			}
-		}
 		
 	}
+	
 	
 	public void init() {
 		setSize(800, 600);
