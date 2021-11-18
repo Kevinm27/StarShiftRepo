@@ -15,6 +15,14 @@ public class Level extends GraphicsProgram implements KeyListener{
 	//rewrite the code to iterate through the list looking for instance of playerShip
 	private boolean isPaused = false;
 	
+	private boolean wKeyDown = false;
+	private boolean aKeyDown = false;
+	private boolean sKeyDown = false;
+	private boolean dKeyDown = false;
+	private boolean upKeyDown = false;
+	private boolean leftKeyDown = false;
+	private boolean downKeyDown = false;
+	private boolean rightKeyDown = false;
 	
 	//Level Constructor
 	public Level(ArrayList<Enemy> enemies, ArrayList<GPoint> enemyStartLocations, playerShip player, GPoint playerStartLocation) {
@@ -89,34 +97,51 @@ public class Level extends GraphicsProgram implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		int id = e.getID();
-		System.out.println(e.getKeyChar());
+		//System.out.print(e.getKeyChar());
 			
 			if (key == KeyEvent.VK_W) {
 				//move player up
-				player.move(90);
-				System.out.println("W key pressed.");
+				wKeyDown = true;
+				if(aKeyDown)
+					player.move(135);
+				else if(dKeyDown)
+					player.move(45);
+				else
+					player.move(90);
 			}
 		
 			if (key == KeyEvent.VK_A) {
 				//move player left
-				player.move(180);
-				System.out.println("A key pressed.");
-
+				aKeyDown = true;
+				if(wKeyDown)
+					player.move(135);
+				else if(sKeyDown)
+					player.move(225);
+				else
+					player.move(180);
 			}
 		
 			if (key == KeyEvent.VK_S) {
 				//move player down
-				player.move(270);
-				System.out.println("S key pressed.");
+				sKeyDown = true;
+				if(aKeyDown)
+					player.move(225);
+				else if(dKeyDown)
+					player.move(315);
+				else
+					player.move(270);
 
 			}
 		
 			if (key == KeyEvent.VK_D) {
 				//move player right
-				player.move(0);
-				System.out.println("D key pressed.");
-
+				dKeyDown = true;
+				if(wKeyDown)
+					player.move(45);
+				else if(sKeyDown)
+					player.move(315);
+				else
+					player.move(0);
 			}
 			
 			/*Bullet Movers
@@ -127,28 +152,57 @@ public class Level extends GraphicsProgram implements KeyListener{
 			
 			if (key == KeyEvent.VK_UP) {
 				//shoot up
-				player.shoot(90);
+				upKeyDown = true;
+				if(leftKeyDown)
+					player.shoot(135);
+				else if(rightKeyDown)
+					player.shoot(45);
+				else {
+					player.shoot(90);
+				}
 				newBullet = player.getNewBullet();
 				add(newBullet.getOval());
 			}
 			
 			if (key == KeyEvent.VK_LEFT) {
 				//shoot left
-				player.shoot(180);
+				leftKeyDown = true;
+				if(downKeyDown)
+					player.shoot(225);
+				else if(upKeyDown)
+					player.shoot(135);
+				else {
+					player.shoot(180);
+				}
 				newBullet = player.getNewBullet();
 				add(newBullet.getOval());
 			}
 			
 			if (key == KeyEvent.VK_DOWN) {
 				//shoot down
-				player.shoot(270);
+				downKeyDown = true;
+				if(leftKeyDown)
+					player.shoot(225);
+				else if(rightKeyDown)
+					player.shoot(315);
+				else {
+					player.shoot(270);
+				}
 				newBullet = player.getNewBullet();
 				add(newBullet.getOval());
 			}
 			
 			if (key == KeyEvent.VK_RIGHT) {
 				//shoot right
-				player.shoot(0);
+				rightKeyDown = true;
+				if(downKeyDown)
+					player.shoot(315);
+				else if(upKeyDown)
+					player.shoot(45);
+				else {
+					player.shoot(0);
+				}
+				
 				newBullet = player.getNewBullet();
 				add(newBullet.getOval());
 			}
@@ -156,29 +210,33 @@ public class Level extends GraphicsProgram implements KeyListener{
 	
 	@Override
 	public void keyReleased(KeyEvent e) {
-		char key = e.getKeyChar();
-		int id = e.getID();
+		int key = e.getKeyCode();
 		
+		System.out.print(e.getKeyChar());
 		//Move Stoppers
 		//Stops the Movement of the Player's Ship
 		//Will check the Char of the Key Released to check if it corresponds to WASD Keys 
 		//If this fails, we may need to take in a string and check for key combinations
 		if (key == KeyEvent.VK_W) {
 			//move player up
+			wKeyDown = false;
 		}
 	
 		if (key == KeyEvent.VK_A) {
 			//move player left
+			aKeyDown = false;
 
 		}
 	
 		if (key == KeyEvent.VK_S) {
 			//move player down
+			sKeyDown = false;
 
 		}
 	
 		if (key == KeyEvent.VK_D) {
 			//move player right
+			dKeyDown = false;
 
 		}
 		
@@ -190,18 +248,22 @@ public class Level extends GraphicsProgram implements KeyListener{
 		
 		if (key == KeyEvent.VK_UP) {
 			//shoot up
+			upKeyDown = false;
 		}
 		
 		if (key == KeyEvent.VK_LEFT) {
 			//shoot left
+			leftKeyDown = false;
 		}
 		
 		if (key == KeyEvent.VK_DOWN) {
 			//shoot down
+			downKeyDown = false;
 		}
 		
 		if (key == KeyEvent.VK_RIGHT) {
 			//shoot right
+			rightKeyDown = false;
 		}
 		
 	}

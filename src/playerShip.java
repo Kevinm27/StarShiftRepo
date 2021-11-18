@@ -13,7 +13,7 @@ public class playerShip extends ourEntity{
 	 * @param entityLocation the starting location of the playerShip
 	 */
 	playerShip(GPoint entityLocation) {
-		fireDelay = 100;
+		fireDelay = 500;
 		health = 300;
 		speed = 3;
 		friendly = true;

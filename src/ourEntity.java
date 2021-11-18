@@ -13,8 +13,6 @@ import java.util.TimerTask;
 import acm.graphics.GImage;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
-//import playerShip.MoveTask;
-//import playerShip.ShootTask;
 import acm.graphics.GPoint;
 
 public class ourEntity extends GraphicsProgram {
@@ -147,14 +145,12 @@ public class ourEntity extends GraphicsProgram {
 	{
 	    public void run() {
 	    	canMove = true;
-	    	moveTimer = new Timer();
 	    }
 	}
 	class ShootTask extends TimerTask
 	{
 		public void run() {
 			canShoot = true;
-			shootTimer = new Timer();
 		}
 	}
 	
