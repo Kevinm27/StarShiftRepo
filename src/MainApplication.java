@@ -9,7 +9,6 @@ public class MainApplication extends GraphicsProgram {
 	public static final String MUSIC_FOLDER = "sounds";
 
 	private GraphicsPane curScreen;
-	private SomePane somePane;
 	private MenuPane menu;
 	private PlayGameMenu playGameScn;
 	private ShipCustomPane shipCustom;
@@ -103,7 +102,6 @@ public class MainApplication extends GraphicsProgram {
 
 	public void run() {
 		System.out.println("Let's make something awesome!");
-		somePane = new SomePane(this);
 		menu = new MenuPane(this);
 		playGameScn = new PlayGameMenu(this);
 		options = new OptionsMenu(this);
@@ -114,10 +112,6 @@ public class MainApplication extends GraphicsProgram {
 
 	public void switchToMenu() {
 		switchToScreen(menu);
-	}
-
-	public void switchToSome() {
-		switchToScreen(somePane);
 	}
 	
 	public void switchToPlayGameMenu() {
