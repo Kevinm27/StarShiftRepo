@@ -1,20 +1,22 @@
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-
+import javax.swing.*;
 import acm.program.GraphicsProgram;
 import acm.graphics.GPoint;
 
 public class Level extends GraphicsProgram implements KeyListener{
-
+	private static final int DELAY_MS = 20;
+	
 	private ArrayList<Enemy> enemies = new ArrayList<> ();
 	private playerShip player;
 	private Projectile newBullet;
-
+	private Timer gameTimer = new Timer(DELAY_MS, this);
+	
 	//if we need playerShip as a component of the ArrayList
 	//rewrite the code to iterate through the list looking for instance of playerShip
 	private boolean isPaused = false;
-	
 	private boolean wKeyDown = false;
 	private boolean aKeyDown = false;
 	private boolean sKeyDown = false;
@@ -31,6 +33,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		for(int i = 0; i < enemies.size(); i++) {
 			enemies.get(i).setEntityLocation(enemyStartLocations.get(i));
 		}
+		gameTimer.start();
 	}
 	
 	/**level constructor (for Luke to play around with PlayerShip)
@@ -39,6 +42,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	Level(playerShip player){
 		this.player = player;
+		gameTimer.start();
 	}
 	
 	public playerShip getPlayer() {
@@ -94,6 +98,15 @@ public class Level extends GraphicsProgram implements KeyListener{
 	}
 	
 	//Listeners
+	
+	/** This is all of what the clock is going to execute once the timer is triggered
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
@@ -284,10 +297,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 						isPaused = false;
 					}
 				}
-		
-		
 	}
-	
 	
 	public void init() {
 		setSize(800, 600);

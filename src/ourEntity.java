@@ -143,7 +143,7 @@ public class ourEntity extends GraphicsProgram {
 	 */
 	class MoveTask extends TimerTask
 	{
-	    public void run() {
+	    public void run() { 
 	    	canMove = true;
 	    }
 	}
@@ -163,7 +163,6 @@ public class ourEntity extends GraphicsProgram {
 	 * @return the next location of the ship
 	 */
 	protected GPoint moveWithinBounds(float angle) {
-		
 		GRect nextPosition = rect;
 		nextPosition.movePolar(speed, angle);
 	
