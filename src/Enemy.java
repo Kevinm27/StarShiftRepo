@@ -22,16 +22,24 @@ public class Enemy extends ourEntity {
 		}
 		else if (type == EntityType.SHOOTER) {
 			speed = 2;
-			fireDelay = 1000;
-			shootTimer.schedule(shootTask, 2000, 600);
+			fireDelay = 50;
 		}
-		moveTimer.schedule(moveTask, 2000, DELAY_MS); //starts movement cooldown timer
 	}
 		
-	public float getAngle(GRect target) {
-	    return (float) Math.toDegrees(Math.atan2(
-	    		(target.getX() + (target.getWidth() / 2)) - (rect.getX() + (rect.getWidth() / 2)),
-	    		(target.getY() + (target.getHeight() / 2)) - (rect.getY() + (rect.getHeight() / 2))));
+	/**This is the function called by level every time the clock ticks. It's going to move the enemy
+	 * towards the player, increase curFireDelay by 1 tick, and will even fire a bullet if enough time
+	 * has passed.
+	 * 
+	 * @param player the playerShip that enemies are trying to move/shoot towards
+	 */
+	public void operateEnemy(playerShip player) {
+		curFireDelay++;
+		float towardsPlayer = Logic.getAngle(rect, player.getRect()); //calculates angle towards playerShip
+		move(towardsPlayer);
+		if(canShoot) {
+			shoot(towardsPlayer);
+			operateProjectiles();
+		}
 	}
 	
 	/**This is the move function that Enemy will be using. It mostly just runs through movePolar 
@@ -57,7 +65,6 @@ public class Enemy extends ourEntity {
 	 */
 	public boolean shoot(float angle) {
 		if(movePolar(angle)) {
-			shootTimer.schedule(shootTask, fireDelay); //starts movement cooldown timer
 			return true;
 			
 		}else {return false;}

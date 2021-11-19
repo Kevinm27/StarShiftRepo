@@ -24,9 +24,12 @@ public class ourEntity extends GraphicsProgram {
 	protected static final int BOARD_BOUNDS_TOP = 0;
 	protected static final int BOARD_BOUNDS_LEFT = 0;
 
+	
 	protected int fireDelay;
+	protected int curFireDelay = 0;
+	
 	protected boolean canMove = true;
-	protected boolean canShoot = true;
+	protected boolean canShoot = true; //prevents enemies that cannot fire from firing
 	
 	protected int health;
 	protected int speed;
@@ -37,27 +40,7 @@ public class ourEntity extends GraphicsProgram {
 	protected Projectile newBullet; //used for creating/firing projectiles
 
 	
-	/* HOW THESE TIMERS WORK
-	 * 
-	 * moveTimer is started by using a schedule function, like this: moveTimer.schedule(TimerTask, initialDelay)
-	 * The TimerTask is explained near the TimerTask classes
-	 * the initial delay is how long you want to wait until triggering the TimerTask.
-	 * 
-	 * If you want your timer to loop, you call it like this: shootTimer.schedule(TimerTask, initial delay, loop delay)
-	 * the first 2 parameters are the same
-	 * loop delay is how long you wish to wait before triggering the TimerTask again after the initial delay.
-	 * it will continue to loop afterwards.
-	 * 
-	 * example: if you declared it like this: moveTimer.schedule(moveTask, 200, 50), here's how the delays work
-	 * 1st move: 200 delay
-	 * 2nd move: 50 delay
-	 * 3rd move -> infinity: 50 delay
-	 * 
-	 */
-	protected Timer moveTimer = new Timer(); //this timer is a cooldown for movement
-	protected Timer shootTimer = new Timer(); //this timer is a cooldown for shooting
-	protected TimerTask moveTask = new MoveTask();
-	protected TimerTask shootTask = new ShootTask();
+	
 	
 	
 	
@@ -143,7 +126,7 @@ public class ourEntity extends GraphicsProgram {
 	 */
 	class MoveTask extends TimerTask
 	{
-	    public void run() {
+	    public void run() { 
 	    	canMove = true;
 	    }
 	}
@@ -151,6 +134,16 @@ public class ourEntity extends GraphicsProgram {
 	{
 		public void run() {
 			canShoot = true;
+		}
+	}
+	
+	/**This function iterates through all of the Projectiles inside of the bullets ArrayList and
+	 * moves them all once.
+	 */
+	public void operateProjectiles() {
+		for(int i = 0; i < bullets.size(); i++) {
+			if(bullets.get(i) != null)
+				bullets.get(i).operateProjectile();
 		}
 	}
 	
@@ -163,7 +156,6 @@ public class ourEntity extends GraphicsProgram {
 	 * @return the next location of the ship
 	 */
 	protected GPoint moveWithinBounds(float angle) {
-		
 		GRect nextPosition = rect;
 		nextPosition.movePolar(speed, angle);
 	
@@ -199,7 +191,6 @@ public class ourEntity extends GraphicsProgram {
 			//moves the ship to a position within the bounds of the screen
 			rect.setLocation(moveWithinBounds(angle));//runs isInBounds and corrects entityLocation to sit within bounds of board if needed
 				
-			canMove = false; //set canMove to false so it cannot be immediately called again
 			return true;
 		}
 	}
@@ -213,14 +204,14 @@ public class ourEntity extends GraphicsProgram {
 	 */
 	protected boolean shootPolar(float angle) {
 		//shoots a projectile based on the angle input to the function
-		if(canShoot == false) {
-			return false;
-		}
-		else {
+		if(canShoot) {
 			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
 			bullets.add(newBullet);
-			canShoot = false;
+			curFireDelay = 0;
 			return true;
+		}
+		else {
+			return false;
 		}
 	}
 

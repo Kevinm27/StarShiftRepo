@@ -1,36 +1,30 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-
+import javax.swing.*;
 import acm.program.GraphicsProgram;
 import acm.graphics.GPoint;
 
 public class Level extends GraphicsProgram implements KeyListener{
-
+	private static final int DELAY_MS = 20;
+	
 	private ArrayList<Enemy> enemies = new ArrayList<> ();
 	private playerShip player;
-	private Projectile newBullet;
-
+	private Timer gameTimer = new Timer(DELAY_MS, this);
+	
 	//if we need playerShip as a component of the ArrayList
 	//rewrite the code to iterate through the list looking for instance of playerShip
 	private boolean isPaused = false;
 	
-	private boolean wKeyDown = false;
-	private boolean aKeyDown = false;
-	private boolean sKeyDown = false;
-	private boolean dKeyDown = false;
-	private boolean upKeyDown = false;
-	private boolean leftKeyDown = false;
-	private boolean downKeyDown = false;
-	private boolean rightKeyDown = false;
-	
 	//Level Constructor
-	public Level(ArrayList<Enemy> enemies, ArrayList<GPoint> enemyStartLocations, playerShip player, GPoint playerStartLocation) {
-		player.setEntityLocation(playerStartLocation);
+	public Level(ArrayList<Enemy> enemies, playerShip player) {
+		this.player = player;
+		this.enemies = enemies;
 		
-		for(int i = 0; i < enemies.size(); i++) {
-			enemies.get(i).setEntityLocation(enemyStartLocations.get(i));
-		}
+		initLevel();
+		
 	}
 	
 	/**level constructor (for Luke to play around with PlayerShip)
@@ -39,6 +33,20 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	Level(playerShip player){
 		this.player = player;
+		gameTimer.start();
+	}
+	
+	/**Called inside the Level constructor. Adds playerShip and all enemies to the screen, activates
+	 * KeyListeners, then starts the game timer.
+	 */
+	private void initLevel() {
+		addKeyListeners(new TAdapter());
+		add(player.getRect());
+		for(int i = 0; i < enemies.size(); i++) {
+			add(enemies.get(i).getRect());
+		}
+		
+		gameTimer.start();
 	}
 	
 	public playerShip getPlayer() {
@@ -71,202 +79,59 @@ public class Level extends GraphicsProgram implements KeyListener{
 	
 	
 	public void run() {
-		addKeyListeners();
-		float temp = 315;
-		Projectile bullet1 = new Projectile(new GPoint(100, 50), temp);
 		Projectile t = new Projectile(new GPoint(200, 200), player.getRect());
-		
-		add(player.getRect());
+		initLevel();
 		
 	}    
 	
-	
-	
 	//Console Functions
 	
-	void pause() {
+	public void pause() {
 		
 	}
-	
 	
 	void play() {
 		
 	}
 	
 	//Listeners
+	
+	/** As long as the game isn't paused, This is all of what the clock is going to execute once the
+	 *  timer is triggered
+	 * 
+	 */
 	@Override
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-		//System.out.print(e.getKeyChar());
+	public void actionPerformed(ActionEvent e) {
+		//System.out.println("Timer ticked");
+			player.operatePlayer();
 			
-			if (key == KeyEvent.VK_W) {
-				//move player up
-				wKeyDown = true;
-				if(aKeyDown)
-					player.move(135);
-				else if(dKeyDown)
-					player.move(45);
-				else
-					player.move(90);
+			/*
+			for(int i = 0; i < enemies.size(); i++) {
+				if(enemies.get(i) != null) {
+					enemies.get(i).operateEnemy(player);
+				}
 			}
-		
-			if (key == KeyEvent.VK_A) {
-				//move player left
-				aKeyDown = true;
-				if(wKeyDown)
-					player.move(135);
-				else if(sKeyDown)
-					player.move(225);
-				else
-					player.move(180);
-			}
-		
-			if (key == KeyEvent.VK_S) {
-				//move player down
-				sKeyDown = true;
-				if(aKeyDown)
-					player.move(225);
-				else if(dKeyDown)
-					player.move(315);
-				else
-					player.move(270);
-
-			}
-		
-			if (key == KeyEvent.VK_D) {
-				//move player right
-				dKeyDown = true;
-				if(wKeyDown)
-					player.move(45);
-				else if(sKeyDown)
-					player.move(315);
-				else
-					player.move(0);
-			}
-			
-			/*Bullet Movers
-			 *Moves the Player's Bullets
-			 *Will check the ID of the key pressed to check if it corresponds to Arrow Keys
-			 *Arrow Key ID: Left:37, Up:38, Right:39, Down:40
 			*/
-			
-			if (key == KeyEvent.VK_UP) {
-				//shoot up
-				upKeyDown = true;
-				if(leftKeyDown)
-					player.shoot(135);
-				else if(rightKeyDown)
-					player.shoot(45);
-				else {
-					player.shoot(90);
-				}
-				newBullet = player.getNewBullet();
-				add(newBullet.getOval());
-			}
-			
-			if (key == KeyEvent.VK_LEFT) {
-				//shoot left
-				leftKeyDown = true;
-				if(downKeyDown)
-					player.shoot(225);
-				else if(upKeyDown)
-					player.shoot(135);
-				else {
-					player.shoot(180);
-				}
-				newBullet = player.getNewBullet();
-				add(newBullet.getOval());
-			}
-			
-			if (key == KeyEvent.VK_DOWN) {
-				//shoot down
-				downKeyDown = true;
-				if(leftKeyDown)
-					player.shoot(225);
-				else if(rightKeyDown)
-					player.shoot(315);
-				else {
-					player.shoot(270);
-				}
-				newBullet = player.getNewBullet();
-				add(newBullet.getOval());
-			}
-			
-			if (key == KeyEvent.VK_RIGHT) {
-				//shoot right
-				rightKeyDown = true;
-				if(downKeyDown)
-					player.shoot(315);
-				else if(upKeyDown)
-					player.shoot(45);
-				else {
-					player.shoot(0);
-				}
-				
-				newBullet = player.getNewBullet();
-				add(newBullet.getOval());
-			}
 	}
 	
-	@Override
-	public void keyReleased(KeyEvent e) {
-		int key = e.getKeyCode();
-		
-		System.out.print(e.getKeyChar());
-		//Move Stoppers
-		//Stops the Movement of the Player's Ship
-		//Will check the Char of the Key Released to check if it corresponds to WASD Keys 
-		//If this fails, we may need to take in a string and check for key combinations
-		if (key == KeyEvent.VK_W) {
-			//move player up
-			wKeyDown = false;
-		}
-	
-		if (key == KeyEvent.VK_A) {
-			//move player left
-			aKeyDown = false;
+	/**This class was taken from an outside source. It overrides the KeyListeners of your choosing.
+	 * In our case, we are overriding Level's KeyListener methods with the ones inside PlayerShip
+	 * 
+	 * @author lukeb
+	 *
+	 */
+	private class TAdapter extends KeyAdapter {
 
-		}
-	
-		if (key == KeyEvent.VK_S) {
-			//move player down
-			sKeyDown = false;
+        @Override
+        public void keyReleased(KeyEvent e) {
+            player.keyReleased(e);
+        }
 
-		}
-	
-		if (key == KeyEvent.VK_D) {
-			//move player right
-			dKeyDown = false;
-
-		}
-		
-		/*Bullet Movers
-		 *Moves the Player's Bullets
-		 *Will check the ID of the key pressed to check if it corresponds to Arrow Keys
-		 *Arrow Key ID: Left:37, Up:38, Right:39, Down:40
-		*/
-		
-		if (key == KeyEvent.VK_UP) {
-			//shoot up
-			upKeyDown = false;
-		}
-		
-		if (key == KeyEvent.VK_LEFT) {
-			//shoot left
-			leftKeyDown = false;
-		}
-		
-		if (key == KeyEvent.VK_DOWN) {
-			//shoot down
-			downKeyDown = false;
-		}
-		
-		if (key == KeyEvent.VK_RIGHT) {
-			//shoot right
-			rightKeyDown = false;
-		}
-		
-	}
+        @Override
+        public void keyPressed(KeyEvent e) {
+            player.keyPressed(e);
+        }
+    }
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -284,10 +149,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 						isPaused = false;
 					}
 				}
-		
-		
 	}
-	
 	
 	public void init() {
 		setSize(800, 600);

@@ -22,8 +22,6 @@ class Projectile extends GraphicsProgram {
 	  
 	  
 	  private float angle;
-	  private Timer moveTimer = new Timer();
-	  private TimerTask moveTask = new MoveTask();
 	  
 	  /*
 	   * this is the default constructor for player projectiles. they're going to derive the
@@ -37,7 +35,6 @@ class Projectile extends GraphicsProgram {
 		    oval.setFilled(true);
 		    oval.setColor(Color.BLUE);
 		    this.angle = angle;
-		    moveTimer.schedule(moveTask, 0, DELAY_MS);
 	  }
 	  
 	  
@@ -53,17 +50,11 @@ class Projectile extends GraphicsProgram {
 	    oval = new GOval(10, 10, projectileLocation.getX(), projectileLocation.getY());
 	    oval.setFilled(true);
 	    oval.setColor(Color.RED);
-	    angle = getAngle(target);
-	    moveTimer.schedule(moveTask, 0, DELAY_MS);
+	    angle = Logic.getAngle(oval, target);
 	  }
 	  
-	 
-	  
-	  
-	  class MoveTask extends TimerTask{
-		  public void run() {
-			  oval.movePolar(speed, angle);
-		  }
+	  public void operateProjectile() {
+		  oval.movePolar(speed, angle);
 	  }
 	  
 	  public int getDamage(){
