@@ -9,6 +9,7 @@ public class MainApplication extends GraphicsProgram {
 	public static final String MUSIC_FOLDER = "sounds";
 
 	private GraphicsPane curScreen;
+	private Music song;
 	private MenuPane menu;
 	private PlayGameMenu playGameScn;
 	private ShipCustomPane shipCustom;
@@ -101,7 +102,7 @@ public class MainApplication extends GraphicsProgram {
 	}
 
 	public void run() {
-		System.out.println("Let's make something awesome!");
+		//Music.playMusic("Road Runners");
 		menu = new MenuPane(this);
 		playGameScn = new PlayGameMenu(this);
 		options = new OptionsMenu(this);

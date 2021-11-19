@@ -5,15 +5,39 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.swing.JOptionPane;
 import java.io.File;
+import java.util.Scanner;
 
 public class Music {
 	private static Clip c;
-	//All of a sudden it doesn't wanna play
+	static long clipTimePosition = 0;
+	static boolean pause = false;
 	 public static void main(String[] args) {
-	        //This gets the path to the project, but not into /src for eclipse
-	        String path = new File("").getAbsolutePath() + "\\media\\Road Runners.wav";
-	        //Make a File object with a path to the audio file.
-	        File sound = new File(path);
+			Scanner myObj = new Scanner(System.in);
+	        String songName = "Road Runners.wav";
+	        Music song = new Music(songName);
+	        
+	        System.out.print("Enter 1 if you want to pause: ");
+	        int num = myObj.nextInt();
+	        if(num == 1) {
+	        	pauseMusic();
+	        }
+	        
+	        System.out.print("Enter 0 if you want to pause: ");
+	        num = myObj.nextInt();
+	        if(num == 0) {
+	        	playMusic();
+	        }
+	        
+	        while(true) {
+	        	System.out.println("Hopefully its playing");
+	        }
+	        
+	      
+	    }
+	 
+	 public Music(String song) {
+		 String path = new File("").getAbsolutePath() + "\\media\\" + song;
+		 File sound = new File(path);
 
 	        try {
 	            AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
@@ -23,15 +47,30 @@ public class Music {
 	            gainControl.setValue(-10.0f); // Reduce volume by 10 decibels.
 	            c.start(); //Start playing audio
 	            c.loop(Clip.LOOP_CONTINUOUSLY);
+	            
 
-
-	            JOptionPane.showMessageDialog(null, "Press OK to stop playing");
+	           // JOptionPane.showMessageDialog(null, "Press OK to stop playing");	//Basically just shows a text box
 	        } catch (Exception e) {
 	            System.out.println(e.getMessage());
-	        }
+	        } 
+	 }
+	 
+	 public static void pauseMusic() {
 
-	        
-	        
-	    }
+		 if(pause == false) {
+			 pause = true;
+			 clipTimePosition = c.getMicrosecondPosition();
+			 c.stop();
+		 }
+		 
+	 }
+	 public static void playMusic() {
+
+		 if(pause == true) {
+			 pause = false;
+			 c.setMicrosecondPosition(clipTimePosition);
+			 c.start();
+		 }
+	 }
 
 }
