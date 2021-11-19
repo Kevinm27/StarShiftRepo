@@ -1,11 +1,14 @@
 import java.util.ArrayList;
 
 import acm.graphics.GObject;
+import acm.graphics.GPoint;
 import acm.graphics.GRect;
 
 public class Logic {
 	//	private boolean friendly; should be in ourEntity 
 	private boolean collision;
+	private double angleRotation = 90;
+	
 	
 	public Logic(boolean friendly, boolean collision) {
 	//	this.friendly = friendly;
@@ -27,6 +30,17 @@ public class Logic {
 		return this.friendly;
 	}
 	*/
+	
+	public void rotateShip(GObject ship,double angle) {
+		GPoint shipStart;
+		if(angleRotation != angle) {
+			shipStart = ship.getLocation();
+			ship.rotate(Math.abs(angleRotation - angle));
+			angleRotation = angle;
+			ship.setLocation(shipStart);
+		}
+	}
+	
 	
 	/**This function calculates the angle between 2 objects. It is a static function, so it does not 
 	 * require a logic object to be called. Simply call it by typing "Logic.getAngle(start, target)"

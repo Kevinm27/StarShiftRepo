@@ -22,6 +22,8 @@ public class playerShip extends ourEntity implements KeyListener{
 	private boolean downKeyDown = false;
 	private boolean rightKeyDown = false;
 	
+	private double angleRotation = 90;
+	
 	/**Our default constructor for playerShip
 	 * 
 	 * @param entityLocation the starting location of the playerShip
@@ -43,11 +45,19 @@ public class playerShip extends ourEntity implements KeyListener{
 	 * @return true if the ship moved, otherwise false
 	 */
 	public boolean move(float angle) {
+		GPoint shipStart = rect.getLocation();
 		if(movePolar(angle)) {
-			
+			if(angleRotation != angle) {
+				rect.rotate(Math.abs(angleRotation - angle));
+				angleRotation = angle;
+				rect.setLocation(shipStart);
+			}
 			return true;
-
-		}else {return false;}
+		}
+		
+		else {
+			return false;
+		}
 	}
 	
 	/**this is the shoot function that playerShip will be using. It essentially runs ourEntity's movePolar
