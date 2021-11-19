@@ -13,7 +13,7 @@ public class Music {
 	static boolean pause = false;
 	 public static void main(String[] args) {
 			Scanner myObj = new Scanner(System.in);
-	        String songName = "Road Runners.wav";
+	        String songName = "02 FIRE.wav";
 	        Music song = new Music(songName);
 	        
 	        System.out.print("Enter 1 if you want to pause: ");
@@ -71,6 +71,9 @@ public class Music {
 			 c.setMicrosecondPosition(clipTimePosition);
 			 c.start();
 		 }
+	 }
+	 public void loop() {
+		 c.loop(Clip.LOOP_CONTINUOUSLY);
 	 }
 
 }

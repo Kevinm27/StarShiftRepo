@@ -117,13 +117,13 @@ private MainApplication program;
 		if(obj == onButton0 && !on0) {
 			on0 = true;
 			underline0.move(-1 * SHIFT - 18, 0);
-			//play music
+			Music.playMusic();//play music
 			
 		}
 		else if(obj == offButton0 && on0) {
 			on0 = false;
 			underline0.move(SHIFT + 18, 0);
-			//mute/pause music
+			Music.pauseMusic();//mute/pause music
 		}
 		else if(obj == onButton1 && !on1) {
 			on1 = true;

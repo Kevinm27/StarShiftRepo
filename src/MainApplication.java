@@ -102,7 +102,8 @@ public class MainApplication extends GraphicsProgram {
 	}
 
 	public void run() {
-		//Music.playMusic("Road Runners");
+		Music music = new Music("song1.wav");
+		music.loop();
 		menu = new MenuPane(this);
 		playGameScn = new PlayGameMenu(this);
 		options = new OptionsMenu(this);
