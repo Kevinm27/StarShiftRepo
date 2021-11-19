@@ -19,8 +19,7 @@ class Projectile extends GraphicsProgram {
 	  
 	private GOval oval; //placeholder for projectile image
 	public static ArrayList<GOval> allProjOvals = new ArrayList<GOval>();
-	  
-	  
+	
 	public static float angle;
 	  
 	  /*
@@ -53,6 +52,7 @@ class Projectile extends GraphicsProgram {
 	    //angle = Logic.getAngle(oval, target);
 	  }
 	  
+
 	  private void addProj(GPoint p, float a) {
 		  Projectile proj = new Projectile(p, a);
 	  }
@@ -69,6 +69,10 @@ class Projectile extends GraphicsProgram {
 			 projOval.movePolar(PROJECTILE_SPEED, angle);
 		 }
 	 }
+
+	  public void operateProjectile() {
+		  oval.movePolar(speed, angle);
+	  }
 	  
 	  public int getDamage(){
 	    return this.damage;

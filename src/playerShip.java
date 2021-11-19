@@ -11,6 +11,8 @@ import acm.graphics.GRect;
 
 public class playerShip extends ourEntity implements KeyListener{
 	
+	
+	//These booleans tell us whether or not one of the keys on the keyboard is currently held down
 	private boolean wKeyDown = false;
 	private boolean aKeyDown = false;
 	private boolean sKeyDown = false;
@@ -32,9 +34,6 @@ public class playerShip extends ourEntity implements KeyListener{
 		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
 		rect.setFilled(true);
 		type = EntityType.PLAYER;
-		
-		moveTimer.schedule(moveTask, 0, DELAY_MS); //starts movement cooldown timer
-		shootTimer.schedule(shootTask, 0, fireDelay);
 	}
 
 	/**This is the move function that playerShip will be using. It mostly just runs through movePolar 
@@ -82,7 +81,7 @@ public class playerShip extends ourEntity implements KeyListener{
 			move(45);
 		else if(wKeyDown && aKeyDown) //move player up-left
 			move(135);
-		else if(aKeyDown && dKeyDown) //move player down-left
+		else if(aKeyDown && sKeyDown) //move player down-left
 			move(225);
 		else if(sKeyDown && dKeyDown) //move player down-right
 			move(315);
@@ -111,6 +110,8 @@ public class playerShip extends ourEntity implements KeyListener{
 			shoot(180);
 		else if(downKeyDown) //shoot down
 			shoot(270);
+		
+		operateProjectiles();
 	}
 	
 	@Override
@@ -148,59 +149,24 @@ public class playerShip extends ourEntity implements KeyListener{
 			if (key == KeyEvent.VK_UP) {
 				//shoot up
 				upKeyDown = true;
-				if(leftKeyDown)
-					shoot(135);
-				else if(rightKeyDown)
-					shoot(45);
-				else {
-					shoot(90);
-				}
-				newBullet = getNewBullet();
-				add(newBullet.getOval());
 			}
 			
 			if (key == KeyEvent.VK_LEFT) {
 				//shoot left
 				leftKeyDown = true;
-				if(downKeyDown)
-					shoot(225);
-				else if(upKeyDown)
-					shoot(135);
-				else {
-					shoot(180);
-				}
-				newBullet = getNewBullet();
-				add(newBullet.getOval());
 			}
 			
 			if (key == KeyEvent.VK_DOWN) {
 				//shoot down
 				downKeyDown = true;
-				if(leftKeyDown)
-					shoot(225);
-				else if(rightKeyDown)
-					shoot(315);
-				else {
-					shoot(270);
-				}
-				newBullet = getNewBullet();
-				add(newBullet.getOval());
 			}
 			
 			if (key == KeyEvent.VK_RIGHT) {
 				//shoot right
 				rightKeyDown = true;
-				if(downKeyDown)
-					shoot(315);
-				else if(upKeyDown)
-					shoot(45);
-				else {
-					shoot(0);
-				}
-				
-				newBullet = getNewBullet();
-				add(newBullet.getOval());
 			}
+		//remove the comment on the next line if you want to move the player around
+		//operatePlayer(); 
 	}
 	
 	@Override
@@ -260,5 +226,18 @@ public class playerShip extends ourEntity implements KeyListener{
 			rightKeyDown = false;
 		}
 		
+	}
+	
+	@Override
+	public void run() {
+		addKeyListeners();
+		add(rect);
+	}
+	public void init() {
+		setSize(BOARD_BOUNDS_RIGHT, BOARD_BOUNDS_BOTTOM);
+	}
+	
+	public static void main(String args[]) {
+		new playerShip(new GPoint(200, 200)).start();
 	}
 }
