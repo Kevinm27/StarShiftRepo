@@ -24,10 +24,12 @@ public class ourEntity extends GraphicsProgram {
 	protected static final int BOARD_BOUNDS_TOP = 0;
 	protected static final int BOARD_BOUNDS_LEFT = 0;
 
+	
 	protected int fireDelay;
 	protected int curFireDelay = 0;
+	
 	protected boolean canMove = true;
-	protected boolean canShoot = true;
+	protected boolean canShoot = true; //prevents enemies that cannot fire from firing
 	
 	protected int health;
 	protected int speed;
@@ -212,7 +214,7 @@ public class ourEntity extends GraphicsProgram {
 	 */
 	protected boolean shootPolar(float angle) {
 		//shoots a projectile based on the angle input to the function
-		if(curFireDelay >= fireDelay) {
+		if(curFireDelay >= fireDelay && canShoot) {
 			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
 			bullets.add(newBullet);
 			curFireDelay = 0;

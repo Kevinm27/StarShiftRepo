@@ -28,6 +28,13 @@ public class Logic {
 	}
 	*/
 	
+	/**This function calculates the angle between 2 objects. It is a static function, so it does not 
+	 * require a logic object to be called. Simply call it by typing "Logic.getAngle(start, target)"
+	 * 
+	 * @param start the object your starting at
+	 * @param target whatever direction you want your angle to focus in
+	 * @return angle of trajectory
+	 */
 	public static float getAngle(GObject start, GObject target) {
 		return (float) Math.toDegrees(Math.atan2(
 	    		(target.getX() + (target.getWidth() / 2)) - (start.getX() + (start.getWidth() / 2)),
