@@ -11,6 +11,8 @@ import acm.graphics.GRect;
 
 public class playerShip extends ourEntity implements KeyListener{
 	
+	
+	//These booleans tell us whether or not one of the keys on the keyboard is currently held down
 	private boolean wKeyDown = false;
 	private boolean aKeyDown = false;
 	private boolean sKeyDown = false;
@@ -32,9 +34,6 @@ public class playerShip extends ourEntity implements KeyListener{
 		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
 		rect.setFilled(true);
 		type = EntityType.PLAYER;
-		
-		moveTimer.schedule(moveTask, 0, DELAY_MS); //starts movement cooldown timer
-		shootTimer.schedule(shootTask, 0, fireDelay);
 	}
 
 	/**This is the move function that playerShip will be using. It mostly just runs through movePolar 
@@ -111,6 +110,8 @@ public class playerShip extends ourEntity implements KeyListener{
 			shoot(180);
 		else if(downKeyDown) //shoot down
 			shoot(270);
+		
+		operateProjectiles();
 	}
 	
 	@Override
@@ -164,7 +165,8 @@ public class playerShip extends ourEntity implements KeyListener{
 				//shoot right
 				rightKeyDown = true;
 			}
-		operatePlayer(); //remove this line once the gameTimer works
+		//remove the comment on the next line if you want to move the player around
+		//operatePlayer(); 
 	}
 	
 	@Override

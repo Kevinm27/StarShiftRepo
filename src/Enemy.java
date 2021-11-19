@@ -36,7 +36,10 @@ public class Enemy extends ourEntity {
 		curFireDelay++;
 		float towardsPlayer = Logic.getAngle(rect, player.getRect()); //calculates angle towards playerShip
 		move(towardsPlayer);
-		shoot(towardsPlayer);
+		if(canShoot) {
+			shoot(towardsPlayer);
+			operateProjectiles();
+		}
 	}
 	
 	/**This is the move function that Enemy will be using. It mostly just runs through movePolar 

@@ -12,7 +12,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 	
 	private ArrayList<Enemy> enemies = new ArrayList<> ();
 	private playerShip player;
-	private Projectile newBullet;
 	private Timer gameTimer = new Timer(DELAY_MS, this);
 	
 	//if we need playerShip as a component of the ArrayList
@@ -80,11 +79,8 @@ public class Level extends GraphicsProgram implements KeyListener{
 	
 	
 	public void run() {
-		float temp = 315;
-		Projectile bullet1 = new Projectile(new GPoint(100, 50), temp);
 		Projectile t = new Projectile(new GPoint(200, 200), player.getRect());
-		
-		add(player.getRect());
+		initLevel();
 		
 	}    
 	

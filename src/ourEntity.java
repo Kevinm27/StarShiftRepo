@@ -40,27 +40,7 @@ public class ourEntity extends GraphicsProgram {
 	protected Projectile newBullet; //used for creating/firing projectiles
 
 	
-	/* HOW THESE TIMERS WORK
-	 * 
-	 * moveTimer is started by using a schedule function, like this: moveTimer.schedule(TimerTask, initialDelay)
-	 * The TimerTask is explained near the TimerTask classes
-	 * the initial delay is how long you want to wait until triggering the TimerTask.
-	 * 
-	 * If you want your timer to loop, you call it like this: shootTimer.schedule(TimerTask, initial delay, loop delay)
-	 * the first 2 parameters are the same
-	 * loop delay is how long you wish to wait before triggering the TimerTask again after the initial delay.
-	 * it will continue to loop afterwards.
-	 * 
-	 * example: if you declared it like this: moveTimer.schedule(moveTask, 200, 50), here's how the delays work
-	 * 1st move: 200 delay
-	 * 2nd move: 50 delay
-	 * 3rd move -> infinity: 50 delay
-	 * 
-	 */
-	protected Timer moveTimer = new Timer(); //this timer is a cooldown for movement
-	protected Timer shootTimer = new Timer(); //this timer is a cooldown for shooting
-	protected TimerTask moveTask = new MoveTask();
-	protected TimerTask shootTask = new ShootTask();
+	
 	
 	
 	
@@ -157,6 +137,16 @@ public class ourEntity extends GraphicsProgram {
 		}
 	}
 	
+	/**This function iterates through all of the Projectiles inside of the bullets ArrayList and
+	 * moves them all once.
+	 */
+	public void operateProjectiles() {
+		for(int i = 0; i < bullets.size(); i++) {
+			if(bullets.get(i) != null)
+				bullets.get(i).operateProjectile();
+		}
+	}
+	
 	/**Creates a copy of the ship that moves out ahead of the ship image to find the ship's 
 	 * new position after movePolar. Using this new position, the method checks if the new position
 	 * for the ship would be within the bounds of the level. If it is outside, the ship's position is
@@ -217,7 +207,6 @@ public class ourEntity extends GraphicsProgram {
 		if(canShoot) {
 			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
 			bullets.add(newBullet);
-			add(newBullet.getOval());
 			curFireDelay = 0;
 			return true;
 		}
