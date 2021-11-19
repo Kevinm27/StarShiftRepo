@@ -3,7 +3,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 import java.io.File;
 import java.util.Scanner;
 
@@ -34,7 +34,7 @@ public class Music {
 	        
 	      
 	    }
-	 
+	 //@Author someone on stackoverflow for the code inside the try catch
 	 public Music(String song) {
 		 String path = new File("").getAbsolutePath() + "\\media\\" + song;
 		 File sound = new File(path);
@@ -54,7 +54,6 @@ public class Music {
 	            System.out.println(e.getMessage());
 	        } 
 	 }
-	 
 	 public static void pauseMusic() {
 
 		 if(pause == false) {
