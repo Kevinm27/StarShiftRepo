@@ -214,9 +214,10 @@ public class ourEntity extends GraphicsProgram {
 	 */
 	protected boolean shootPolar(float angle) {
 		//shoots a projectile based on the angle input to the function
-		if(curFireDelay >= fireDelay && canShoot) {
+		if(canShoot) {
 			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
 			bullets.add(newBullet);
+			add(newBullet.getOval());
 			curFireDelay = 0;
 			return true;
 		}

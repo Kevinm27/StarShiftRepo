@@ -82,7 +82,7 @@ public class playerShip extends ourEntity implements KeyListener{
 			move(45);
 		else if(wKeyDown && aKeyDown) //move player up-left
 			move(135);
-		else if(aKeyDown && dKeyDown) //move player down-left
+		else if(aKeyDown && sKeyDown) //move player down-left
 			move(225);
 		else if(sKeyDown && dKeyDown) //move player down-right
 			move(315);
@@ -148,59 +148,23 @@ public class playerShip extends ourEntity implements KeyListener{
 			if (key == KeyEvent.VK_UP) {
 				//shoot up
 				upKeyDown = true;
-				if(leftKeyDown)
-					shoot(135);
-				else if(rightKeyDown)
-					shoot(45);
-				else {
-					shoot(90);
-				}
-				newBullet = getNewBullet();
-				add(newBullet.getOval());
 			}
 			
 			if (key == KeyEvent.VK_LEFT) {
 				//shoot left
 				leftKeyDown = true;
-				if(downKeyDown)
-					shoot(225);
-				else if(upKeyDown)
-					shoot(135);
-				else {
-					shoot(180);
-				}
-				newBullet = getNewBullet();
-				add(newBullet.getOval());
 			}
 			
 			if (key == KeyEvent.VK_DOWN) {
 				//shoot down
 				downKeyDown = true;
-				if(leftKeyDown)
-					shoot(225);
-				else if(rightKeyDown)
-					shoot(315);
-				else {
-					shoot(270);
-				}
-				newBullet = getNewBullet();
-				add(newBullet.getOval());
 			}
 			
 			if (key == KeyEvent.VK_RIGHT) {
 				//shoot right
 				rightKeyDown = true;
-				if(downKeyDown)
-					shoot(315);
-				else if(upKeyDown)
-					shoot(45);
-				else {
-					shoot(0);
-				}
-				
-				newBullet = getNewBullet();
-				add(newBullet.getOval());
 			}
+		operatePlayer(); //remove this line once the gameTimer works
 	}
 	
 	@Override
@@ -260,5 +224,18 @@ public class playerShip extends ourEntity implements KeyListener{
 			rightKeyDown = false;
 		}
 		
+	}
+	
+	@Override
+	public void run() {
+		addKeyListeners();
+		add(rect);
+	}
+	public void init() {
+		setSize(BOARD_BOUNDS_RIGHT, BOARD_BOUNDS_BOTTOM);
+	}
+	
+	public static void main(String args[]) {
+		new playerShip(new GPoint(200, 200)).start();
 	}
 }
