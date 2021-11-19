@@ -20,7 +20,7 @@ class Projectile extends GraphicsProgram {
 	private GOval oval; //placeholder for projectile image
 	public static ArrayList<GOval> allProjOvals = new ArrayList<GOval>();
 	
-	public static float angle;
+	private float angle;
 	  
 	  /*
 	   * this is the default constructor for player projectiles. they're going to derive the
@@ -32,7 +32,7 @@ class Projectile extends GraphicsProgram {
 		    speed = PROJECTILE_SPEED;
 		    GOval projOval = makeProjOval(projectileLocation.getX(), projectileLocation.getY());
 		    allProjOvals.add(projOval);
-		    
+		    oval = new GOval(projectileLocation.getX(), projectileLocation.getY(), PROJECTILE_SIZE, PROJECTILE_SIZE);
 		    this.angle = angle;
 	  }
 	  
@@ -46,6 +46,7 @@ class Projectile extends GraphicsProgram {
 	    damage = PROJECTILE_DAMAGE;
 	    friendly = false;
 	    speed = PROJECTILE_SPEED;
+	    oval = new GOval(projectileLocation.getX(), projectileLocation.getY(), PROJECTILE_SIZE, PROJECTILE_SIZE);
 	    GOval projOval = makeProjOval(projectileLocation.getX(), projectileLocation.getY());
 	    allProjOvals.add(projOval);
 	    
@@ -90,8 +91,8 @@ class Projectile extends GraphicsProgram {
 	  public GOval getOval() {
 		  return oval;
 	  }
-	  public void setOval(GOval oval) {
-		  this.oval = oval;
+	  public void setAngle(float angle) {
+		  this.angle = angle;
 	  }
 
 	  

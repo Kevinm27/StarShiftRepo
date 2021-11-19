@@ -12,6 +12,8 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private static final int DELAY_MS = 20;
 	
 	private ArrayList<Enemy> enemies = new ArrayList<> ();
+	private ArrayList<Projectile> allBullets = new ArrayList<>();
+
 	private playerShip player;
 	private Projectile newBullet;
 	private Timer uniTimer = new Timer(DELAY_MS, this);;
@@ -99,11 +101,23 @@ public class Level extends GraphicsProgram implements KeyListener{
 		
 	}
 	
-	public void moveAllProjOval() {
-		 for(GOval projOval:Projectile.allProjOvals) {
-			 projOval.movePolar(Projectile.PROJECTILE_SPEED, Projectile.angle);
+	public void moveAllProjectiles() {
+		 for(int i = 0; i < allBullets.size(); i++) {
+			 if(allBullets.get(i) != null)
+				 allBullets.get(i).operateProjectile();
 		 }
 	 }
+	
+	public void controlPlayer() {
+		player.operatePlayer();
+		float fireAngle = player.getFiringAngle();
+		if(fireAngle != -1 && player.canShoot()) {
+			newBullet = player.shootProjectile(newBullet, fireAngle);
+			add(newBullet.getOval());
+			allBullets.add(newBullet);
+		}
+		
+	}
 	
 	//Listeners
 	
@@ -113,16 +127,12 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(Projectile.allProjOvals != null) {
-			for(GOval projOval:Projectile.allProjOvals) {
-				add(projOval);
-			}
-		}
 		
-		moveAllProjOval();
+		
+		moveAllProjectiles();
 		
 		//System.out.println("Timer ticked");
-			player.operatePlayer();
+			controlPlayer();
 			
 			/*
 			for(int i = 0; i < enemies.size(); i++) {

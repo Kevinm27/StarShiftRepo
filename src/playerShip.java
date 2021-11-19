@@ -81,7 +81,7 @@ public class playerShip extends ourEntity implements KeyListener{
 	 * 
 	 */
 	public void operatePlayer() {
-		curFireDelay++;
+		curFireTime++;
 		
 		/*this series of if statements checks if the player is holding a key to move. If he is, 
 		 * the player moves. The diagonal movement statements MUST come first or else the series of
@@ -104,24 +104,30 @@ public class playerShip extends ourEntity implements KeyListener{
 		else if(sKeyDown) //move player down
 			move(270);
 		
-		if(rightKeyDown && upKeyDown) //shoot up-right
-			shoot(45);
-		else if(upKeyDown && leftKeyDown) //shoot up-left
-			shoot(135);
-		else if(leftKeyDown && downKeyDown) //shoot down-left
-			shoot(225);
-		else if(downKeyDown && rightKeyDown) //shoot down-right
-			shoot(315);
-		else if(rightKeyDown) //shoot right
-			shoot(0);
-		else if(upKeyDown) //shoot up
-			shoot(90);
-		else if(leftKeyDown) //shoot left
-			shoot(180);
-		else if(downKeyDown) //shoot down
-			shoot(270);
+		
 		
 		operateProjectiles();
+	}
+	
+	public float getFiringAngle() {
+		if(rightKeyDown && upKeyDown) //shoot up-right
+			return 45;
+		else if(upKeyDown && leftKeyDown) //shoot up-left
+			return 135;
+		else if(leftKeyDown && downKeyDown) //shoot down-left
+			return 225;
+		else if(downKeyDown && rightKeyDown) //shoot down-right
+			return 315;
+		else if(rightKeyDown) //shoot right
+			return 0;
+		else if(upKeyDown) //shoot up
+			return 90;
+		else if(leftKeyDown) //shoot left
+			return 180;
+		else if(downKeyDown) //shoot down
+			return 270;
+		else
+			return -1;
 	}
 	
 	@Override

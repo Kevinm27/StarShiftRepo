@@ -33,7 +33,7 @@ public class Enemy extends ourEntity {
 	 * @param player the playerShip that enemies are trying to move/shoot towards
 	 */
 	public void operateEnemy(playerShip player) {
-		curFireDelay++;
+		curFireTime++;
 		float towardsPlayer = Logic.getAngle(rect, player.getRect()); //calculates angle towards playerShip
 		move(towardsPlayer);
 		if(canShoot) {

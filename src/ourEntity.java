@@ -26,7 +26,7 @@ public class ourEntity extends GraphicsProgram {
 
 	
 	protected int fireDelay;
-	protected int curFireDelay = 0;
+	protected int curFireTime = 0;
 	
 	protected boolean canMove = true;
 	protected boolean canShoot = true; //prevents enemies that cannot fire from firing
@@ -111,6 +111,9 @@ public class ourEntity extends GraphicsProgram {
 	}
 	ArrayList<Projectile> getBulletArrayList() {//Added getter for the array list
 		return bullets;
+	}
+	public boolean canShoot() {
+		return curFireTime >= fireDelay;
 	}
 	
 	//***** Fundamental Functions *****//
@@ -206,15 +209,21 @@ public class ourEntity extends GraphicsProgram {
 		//shoots a projectile based on the angle input to the function
 		if(canShoot) {
 			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
-			bullets.add(newBullet);
-			curFireDelay = 0;
+			//bullets.add(newBullet);
+			curFireTime = 0;
 			return true;
 		}
 		else {
 			return false;
 		}
 	}
-
+	
+	public Projectile shootProjectile(Projectile bullet, float angle) {
+		bullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
+		curFireTime = 0;
+		return bullet;
+	}
+	
 	public void init() {
 		setSize(700, 700);
 	}
