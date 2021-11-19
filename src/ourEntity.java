@@ -25,6 +25,7 @@ public class ourEntity extends GraphicsProgram {
 	protected static final int BOARD_BOUNDS_LEFT = 0;
 
 	protected int fireDelay;
+	protected int curFireDelay = 0;
 	protected boolean canMove = true;
 	protected boolean canShoot = true;
 	
@@ -198,7 +199,6 @@ public class ourEntity extends GraphicsProgram {
 			//moves the ship to a position within the bounds of the screen
 			rect.setLocation(moveWithinBounds(angle));//runs isInBounds and corrects entityLocation to sit within bounds of board if needed
 				
-			canMove = false; //set canMove to false so it cannot be immediately called again
 			return true;
 		}
 	}
@@ -212,14 +212,14 @@ public class ourEntity extends GraphicsProgram {
 	 */
 	protected boolean shootPolar(float angle) {
 		//shoots a projectile based on the angle input to the function
-		if(canShoot == false) {
-			return false;
-		}
-		else {
+		if(curFireDelay >= fireDelay) {
 			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
 			bullets.add(newBullet);
-			canShoot = false;
+			curFireDelay = 0;
 			return true;
+		}
+		else {
+			return false;
 		}
 	}
 

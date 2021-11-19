@@ -27,12 +27,13 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private boolean rightKeyDown = false;
 	
 	//Level Constructor
-	public Level(ArrayList<Enemy> enemies, ArrayList<GPoint> enemyStartLocations, playerShip player, GPoint playerStartLocation) {
+	public Level(ArrayList<Enemy> enemies, playerShip player, GPoint playerStartLocation) {
 		player.setEntityLocation(playerStartLocation);
 		
 		for(int i = 0; i < enemies.size(); i++) {
-			enemies.get(i).setEntityLocation(enemyStartLocations.get(i));
+			add(enemies.get(i).getRect());
 		}
+		add(player.getRect());
 		gameTimer.start();
 	}
 	
@@ -84,11 +85,9 @@ public class Level extends GraphicsProgram implements KeyListener{
 		
 	}    
 	
-	
-	
 	//Console Functions
 	
-	void pause() {
+	public void pause() {
 		
 	}
 	
@@ -96,6 +95,9 @@ public class Level extends GraphicsProgram implements KeyListener{
 	void play() {
 		
 	}
+	
+	
+	
 	
 	//Listeners
 	

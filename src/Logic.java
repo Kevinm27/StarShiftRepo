@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+import acm.graphics.GObject;
+import acm.graphics.GRect;
+
 public class Logic {
 	//	private boolean friendly; should be in ourEntity 
 	private boolean collision;
@@ -25,7 +28,11 @@ public class Logic {
 	}
 	*/
 	
-	
+	public static float getAngle(GObject start, GObject target) {
+		return (float) Math.toDegrees(Math.atan2(
+	    		(target.getX() + (target.getWidth() / 2)) - (start.getX() + (start.getWidth() / 2)),
+	    		(target.getY() + (target.getHeight() / 2)) - (start.getY() + (start.getHeight() / 2))));
+	}
 	
 	public boolean collides(ourEntity playerShip, ArrayList<ourEntity> enemies, ArrayList<Projectile> bullets) {
 		//Check Ship with all bullets and enemy ships

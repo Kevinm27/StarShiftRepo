@@ -53,7 +53,7 @@ class Projectile extends GraphicsProgram {
 	    oval = new GOval(10, 10, projectileLocation.getX(), projectileLocation.getY());
 	    oval.setFilled(true);
 	    oval.setColor(Color.RED);
-	    angle = getAngle(target);
+	    angle = Logic.getAngle(oval, target);
 	    moveTimer.schedule(moveTask, 0, DELAY_MS);
 	  }
 	  
