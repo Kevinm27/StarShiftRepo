@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.*;
 import acm.program.GraphicsProgram;
+import acm.graphics.GOval;
 import acm.graphics.GPoint;
 
 public class Level extends GraphicsProgram implements KeyListener{
@@ -12,7 +13,12 @@ public class Level extends GraphicsProgram implements KeyListener{
 	
 	private ArrayList<Enemy> enemies = new ArrayList<> ();
 	private playerShip player;
-	private Timer gameTimer = new Timer(DELAY_MS, this);
+	private Projectile newBullet;
+	private Timer uniTimer = new Timer(DELAY_MS, this);;
+	
+	//Using variable to store when timer is called
+	private int shootDelay;
+
 	
 	//if we need playerShip as a component of the ArrayList
 	//rewrite the code to iterate through the list looking for instance of playerShip
@@ -24,7 +30,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 		this.enemies = enemies;
 		
 		initLevel();
-		
 	}
 	
 	/**level constructor (for Luke to play around with PlayerShip)
@@ -33,7 +38,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	Level(playerShip player){
 		this.player = player;
-		gameTimer.start();
 	}
 	
 	/**Called inside the Level constructor. Adds playerShip and all enemies to the screen, activates
@@ -46,7 +50,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 			add(enemies.get(i).getRect());
 		}
 		
-		gameTimer.start();
+		uniTimer.start();
 	}
 	
 	public playerShip getPlayer() {
@@ -82,6 +86,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		Projectile t = new Projectile(new GPoint(200, 200), player.getRect());
 		initLevel();
 		
+		uniTimer.start();
 	}    
 	
 	//Console Functions
@@ -94,6 +99,12 @@ public class Level extends GraphicsProgram implements KeyListener{
 		
 	}
 	
+	public void moveAllProjOval() {
+		 for(GOval projOval:Projectile.allProjOvals) {
+			 projOval.movePolar(Projectile.PROJECTILE_SPEED, Projectile.angle);
+		 }
+	 }
+	
 	//Listeners
 	
 	/** As long as the game isn't paused, This is all of what the clock is going to execute once the
@@ -102,6 +113,14 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(Projectile.allProjOvals != null) {
+			for(GOval projOval:Projectile.allProjOvals) {
+				add(projOval);
+			}
+		}
+		
+		moveAllProjOval();
+		
 		//System.out.println("Timer ticked");
 			player.operatePlayer();
 			

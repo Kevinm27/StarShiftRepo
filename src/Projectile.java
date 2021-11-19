@@ -1,6 +1,4 @@
-//import javax.swing.Timer;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.ArrayList;
 import java.awt.Color;
 import acm.graphics.GOval;
 import acm.graphics.GPoint;
@@ -8,20 +6,21 @@ import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 
 class Projectile extends GraphicsProgram {
-	private static final int PROJECTILE_SPEED = 5;
+	public static final int PROJECTILE_SPEED = 5;
+	private static final int PROJECTILE_SIZE = 10;
 	private static final int DELAY_MS = 20;
 	private static final int PROJECTILE_DAMAGE = 100;
 	private static final int WINDOW_WIDTH = 600;
 	private static final int WINDOW_HEIGHT = 600;
 	
-	  private int speed;
-	  private int damage;
-	  private boolean friendly;
+	private int speed;
+	private int damage;
+	private boolean friendly;
 	  
-	  private GOval oval; //placeholder for projectile image
-	  
-	  
-	  private float angle;
+	private GOval oval; //placeholder for projectile image
+	public static ArrayList<GOval> allProjOvals = new ArrayList<GOval>();
+	
+	public static float angle;
 	  
 	  /*
 	   * this is the default constructor for player projectiles. they're going to derive the
@@ -31,9 +30,9 @@ class Projectile extends GraphicsProgram {
 		  damage = PROJECTILE_DAMAGE;
 		    friendly = true;
 		    speed = PROJECTILE_SPEED;
-		    oval = new GOval(projectileLocation.getX(), projectileLocation.getY(),10 ,10 );
-		    oval.setFilled(true);
-		    oval.setColor(Color.BLUE);
+		    GOval projOval = makeProjOval(projectileLocation.getX(), projectileLocation.getY());
+		    allProjOvals.add(projOval);
+		    
 		    this.angle = angle;
 	  }
 	  
@@ -47,12 +46,30 @@ class Projectile extends GraphicsProgram {
 	    damage = PROJECTILE_DAMAGE;
 	    friendly = false;
 	    speed = PROJECTILE_SPEED;
-	    oval = new GOval(10, 10, projectileLocation.getX(), projectileLocation.getY());
-	    oval.setFilled(true);
-	    oval.setColor(Color.RED);
-	    angle = Logic.getAngle(oval, target);
+	    GOval projOval = makeProjOval(projectileLocation.getX(), projectileLocation.getY());
+	    allProjOvals.add(projOval);
+	    
+	    //angle = Logic.getAngle(oval, target);
 	  }
 	  
+
+	  private void addProj(GPoint p, float a) {
+		  Projectile proj = new Projectile(p, a);
+	  }
+	  
+	 public GOval makeProjOval(double x, double y) {
+		GOval temp = new GOval(x, y, PROJECTILE_SIZE, PROJECTILE_SIZE);
+		temp.setColor(Color.BLUE);
+		temp.setFilled(true);
+		return temp;
+	 }
+	 
+	 public void moveAllProjOval() {
+		 for(GOval projOval:allProjOvals) {
+			 projOval.movePolar(PROJECTILE_SPEED, angle);
+		 }
+	 }
+
 	  public void operateProjectile() {
 		  oval.movePolar(speed, angle);
 	  }
