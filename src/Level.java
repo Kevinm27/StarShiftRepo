@@ -4,6 +4,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.*;
 import acm.program.GraphicsProgram;
+import acm.graphics.GOval;
 import acm.graphics.GPoint;
 
 public class Level extends GraphicsProgram implements KeyListener{
@@ -12,7 +13,10 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private ArrayList<Enemy> enemies = new ArrayList<> ();
 	private playerShip player;
 	private Projectile newBullet;
-	private Timer gameTimer = new Timer(DELAY_MS, this);
+	private Timer uniTimer;
+	
+	//Using variable to store when timer is called
+	private int shootDelay;
 	
 	//if we need playerShip as a component of the ArrayList
 	//rewrite the code to iterate through the list looking for instance of playerShip
@@ -26,7 +30,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 			add(enemies.get(i).getRect());
 		}
 		add(player.getRect());
-		gameTimer.start();
+		uniTimer.start();
 	}
 	
 	/**level constructor (for Luke to play around with PlayerShip)
@@ -35,7 +39,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	Level(playerShip player){
 		this.player = player;
-		gameTimer.start();
 	}
 	
 	public playerShip getPlayer() {
@@ -69,12 +72,15 @@ public class Level extends GraphicsProgram implements KeyListener{
 	
 	public void run() {
 		addKeyListeners();
+		
 		float temp = 315;
 		Projectile bullet1 = new Projectile(new GPoint(100, 50), temp);
 		Projectile t = new Projectile(new GPoint(200, 200), player.getRect());
 		
 		add(player.getRect());
 		
+		uniTimer = new Timer(DELAY_MS, this);
+		uniTimer.start();
 	}    
 	
 	//Console Functions
@@ -88,8 +94,11 @@ public class Level extends GraphicsProgram implements KeyListener{
 		
 	}
 	
-	
-	
+	public void moveAllProjOval() {
+		 for(GOval projOval:Projectile.allProjOvals) {
+			 projOval.movePolar(Projectile.PROJECTILE_SPEED, Projectile.angle);
+		 }
+	 }
 	
 	//Listeners
 	
@@ -98,7 +107,13 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(Projectile.allProjOvals != null) {
+			for(GOval projOval:Projectile.allProjOvals) {
+				add(projOval);
+			}
+		}
 		
+		moveAllProjOval();
 	}
 	
 	@Override
