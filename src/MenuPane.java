@@ -25,28 +25,29 @@ public class MenuPane extends GraphicsPane {
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
+		Font space = new Font("Space", Font.PLAIN, 20);
 		
 		background = new GImage("Background.jpg");
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		
-		playGame = new GLabel("Play Game", app.getWidth()/2-SHIFT/2, app.getHeight()/2-SHIFT*2);
-		playGame.setFont(new Font("Space", Font.BOLD, 20));
+		playGame = new GLabel("Play Game", app.getWidth()/2 - 2 *SHIFT + 40, app.getHeight()/2-SHIFT*2);
+		playGame.setFont(space);
 		playGame.setColor(Color.GREEN);
 		
-		shipCustom = new GLabel("Customize",app.getWidth()/2-SHIFT/2, app.getHeight()/2-SHIFT);
-		shipCustom.setFont(new Font("Space", Font.BOLD, 20));
+		shipCustom = new GLabel("Customize",app.getWidth()/2- 2 *SHIFT + 40, app.getHeight()/2-SHIFT);
+		shipCustom.setFont(space);
 		shipCustom.setColor(Color.PINK);
 		
-		options = new GLabel("Options", app.getWidth()/2-SHIFT/2, app.getHeight()/2);
-		options.setFont(new Font("Space", Font.BOLD, 20));
+		options = new GLabel("Options", app.getWidth()/2- 2* SHIFT + 50, app.getHeight()/2);
+		options.setFont(space);
 		options.setColor(Color.CYAN);
 		
-		exit = new GLabel("Exit", app.getWidth()/2-SHIFT/2, app.getHeight()/2 + SHIFT);
-		exit.setFont(new Font("Space", Font.BOLD, 20));
+		exit = new GLabel("Exit", app.getWidth()/2-SHIFT/2 - 10, app.getHeight()/2 + SHIFT);
+		exit.setFont(space);
 		exit.setColor(Color.RED);
 		
-		confirm = new GLabel("Are You Sure?", app.getWidth()/2-SHIFT/2, app.getHeight()/2-SHIFT*2);
-		confirm.setFont(new Font("Space", Font.BOLD, 20));
+		confirm = new GLabel("Are You Sure?", app.getWidth()/2 - 2*SHIFT, app.getHeight()/2-SHIFT*2);
+		confirm.setFont(space);
 		confirm.setColor(Color.WHITE);
 		confirm.sendToBack();
 		
@@ -56,7 +57,7 @@ public class MenuPane extends GraphicsPane {
 		yes.sendToBack();
 		
 		no = new GLabel("No", app.getWidth()/2 - 2*SHIFT + 100, app.getHeight()/2 - SHIFT);
-		no.setFont(new Font("Space", Font.BOLD, 20));
+		no.setFont(space);
 		no.setColor(Color.WHITE);
 		no.sendToBack();
 	
@@ -103,7 +104,7 @@ public class MenuPane extends GraphicsPane {
 		}
 		
 		else if(obj == exit) {
-			this.exitBool = true;
+			exitBool = true;
 			playGame.sendToBack();
 			shipCustom.sendToBack();
 			options.sendToBack();
@@ -111,7 +112,6 @@ public class MenuPane extends GraphicsPane {
 			confirm.sendToFront();
 			yes.sendToFront();
 			no.sendToFront();
-			System.out.println("IN EXIT");
 		}
 		else if(exitBool) {
 			exitBool = false;
