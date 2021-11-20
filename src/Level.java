@@ -11,9 +11,11 @@ import acm.graphics.GPoint;
 public class Level extends GraphicsProgram implements KeyListener{
 	private static final int DELAY_MS = 20;
 	
+	
+	
 	private ArrayList<Enemy> enemies = new ArrayList<> ();
 	private ArrayList<Projectile> allBullets = new ArrayList<>();
-
+	
 	private playerShip player;
 	private Projectile newBullet;
 	private Timer uniTimer = new Timer(DELAY_MS, this);;
@@ -39,6 +41,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 * @return
 	 */
 	Level(playerShip player){
+		enemies.add(new Enemy(new GPoint(500, 100), EntityType.SHOOTER));
 		this.player = player;
 	}
 	
@@ -126,6 +129,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		enemy.operateEnemy(towardsPlayer);
 		if(enemy.canShoot()) {
 			newBullet = enemy.shootProjectile(newBullet, towardsPlayer);
+			allBullets.add(newBullet);
 			add(newBullet.getOval());
 		}
 	}
@@ -140,15 +144,15 @@ public class Level extends GraphicsProgram implements KeyListener{
 		moveAllProjectiles();
 		
 		//System.out.println("Timer ticked");
-			controlPlayer();
+		controlPlayer();
 			
-			/*
+			
 			for(int i = 0; i < enemies.size(); i++) {
 				if(enemies.get(i) != null) {
-					enemies.get(i).controlEnemy(player);
+					controlEnemy(enemies.get(i));
 				}
 			}
-			*/
+			
 	}
 	
 	/**This class was taken from an outside source. It overrides the KeyListeners of your choosing.
@@ -193,6 +197,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	}
 	
 	public static void main(String args[]) {
+		
 		new Level(new playerShip(new GPoint(200, 200))).start();
 	}
 }

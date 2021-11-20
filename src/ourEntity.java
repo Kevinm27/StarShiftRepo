@@ -38,7 +38,7 @@ public class ourEntity extends GraphicsProgram {
 	protected GImage image;
 	public GRect rect; //placeholder for image
 	protected Projectile newBullet; //used for creating/firing projectiles
-
+	
 	
 	
 	
