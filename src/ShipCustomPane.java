@@ -14,7 +14,8 @@ public class ShipCustomPane extends GraphicsPane{
 	private GImage leftArrow;
 	private GImage rightArrow;
 	private GImage ship;
-	private GButton save;
+	private GLabel save;
+	private GLabel shipSaved;
 	private GLabel ok;
 	private int num = 0;
 	private final int SHIFT = 50;
@@ -23,21 +24,22 @@ public class ShipCustomPane extends GraphicsPane{
 	public ShipCustomPane(MainApplication app) {
 		super();
 		program = app;
+		Font space = new Font("Space", Font.PLAIN, 20);
 		background = new GImage("background.jpg");
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 
-		title = new GLabel("Ship Customization", app.getWidth() / 2 - 100, app.getHeight() / 2 - 200);
-		title.setFont(new Font("Serif", Font.BOLD, 25));
+		title = new GLabel("Ship Customization", app.getWidth() / 2 - 98, app.getHeight() / 2 - 200);
+		title.setFont(space);
 		title.setColor(Color.white);
 	
 		returnButton = new GLabel("Return to Menu",app.getWidth()/2 - 250, app.getHeight()/2-SHIFT);
-		returnButton.setFont(new Font("Serif", Font.BOLD, 20));
+		returnButton.setFont(space);
 		returnButton.setColor(Color.white);
 		
 		
 		change = new GLabel("Ship Color", app.getWidth()/2 + 125, app.getHeight() / 2 - SHIFT + 25);
-		change.setFont(new Font("Serif", Font.BOLD, 20));
-		change.setColor(Color.magenta);
+		change.setFont(space);
+		change.setColor(Color.white);
 		
 		leftArrow = new GImage("leftArrow.jpg", app.getWidth()/2 + 100, app.getHeight()/2 - SHIFT + 50); //fix later
 		leftArrow.setSize(55,40);
@@ -47,12 +49,25 @@ public class ShipCustomPane extends GraphicsPane{
 		ship = new GImage("GreenShip.png", app.getWidth() / 2 - 80, app.getHeight() / 2 - 2*SHIFT - SHIFT);
 		ship.setSize(150,150);
 		
-		ok = new GLabel("Ship Saved", app.getWidth()/2 - 250, app.getHeight()/2 - SHIFT);
+		save = new GLabel("Save", app.getWidth() / 2 - 28, app.getHeight() / 2 + 3*SHIFT - 50);
+		save.setFont(space);
+		save.setColor(Color.white);
+		
+		shipSaved = new GLabel("Ship Saved", app.getWidth() / 2 - 50, app.getHeight() / 2 - SHIFT - 25);
+		shipSaved.setFont(space);
+		shipSaved.setColor(Color.white);
+		
+		
+		ok = new GLabel("Ok", app.getWidth()/2 - 28, app.getHeight()/2 + 2 * SHIFT - 50);
+		ok.setFont(space);
+		ok.setColor(Color.white);
 	}
 
 	@Override
 	public void showContents() {
 		// TODO Auto-generated method stub
+		program.add(shipSaved);
+		program.add(ok);
 		program.add(background);
 		program.add(title);
 		program.add(returnButton);
@@ -60,6 +75,7 @@ public class ShipCustomPane extends GraphicsPane{
 		program.add(rightArrow);
 		program.add(change);
 		program.add(ship);
+		program.add(save);
 		
 	}
 
@@ -73,6 +89,9 @@ public class ShipCustomPane extends GraphicsPane{
 		program.remove(rightArrow);
 		program.remove(change);
 		program.remove(ship);
+		program.remove(save);
+		program.remove(ok);
+		program.remove(shipSaved);
 		
 	}
 	
@@ -101,7 +120,7 @@ public class ShipCustomPane extends GraphicsPane{
 			}
 		}
 		else if(obj == rightArrow) {
-			//change the gimage for the ship temporarily
+			//change the display for the ship temporarily
 			if(num == 0) {
 				num++;
 				ship.setImage("GreenShip.png");
@@ -120,7 +139,13 @@ public class ShipCustomPane extends GraphicsPane{
 		}
 		else if(obj == save) {
 			//save the ship / change it permanently
-			
+			background.sendToFront();
+			ok.sendToFront();
+			shipSaved.sendToFront();
+
+		}
+		else if(obj == ok) {
+			program.switchToShipCustom();
 		}
 		
 	}

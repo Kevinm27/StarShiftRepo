@@ -105,10 +105,7 @@ public class MenuPane extends GraphicsPane {
 		
 		else if(obj == exit) {
 			exitBool = true;
-			playGame.sendToBack();
-			shipCustom.sendToBack();
-			options.sendToBack();
-			exit.sendToBack();
+			background.sendToFront();
 			confirm.sendToFront();
 			yes.sendToFront();
 			no.sendToFront();

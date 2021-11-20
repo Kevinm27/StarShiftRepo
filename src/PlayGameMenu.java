@@ -64,17 +64,14 @@ public class PlayGameMenu extends GraphicsPane {
 		
 		confirmText = new GLabel("Start Game?", app.getWidth()/2 - 60, app.getHeight() / 2 - 100);
 		confirmText.setFont(new Font("Space", Font.BOLD, 18));
-		confirmText.sendToBack();
 		confirmText.setColor(Color.WHITE);
 
 		yes = new GLabel("Yes", app.getWidth()/2-2*SHIFT + 25, app.getHeight()/2);
 		yes.setFont(new Font("Space", Font.BOLD, 18));
-		yes.sendToBack();
 		yes.setColor(Color.GREEN);
 		
 		no = new GLabel("No", app.getWidth()/2 + 25, app.getHeight()/2);
 		no.setFont(new Font("Space", Font.BOLD, 18));
-		no.sendToBack();
 		no.setColor(Color.RED);
 	}
 
@@ -191,13 +188,7 @@ public class PlayGameMenu extends GraphicsPane {
 	
 
 	public void sendPopUpToFront() {
-		levelSelect.sendToBack();
-		level1.sendToBack();
-		level2.sendToBack();
-		level3.sendToBack();
-		level4.sendToBack();
-		level5.sendToBack();
-		backButton.sendToBack();
+		background.sendToFront();
 		yes.sendToFront();
 		no.sendToFront();
 		confirmText.sendToFront();
