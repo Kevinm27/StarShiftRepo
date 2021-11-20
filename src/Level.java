@@ -11,7 +11,11 @@ import acm.graphics.GPoint;
 public class Level extends GraphicsProgram implements KeyListener{
 	private static final int DELAY_MS = 20;
 	
-	
+	//TODO: Change these values below to match the bounds of the playable margin of the screen
+	public static final int LEVEL_BOUNDS_BOTTOM = 600;
+	public static final int LEVEL_BOUNDS_RIGHT = 600;
+	public static final int LEVEL_BOUNDS_TOP = 0;
+	public static final int LEVEL_BOUNDS_LEFT = 0;
 	
 	private ArrayList<Enemy> enemies = new ArrayList<> ();
 	private ArrayList<Projectile> allBullets = new ArrayList<>();

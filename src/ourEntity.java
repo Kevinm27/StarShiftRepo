@@ -18,11 +18,6 @@ import acm.graphics.GPoint;
 public class ourEntity extends GraphicsProgram {
 	//***** private variables *****//	
 	protected static final int DELAY_MS = 20;
-	//TODO: Change these values below to match the bounds of the playable margin of the screen
-	protected static final int BOARD_BOUNDS_BOTTOM = 600;
-	protected static final int BOARD_BOUNDS_RIGHT = 600;
-	protected static final int BOARD_BOUNDS_TOP = 0;
-	protected static final int BOARD_BOUNDS_LEFT = 0;
 
 	
 	protected int fireDelay;
@@ -163,20 +158,20 @@ public class ourEntity extends GraphicsProgram {
 		nextPosition.movePolar(speed, angle);
 	
 		//if the ship is too far to the right
-		if (nextPosition.getX() > BOARD_BOUNDS_RIGHT - nextPosition.getWidth()) {
-			nextPosition.setLocation(BOARD_BOUNDS_RIGHT - nextPosition.getWidth(), nextPosition.getY());
+		if (nextPosition.getX() > Level.LEVEL_BOUNDS_RIGHT - nextPosition.getWidth()) {
+			nextPosition.setLocation(Level.LEVEL_BOUNDS_RIGHT - nextPosition.getWidth(), nextPosition.getY());
 		}
 		//if the ship is too far to the left
-		else if (nextPosition.getX() < BOARD_BOUNDS_LEFT) {
-			nextPosition.setLocation(BOARD_BOUNDS_LEFT, nextPosition.getY());
+		else if (nextPosition.getX() < Level.LEVEL_BOUNDS_LEFT) {
+			nextPosition.setLocation(Level.LEVEL_BOUNDS_LEFT, nextPosition.getY());
 		}
 		//if the ship is below the board
-		if(nextPosition.getY() > BOARD_BOUNDS_BOTTOM - nextPosition.getHeight()){
-			nextPosition.setLocation(nextPosition.getX(), BOARD_BOUNDS_BOTTOM - nextPosition.getHeight());
+		if(nextPosition.getY() > Level.LEVEL_BOUNDS_BOTTOM - nextPosition.getHeight()){
+			nextPosition.setLocation(nextPosition.getX(), Level.LEVEL_BOUNDS_BOTTOM - nextPosition.getHeight());
 		}
 		//if the ship is above the board
-		else if(nextPosition.getY() < BOARD_BOUNDS_TOP){
-			nextPosition.setLocation(nextPosition.getX(), BOARD_BOUNDS_TOP);
+		else if(nextPosition.getY() < Level.LEVEL_BOUNDS_TOP){
+			nextPosition.setLocation(nextPosition.getX(), Level.LEVEL_BOUNDS_TOP);
 		}
 		return new GPoint(nextPosition.getX(), nextPosition.getY());
 	}
