@@ -108,6 +108,8 @@ public class Level extends GraphicsProgram implements KeyListener{
 		 }
 	 }
 	
+	
+	
 	public void controlPlayer() {
 		player.operatePlayer();
 		float fireAngle = player.getFiringAngle();
@@ -119,16 +121,22 @@ public class Level extends GraphicsProgram implements KeyListener{
 		
 	}
 	
-	//Listeners
+	public void controlEnemy(Enemy enemy) {
+		float towardsPlayer = Logic.getAngle(enemy.getRect(), player.getRect()); //calculates angle towards playerShip
+		enemy.operateEnemy(towardsPlayer);
+		if(enemy.canShoot()) {
+			newBullet = enemy.shootProjectile(newBullet, towardsPlayer);
+			add(newBullet.getOval());
+		}
+	}
 	
+	//Listeners
 	/** As long as the game isn't paused, This is all of what the clock is going to execute once the
 	 *  timer is triggered
 	 * 
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		
 		moveAllProjectiles();
 		
 		//System.out.println("Timer ticked");
@@ -137,7 +145,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 			/*
 			for(int i = 0; i < enemies.size(); i++) {
 				if(enemies.get(i) != null) {
-					enemies.get(i).operateEnemy(player);
+					enemies.get(i).controlEnemy(player);
 				}
 			}
 			*/

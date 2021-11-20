@@ -32,14 +32,11 @@ public class Enemy extends ourEntity {
 	 * 
 	 * @param player the playerShip that enemies are trying to move/shoot towards
 	 */
-	public void operateEnemy(playerShip player) {
+	public void operateEnemy(float towardsPlayer) {
 		curFireTime++;
-		float towardsPlayer = Logic.getAngle(rect, player.getRect()); //calculates angle towards playerShip
+		
 		move(towardsPlayer);
-		if(canShoot) {
-			shoot(towardsPlayer);
-			operateProjectiles();
-		}
+		
 	}
 	
 	/**This is the move function that Enemy will be using. It mostly just runs through movePolar 

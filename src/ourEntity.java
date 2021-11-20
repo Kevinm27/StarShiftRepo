@@ -113,7 +113,7 @@ public class ourEntity extends GraphicsProgram {
 		return bullets;
 	}
 	public boolean canShoot() {
-		return curFireTime >= fireDelay;
+		return (curFireTime >= fireDelay && canShoot);
 	}
 	
 	//***** Fundamental Functions *****//
