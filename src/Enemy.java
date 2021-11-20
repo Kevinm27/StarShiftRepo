@@ -35,7 +35,7 @@ public class Enemy extends ourEntity {
 	public void operateEnemy(float towardsPlayer) {
 		curFireTime++;
 		
-		move(towardsPlayer);
+		movePolar(towardsPlayer);
 		
 	}
 	

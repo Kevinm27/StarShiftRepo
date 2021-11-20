@@ -50,9 +50,13 @@ public class Logic {
 	 * @return angle of trajectory
 	 */
 	public static float getAngle(GObject start, GObject target) {
-		return (float) Math.toDegrees(Math.atan2(
+		float angle = (float) Math.toDegrees(Math.atan2(
 	    		(target.getX() + (target.getWidth() / 2)) - (start.getX() + (start.getWidth() / 2)),
-	    		(target.getY() + (target.getHeight() / 2)) - (start.getY() + (start.getHeight() / 2))));
+	    		(target.getY() + (target.getHeight() / 2)) - (start.getY() + (start.getHeight() / 2)))) - 90;
+		if(angle < 0){
+	        angle += 360;
+	    }
+		return angle;
 	}
 	
 	public boolean collides(ourEntity playerShip, ArrayList<ourEntity> enemies, ArrayList<Projectile> bullets) {
