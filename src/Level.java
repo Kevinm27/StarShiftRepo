@@ -104,7 +104,9 @@ public class Level extends GraphicsProgram implements KeyListener{
 	public void moveAllProjectiles() {
 		 for(int i = 0; i < allBullets.size(); i++) {
 			 if(allBullets.get(i) != null)
-				 allBullets.get(i).operateProjectile();
+				 if(allBullets.get(i).operateProjectile()) {
+					 remove(allBullets.get(i).getOval());
+				 }
 		 }
 	 }
 	
