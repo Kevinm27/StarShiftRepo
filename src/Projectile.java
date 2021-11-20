@@ -7,7 +7,7 @@ import acm.program.GraphicsProgram;
 
 class Projectile extends GraphicsProgram {
 	public static final int PROJECTILE_SPEED = 5;
-	private static final int PROJECTILE_SIZE = 10;
+	public static final int PROJECTILE_SIZE = 10;
 	private static final int DELAY_MS = 20;
 	private static final int PROJECTILE_DAMAGE = 100;
 	private static final int WINDOW_WIDTH = 800;

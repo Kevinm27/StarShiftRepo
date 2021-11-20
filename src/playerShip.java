@@ -250,7 +250,7 @@ public class playerShip extends ourEntity implements KeyListener{
 		add(rect);
 	}
 	public void init() {
-		setSize(BOARD_BOUNDS_RIGHT, BOARD_BOUNDS_BOTTOM);
+		setSize(Level.LEVEL_BOUNDS_RIGHT, Level.LEVEL_BOUNDS_BOTTOM);
 	}
 	
 	public static void main(String args[]) {

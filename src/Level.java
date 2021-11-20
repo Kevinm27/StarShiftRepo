@@ -11,9 +11,15 @@ import acm.graphics.GPoint;
 public class Level extends GraphicsProgram implements KeyListener{
 	private static final int DELAY_MS = 20;
 	
+	//TODO: Change these values below to match the bounds of the playable margin of the screen
+	public static final int LEVEL_BOUNDS_BOTTOM = 600;
+	public static final int LEVEL_BOUNDS_RIGHT = 600;
+	public static final int LEVEL_BOUNDS_TOP = 0;
+	public static final int LEVEL_BOUNDS_LEFT = 0;
+	
 	private ArrayList<Enemy> enemies = new ArrayList<> ();
 	private ArrayList<Projectile> allBullets = new ArrayList<>();
-
+	
 	private playerShip player;
 	private Projectile newBullet;
 	private Timer uniTimer = new Timer(DELAY_MS, this);;
@@ -39,6 +45,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 * @return
 	 */
 	Level(playerShip player){
+		enemies.add(new Enemy(new GPoint(500, 100), EntityType.SHOOTER));
 		this.player = player;
 	}
 	
@@ -101,6 +108,10 @@ public class Level extends GraphicsProgram implements KeyListener{
 		
 	}
 	
+	/**This helper function is used by the timer to move every single projectile once. 
+	 * This is done by iterating through the allBullets ArrayList
+	 * 
+	 */
 	public void moveAllProjectiles() {
 		 for(int i = 0; i < allBullets.size(); i++) {
 			 if(allBullets.get(i) != null)
@@ -110,6 +121,10 @@ public class Level extends GraphicsProgram implements KeyListener{
 		 }
 	 }
 	
+	
+	/**This helper function is used by the timer to control the playerShip based on the
+	 * current keyboard inputs
+	 */
 	public void controlPlayer() {
 		player.operatePlayer();
 		float fireAngle = player.getFiringAngle();
@@ -121,28 +136,38 @@ public class Level extends GraphicsProgram implements KeyListener{
 		
 	}
 	
-	//Listeners
+	/**This helper function is used inside the timer to control a single Enemy inside 
+	 * the enemies ArrayList
+	 * @param enemy the current enemy you are controlling
+	 */
+	public void controlEnemy(Enemy enemy) {
+		float towardsPlayer = Logic.getAngle(enemy.getRect(), player.getRect()); //calculates angle towards playerShip
+		enemy.operateEnemy(towardsPlayer);
+		if(enemy.canShoot()) {
+			newBullet = enemy.shootProjectile(newBullet, towardsPlayer);
+			allBullets.add(newBullet);
+			add(newBullet.getOval());
+			System.out.println(towardsPlayer);
+		}
+	}
 	
+	//Listeners
 	/** As long as the game isn't paused, This is all of what the clock is going to execute once the
 	 *  timer is triggered
 	 * 
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		
 		moveAllProjectiles();
 		
 		//System.out.println("Timer ticked");
-			controlPlayer();
-			
-			/*
+		controlPlayer();
 			for(int i = 0; i < enemies.size(); i++) {
 				if(enemies.get(i) != null) {
-					enemies.get(i).operateEnemy(player);
+					controlEnemy(enemies.get(i));
 				}
 			}
-			*/
+			
 	}
 	
 	/**This class was taken from an outside source. It overrides the KeyListeners of your choosing.
@@ -187,6 +212,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	}
 	
 	public static void main(String args[]) {
+		
 		new Level(new playerShip(new GPoint(200, 200))).start();
 	}
 }
