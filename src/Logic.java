@@ -41,6 +41,36 @@ public class Logic {
 		}
 	}
 	
+	/*This function will take in two GObjects. The first being the player ship and the second being
+	 * the enemy ship. There is a nested for loop which will check if there is any overlap between
+	 * the aforementioned GObjects along any point of their length or width.
+	 * 
+	 * @param GObject representing player ship
+	 * @param GObject representing enemy ship
+	 * @return If objects overlap
+	 */
+	public static boolean isCollided(GObject one, GObject two) {
+		
+		for (int i = (int) one.getX(); i < one.getWidth(); i++) {
+			for (int j = (int) one.getY(); j < one.getHeight(); j++) {	
+				if (i == two.getX() && j == two.getY()) {
+					return true;
+				}
+			}
+		}
+		
+		//Not sure if this second nested loop is necessary, but I threw it in just in case.
+		for (int j = (int) one.getY(); j < one.getHeight(); j++) {
+			for (int i = (int) one.getX(); i < one.getWidth(); i++) {
+				if (i == two.getX() && j == two.getY()) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
 	
 	/**This function calculates the angle between 2 objects. It is a static function, so it does not 
 	 * require a logic object to be called. Simply call it by typing "Logic.getAngle(start, target)"
