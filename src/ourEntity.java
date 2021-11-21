@@ -7,8 +7,6 @@
  */
 
 import java.util.ArrayList;										// import the ArrayList class
-import java.util.Timer;											// refer to TimerLab for use
-import java.util.TimerTask;
 
 import acm.graphics.GImage;
 import acm.graphics.GRect;
@@ -113,27 +111,7 @@ public class ourEntity extends GraphicsProgram {
 	
 	//***** Fundamental Functions *****//
 	
-	/**TimerTasks are a type of function that are called once a timer goes off. Whenever the timer 
-	 * is triggered or hits a certain delay, the TimerTask run() function is executed. Specific TimerTask
-	 * classes are accessed by name. This is why the shotTimer uses the ShootTask while the moveTimer uses
-	 * the MoveTask
-	 * 
-	 * 
-	 * @author lukeb
-	 *
-	 */
-	class MoveTask extends TimerTask
-	{
-	    public void run() { 
-	    	canMove = true;
-	    }
-	}
-	class ShootTask extends TimerTask
-	{
-		public void run() {
-			canShoot = true;
-		}
-	}
+	
 	
 	/**This function iterates through all of the Projectiles inside of the bullets ArrayList and
 	 * moves them all once.

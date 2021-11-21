@@ -12,11 +12,6 @@ class Projectile extends GraphicsProgram {
 	private static final int PROJECTILE_DAMAGE = 100;
 	private static final int WINDOW_WIDTH = 800;
 	private static final int WINDOW_HEIGHT = 600;
-	//reused bounds check from entity
-	protected static final int BOARD_BOUNDS_BOTTOM = 600;
-	protected static final int BOARD_BOUNDS_RIGHT = 400;
-	protected static final int BOARD_BOUNDS_TOP = 0;
-	protected static final int BOARD_BOUNDS_LEFT = 0;
 	
 	private int speed;
 	private int damage;
@@ -78,19 +73,19 @@ class Projectile extends GraphicsProgram {
 // Edited so the projectiles return true if out of bounds
 	  public boolean operateProjectile() {
 		  oval.movePolar(speed, angle);
-		  if (oval.getX() > BOARD_BOUNDS_RIGHT - oval.getWidth()) {
+		  if (oval.getX() > Level.LEVEL_BOUNDS_RIGHT - oval.getWidth()) {
 			  return true;
 		  }
 			//if the ship is too far to the left
-			else if (oval.getX() < BOARD_BOUNDS_LEFT) {
+			else if (oval.getX() < Level.LEVEL_BOUNDS_LEFT) {
 				  return true;
 			}
 			//if the ship is below the board
-			if(oval.getY() > BOARD_BOUNDS_BOTTOM - oval.getHeight()){
+			if(oval.getY() > Level.LEVEL_BOUNDS_BOTTOM - oval.getHeight()){
 				  return true;
 			}
 			//if the ship is above the board
-			else if(oval.getY() < BOARD_BOUNDS_TOP){
+			else if(oval.getY() < Level.LEVEL_BOUNDS_TOP){
 				  return true;
 			}
 			return false;

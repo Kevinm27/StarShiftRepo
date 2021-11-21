@@ -101,11 +101,11 @@ public class Level extends GraphicsProgram implements KeyListener{
 	//Console Functions
 	
 	public void pause() {
-		
+		uniTimer.stop();
 	}
 	
 	void play() {
-		
+		uniTimer.start();
 	}
 	
 	/**This helper function is used by the timer to move every single projectile once. 
@@ -116,7 +116,9 @@ public class Level extends GraphicsProgram implements KeyListener{
 		 for(int i = 0; i < allBullets.size(); i++) {
 			 if(allBullets.get(i) != null)
 				 if(allBullets.get(i).operateProjectile()) {
+					 
 					 remove(allBullets.get(i).getOval());
+					 allBullets.remove(i);
 				 }
 		 }
 	 }
