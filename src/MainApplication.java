@@ -9,7 +9,6 @@ public class MainApplication extends GraphicsProgram {
 	public static final String MUSIC_FOLDER = "sounds";
 
 	private GraphicsPane curScreen;
-	private Music song;
 	private MenuPane menu;
 	private PlayGameMenu playGameScn;
 	private ShipCustomPane shipCustom;
@@ -47,12 +46,6 @@ public class MainApplication extends GraphicsProgram {
 		}
 	}
 	
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		if(curScreen != null) {
-			curScreen.mouseReleased(e);
-		}
-	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -61,38 +54,11 @@ public class MainApplication extends GraphicsProgram {
 		}
 	}
 	
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		if(curScreen != null) {
-			curScreen.mouseDragged(e);
-		}
-	}
-	
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		if(curScreen != null) {
-			curScreen.mouseMoved(e);
-		}
-	}
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(curScreen != null) {
 			curScreen.keyPressed(e);
-		}
-	}
-	
-	@Override
-	public void keyReleased(KeyEvent e) {
-		if(curScreen != null) {
-			curScreen.keyReleased(e);
-		}
-	}
-	
-	@Override
-	public void keyTyped(KeyEvent e) {
-		if(curScreen != null) {
-			curScreen.keyTyped(e);
 		}
 	}
 	
@@ -102,8 +68,9 @@ public class MainApplication extends GraphicsProgram {
 	}
 
 	public void run() {
-		Music music = new Music("song1.wav");
-		music.loop();
+		musicAndSFX music = new musicAndSFX("song1.wav");
+		musicAndSFX.playMusic();
+		musicAndSFX.loop();
 		menu = new MenuPane(this);
 		playGameScn = new PlayGameMenu(this);
 		options = new OptionsMenu(this);

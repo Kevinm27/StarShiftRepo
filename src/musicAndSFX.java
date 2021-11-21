@@ -8,10 +8,11 @@ import java.io.File;
 import java.util.Scanner;
 
 public class musicAndSFX{
-	private Clip c;
-	private long clipTimePosition = 0;
+	private static Clip c;
+	private static long clipTimePosition = 0;
 	public static boolean pause = false;
 	public static boolean mute = false;
+	public musicAndSFX song;
 	 public static void main(String[] args) {
 			Scanner myObj = new Scanner(System.in);
 	        String songName = "02 FIRE.wav";
@@ -79,7 +80,7 @@ public class musicAndSFX{
 	 }
 
 
-	 public void pauseMusic() {
+	 public static void pauseMusic() {
 
 		 if(pause == false) {
 			 pause = true;
@@ -88,7 +89,7 @@ public class musicAndSFX{
 		 }
 		 
 	 }
-	 public void playMusic() {
+	 public static void playMusic() {
 
 		 if(pause == true) {
 			 pause = false;
@@ -110,7 +111,7 @@ public class musicAndSFX{
 	 public static void unmuteSFX() {
 		 mute = false;
 	 }
-	 public void loop() {
+	 public static void loop() {
 		 c.loop(Clip.LOOP_CONTINUOUSLY);
 	 }
 
