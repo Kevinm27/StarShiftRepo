@@ -68,9 +68,7 @@ public class MainApplication extends GraphicsProgram {
 	}
 
 	public void run() {
-		musicAndSFX music = new musicAndSFX("song1.wav");
-		musicAndSFX.playMusic();
-		musicAndSFX.loop();
+		musicAndSFX music = new musicAndSFX();
 		menu = new MenuPane(this);
 		playGameScn = new PlayGameMenu(this);
 		options = new OptionsMenu(this);
