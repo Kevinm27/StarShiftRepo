@@ -137,7 +137,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 					allBullets.remove(i);
 				}
 				//projectiles check if they can collide with the player
-				else if(allBullets.get(i).isFriendly() != player.isFriendly()) { //sees if the bullet is able to collide w/ player
+				else if(allBullets.get(i).getFriendly() != player.isFriendly()) { //sees if the bullet is able to collide w/ player
 					if(Logic.isCollided(allBullets.get(i).getOval(), player.getRect())) {
 						player.setHealth(player.getHealth() - allBullets.get(i).getDamage());
 						if(isLevelLost()) { //checks if player has died
@@ -152,7 +152,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 				else { //projectiles now check if they can collide with enemies
 					for(int j = 0; j < enemies.size(); j++) {
 						if(enemies.get(j) != null) {
-							if(allBullets.get(i).isFriendly() != enemies.get(j).isFriendly()) { //checks if the current enemy is on the opposing team of the bullet
+							if(allBullets.get(i).getFriendly() != enemies.get(j).isFriendly()) { //checks if the current enemy is on the opposing team of the bullet
 								if(Logic.isCollided(allBullets.get(i).getOval(), enemies.get(j).getRect())) { //checks if the enemy and projectile are colliding
 									enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
 									if(enemies.get(j).isDead()) {

@@ -6,8 +6,7 @@
  * that can access projectile objects.
  */
 
-import java.util.ArrayList;										// import the ArrayList class
-
+import java.util.ArrayList;
 import acm.graphics.GImage;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
@@ -15,26 +14,15 @@ import acm.graphics.GPoint;
 
 public class ourEntity extends GraphicsProgram {
 	//***** private variables *****//	
-	protected static final int DELAY_MS = 20;
-
-	
 	protected int fireDelay;
 	protected int curFireTime = 0;
-	
 	protected boolean canMove = true;
-	protected boolean canShoot = true; //prevents enemies that cannot fire from firing
-	
+	protected boolean canShoot = true; 							//prevents enemies that cannot fire from firing
 	protected int health;
 	protected int speed;
 	protected boolean friendly;									// IsFriendly should be here instead of logic
-	
 	protected GImage image;
-	public GRect rect; //placeholder for image
-	protected Projectile newBullet; //used for creating/firing projectiles
-	
-	
-	
-	
+	protected Projectile newBullet; 							//used for creating/firing projectiles
 	
 	
 	//***** public variables *****//
@@ -42,13 +30,14 @@ public class ourEntity extends GraphicsProgram {
 	public EntityType type = null;								// Entity Type needs to be defined when object is made
 	public static final String IMG_FILENAME_PATH = "ships/";
 	public static final String IMG_EXTENSION = ".png";
+	public GRect rect; //placeholder for image
 	
 	//***** constructor *****//
 	public ourEntity() {
-		GPoint entityLocation = new GPoint(0,0);					// originally on line 17
+		GPoint entityLocation = new GPoint(0,0);				// originally on line 17
 	}
 	
-	//**** Set Functions *****//
+	//**** Setters *****//
 	ourEntity(EntityType type){
 		if(type == EntityType.PLAYER) {
 			health = 300;
@@ -61,7 +50,7 @@ public class ourEntity extends GraphicsProgram {
 			image = new GImage("milleniumFalcon.png", 200, 200);
 		}
 	}
-	void setEntityLocation(GPoint location) {				// check for legal location elsewhere (?) Could be in logic
+	void setEntityLocation(GPoint location) {					// check for legal location elsewhere (?) Could be in logic
 		rect.setLocation(location);
 	}
 	void setHealth(int hp) {
@@ -80,7 +69,7 @@ public class ourEntity extends GraphicsProgram {
 		this.image.setImage(IMG_FILENAME_PATH + shipType + IMG_EXTENSION);		// PLEASE MAKE IMAGE NAMES SAME AS EntityTypes
 	}
 	
-	//***** Get Functions *****//
+	//***** Getters *****//
 	GPoint getEntityLocation() {
 		return new GPoint(rect.getX(), rect.getY());
 	}
