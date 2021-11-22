@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 import acm.graphics.GPoint;
 import acm.graphics.GRect;
 
@@ -19,10 +21,12 @@ public class Enemy extends ourEntity {
 		if (type == EntityType.SCOOTER) {
 			speed = 3;
 			canShoot = false;
+			rect.setColor(Color.magenta);
 		}
 		else if (type == EntityType.SHOOTER) {
 			speed = 2;
 			fireDelay = 50;
+			rect.setColor(Color.PINK);
 		}
 	}
 		

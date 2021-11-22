@@ -33,6 +33,11 @@ class Projectile extends GraphicsProgram {
 		    GOval projOval = makeProjOval(projectileLocation.getX(), projectileLocation.getY());
 		    allProjOvals.add(projOval);
 		    oval = new GOval(projectileLocation.getX(), projectileLocation.getY(), PROJECTILE_SIZE, PROJECTILE_SIZE);
+		    oval.setFilled(true);
+		    if(friendly) 
+		    	oval.setColor(Color.BLUE);
+		    else
+		    	oval.setColor(Color.RED);
 		    this.angle = angle;
 	  }
 	  

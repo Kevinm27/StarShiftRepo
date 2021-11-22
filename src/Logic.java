@@ -59,15 +59,6 @@ public class Logic {
 			}
 		}
 		
-		//Not sure if this second nested loop is necessary, but I threw it in just in case.
-		for (int j = (int) one.getY(); j < one.getHeight(); j++) {
-			for (int i = (int) one.getX(); i < one.getWidth(); i++) {
-				if (i == two.getX() && j == two.getY()) {
-					return true;
-				}
-			}
-		}
-		
 		return false;
 	}
 	

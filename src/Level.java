@@ -25,8 +25,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private Timer uniTimer = new Timer(DELAY_MS, this);;
 	
 	//Using variable to store when timer is called
-	private int shootDelay;
-
 	
 	//if we need playerShip as a component of the ArrayList
 	//rewrite the code to iterate through the list looking for instance of playerShip
@@ -72,18 +70,27 @@ public class Level extends GraphicsProgram implements KeyListener{
 	
 	/**Level Win Check
 	 * 
-	 * @return
+	 * @return true if all enemies are dead
 	 */
 	boolean isLevelWon() {
-		if (enemies.size() < 1) {
+		int numEnemies = 0;
+		for(int i = 0; i < enemies.size(); i++) {
+			if(enemies.get(i) != null)
+				numEnemies++;
+		}
+		if (numEnemies < 1) {
+			System.out.println("You won!");
 			return true;
 		}
-		else {
+		else 
 			return false;
-		}
 	}
 	
-	boolean isLevelLost(playerShip player) {
+	/**Level lost check
+	 * 
+	 * @return true if the player has less than 1 health
+	 */
+	boolean isLevelLost() {
 		if(player.getHealth() < 1) {
 			System.out.println("Game over");
 			return true;
@@ -101,20 +108,26 @@ public class Level extends GraphicsProgram implements KeyListener{
 	
 	//Console Functions
 	
+	/**pauses the game once the P key is pressed. Basically just stops the game timer
+	 * 
+	 */
 	public void pause() {
 		System.out.println("Game paused");
 		uniTimer.stop();
 		isPaused = true;
 	}
 	
+	/**Starts the game after being paused
+	 * 
+	 */
 	void play() {
 		uniTimer.start();
 		isPaused = false;
 	}
 	
 	/**This helper function is used by the timer to move every single projectile once. 
-	 * This is done by iterating through the allBullets ArrayList
-	 * 
+	 * This is done by iterating through the allBullets ArrayList. It also checks if a
+	 * projectile is colliding with a ship of the opposite team.
 	 */
 	public void moveAllProjectiles() {
 		for(int i = 0; i < allBullets.size(); i++) {
@@ -123,10 +136,12 @@ public class Level extends GraphicsProgram implements KeyListener{
 					remove(allBullets.get(i).getOval());
 					allBullets.remove(i);
 				}
+				//projectiles check if they can collide with the player
 				else if(allBullets.get(i).isFriendly() != player.isFriendly()) { //sees if the bullet is able to collide w/ player
 					if(Logic.isCollided(allBullets.get(i).getOval(), player.getRect())) {
 						player.setHealth(player.getHealth() - allBullets.get(i).getDamage());
-						if(player.isDead()) {
+						if(isLevelLost()) { //checks if player has died
+							//TODO: make this if statement trigger some sort of game over function
 							remove(player.getRect());
 							
 						}
@@ -134,11 +149,11 @@ public class Level extends GraphicsProgram implements KeyListener{
 						allBullets.remove(i);
 					}
 				}
-				else {
+				else { //projectiles now check if they can collide with enemies
 					for(int j = 0; j < enemies.size(); j++) {
 						if(enemies.get(j) != null) {
-							if(allBullets.get(i).isFriendly() != enemies.get(j).isFriendly()) {
-								if(Logic.isCollided(allBullets.get(i).getOval(), enemies.get(j).getRect())) {
+							if(allBullets.get(i).isFriendly() != enemies.get(j).isFriendly()) { //checks if the current enemy is on the opposing team of the bullet
+								if(Logic.isCollided(allBullets.get(i).getOval(), enemies.get(j).getRect())) { //checks if the enemy and projectile are colliding
 									enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
 									if(enemies.get(j).isDead()) {
 										remove(enemies.get(j).getRect());
@@ -160,8 +175,9 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 * current keyboard inputs
 	 */
 	public void controlPlayer() {
-		player.operatePlayer();
-		float fireAngle = player.getFiringAngle();
+		player.operatePlayer(); //executes movement for timer and triggers curFireTime
+		
+		float fireAngle = player.getFiringAngle(); //checks the angle the player is trying to shoot in
 		if(fireAngle != -1 && player.canShoot()) {
 			newBullet = player.shootProjectile(newBullet, fireAngle);
 			add(newBullet.getOval());
@@ -171,7 +187,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 			if(enemies.get(i) != null) {
 				if(Logic.isCollided(player.getRect(), enemies.get(i).getRect())){
 					//TODO: what is going to happen when the player collides with an enemy?
-					//System.out.println("Player is colliding with an enemy");
 				}
 			}
 		}
@@ -188,7 +203,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 			newBullet = enemy.shootProjectile(newBullet, towardsPlayer);
 			allBullets.add(newBullet);
 			add(newBullet.getOval());
-			System.out.println(towardsPlayer);
 		}
 	}
 	
@@ -231,11 +245,9 @@ public class Level extends GraphicsProgram implements KeyListener{
 			if (key == KeyEvent.VK_P) {
 				if(isPaused == false) {
 					pause();
-					isPaused = true;
 				}
 				else {
 					play();
-					isPaused = false;
 				}
 			}
         }
@@ -259,8 +271,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 				}
 	}
     }
-	
-	
 	
 	public void init() {
 		setSize(800, 600);

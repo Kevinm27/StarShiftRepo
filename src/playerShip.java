@@ -1,5 +1,6 @@
 //import javax.swing.Timer;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import acm.graphics.GImage;
@@ -32,6 +33,7 @@ public class playerShip extends ourEntity implements KeyListener{
 		friendly = true;
 		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
 		rect.setFilled(true);
+		rect.setColor(Color.cyan);
 		type = EntityType.PLAYER;
 	}
 
