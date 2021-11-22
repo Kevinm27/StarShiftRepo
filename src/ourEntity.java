@@ -90,7 +90,7 @@ public class ourEntity extends GraphicsProgram {
 	int getSpeed() {
 		return this.speed;
 	}
-	boolean getIsFriendly() {
+	boolean isFriendly() {
 		return this.friendly;
 	}
 	GImage getImage() {
@@ -108,7 +108,9 @@ public class ourEntity extends GraphicsProgram {
 	public boolean canShoot() {
 		return (curFireTime >= fireDelay && canShoot);
 	}
-	
+	public boolean isDead() {
+		return health < 1;
+	}
 	//***** Fundamental Functions *****//
 	
 	
@@ -181,7 +183,7 @@ public class ourEntity extends GraphicsProgram {
 	protected boolean shootPolar(float angle) {
 		//shoots a projectile based on the angle input to the function
 		if(canShoot) {
-			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
+			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle, friendly);
 			//bullets.add(newBullet);
 			curFireTime = 0;
 			return true;
@@ -192,7 +194,7 @@ public class ourEntity extends GraphicsProgram {
 	}
 	
 	public Projectile shootProjectile(Projectile bullet, float angle) {
-		bullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
+		bullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle, friendly);
 		curFireTime = 0;
 		return bullet;
 	}

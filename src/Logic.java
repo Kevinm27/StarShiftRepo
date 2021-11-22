@@ -51,9 +51,9 @@ public class Logic {
 	 */
 	public static boolean isCollided(GObject one, GObject two) {
 		
-		for (int i = (int) one.getX(); i < one.getWidth(); i++) {
-			for (int j = (int) one.getY(); j < one.getHeight(); j++) {	
-				if (i == two.getX() && j == two.getY()) {
+		for (int i = (int) one.getX(); i < one.getX() + one.getWidth(); i++) {
+			for (int j = (int) one.getY(); j < one.getY() + one.getHeight(); j++) {	
+				if (two.contains(new GPoint(i, j))) {
 					return true;
 				}
 			}

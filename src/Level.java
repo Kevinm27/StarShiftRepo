@@ -85,6 +85,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	
 	boolean isLevelLost(playerShip player) {
 		if(player.getHealth() < 1) {
+			System.out.println("Game over");
 			return true;
 		}
 		return false;
@@ -101,11 +102,14 @@ public class Level extends GraphicsProgram implements KeyListener{
 	//Console Functions
 	
 	public void pause() {
+		System.out.println("Game paused");
 		uniTimer.stop();
+		isPaused = true;
 	}
 	
 	void play() {
 		uniTimer.start();
+		isPaused = false;
 	}
 	
 	/**This helper function is used by the timer to move every single projectile once. 
@@ -113,13 +117,41 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 * 
 	 */
 	public void moveAllProjectiles() {
-		 for(int i = 0; i < allBullets.size(); i++) {
-			 if(allBullets.get(i) != null)
-				 if(allBullets.get(i).operateProjectile()) {
-					 
-					 remove(allBullets.get(i).getOval());
-					 allBullets.remove(i);
-				 }
+		for(int i = 0; i < allBullets.size(); i++) {
+			if(allBullets.get(i) != null)
+				if(allBullets.get(i).operateProjectile()) { //if the bullet collides with a wall it is deleted
+					remove(allBullets.get(i).getOval());
+					allBullets.remove(i);
+				}
+				else if(allBullets.get(i).isFriendly() != player.isFriendly()) { //sees if the bullet is able to collide w/ player
+					if(Logic.isCollided(allBullets.get(i).getOval(), player.getRect())) {
+						player.setHealth(player.getHealth() - allBullets.get(i).getDamage());
+						if(player.isDead()) {
+							remove(player.getRect());
+							
+						}
+						remove(allBullets.get(i).getOval());
+						allBullets.remove(i);
+					}
+				}
+				else {
+					for(int j = 0; j < enemies.size(); j++) {
+						if(enemies.get(j) != null) {
+							if(allBullets.get(i).isFriendly() != enemies.get(j).isFriendly()) {
+								if(Logic.isCollided(allBullets.get(i).getOval(), enemies.get(j).getRect())) {
+									enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
+									if(enemies.get(j).isDead()) {
+										remove(enemies.get(j).getRect());
+										enemies.remove(j);
+									}
+									remove(allBullets.get(i).getOval());
+									allBullets.remove(i);
+								}
+							}
+						}
+						 
+					}
+				}
 		 }
 	 }
 	
@@ -135,7 +167,14 @@ public class Level extends GraphicsProgram implements KeyListener{
 			add(newBullet.getOval());
 			allBullets.add(newBullet);
 		}
-		
+		for(int i = 0; i < enemies.size(); i++) {
+			if(enemies.get(i) != null) {
+				if(Logic.isCollided(player.getRect(), enemies.get(i).getRect())){
+					//TODO: what is going to happen when the player collides with an enemy?
+					//System.out.println("Player is colliding with an enemy");
+				}
+			}
+		}
 	}
 	
 	/**This helper function is used inside the timer to control a single Enemy inside 
@@ -188,16 +227,27 @@ public class Level extends GraphicsProgram implements KeyListener{
         @Override
         public void keyPressed(KeyEvent e) {
             player.keyPressed(e);
+            int key = e.getKeyCode();
+			if (key == KeyEvent.VK_P) {
+				if(isPaused == false) {
+					pause();
+					isPaused = true;
+				}
+				else {
+					play();
+					isPaused = false;
+				}
+			}
         }
-    }
-	
-	@Override
-	public void keyTyped(KeyEvent e) {
+        
+        @Override
+        public void keyTyped(KeyEvent e) {
+        	//TODO: doesn't work
 		//Pauses the Game
 				//Will check if the player hit the Escape Key, pausing the game accordingly
 				
-				int id = e.getID();
-				if (id == 27) {
+				int key = e.getKeyCode();
+				if (key == KeyEvent.VK_P) {
 					if(isPaused == false) {
 						pause();
 						isPaused = true;
@@ -208,6 +258,9 @@ public class Level extends GraphicsProgram implements KeyListener{
 					}
 				}
 	}
+    }
+	
+	
 	
 	public void init() {
 		setSize(800, 600);

@@ -217,7 +217,7 @@ public class OurEntityV2 extends GraphicsProgram {
 			return false;
 		}
 		else {
-			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle);
+			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle, friendly);
 			bullets.add(newBullet);
 			canShoot = false;
 			return true;

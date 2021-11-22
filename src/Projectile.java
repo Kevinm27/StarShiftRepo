@@ -26,9 +26,9 @@ class Projectile extends GraphicsProgram {
 	   * this is the default constructor for player projectiles. they're going to derive the
 	   * angle of travel for the projectile based on keyboard inputs.
 	   */
-	  Projectile(GPoint projectileLocation, float angle){
+	  Projectile(GPoint projectileLocation, float angle, boolean friendly){
 		  damage = PROJECTILE_DAMAGE;
-		    friendly = true;
+		    this.friendly = friendly;
 		    speed = PROJECTILE_SPEED;
 		    GOval projOval = makeProjOval(projectileLocation.getX(), projectileLocation.getY());
 		    allProjOvals.add(projOval);
@@ -54,8 +54,8 @@ class Projectile extends GraphicsProgram {
 	  }
 	  
 
-	  private void addProj(GPoint p, float a) {
-		  Projectile proj = new Projectile(p, a);
+	  private void addProj(GPoint p, float a, boolean friendly) {
+		  Projectile proj = new Projectile(p, a, friendly);
 	  }
 	  
 	 public GOval makeProjOval(double x, double y) {
@@ -123,7 +123,7 @@ class Projectile extends GraphicsProgram {
 
 	@Override
 	public void run() {
-		Projectile bullet1 = new Projectile(new GPoint(100, 50), 315);
+		Projectile bullet1 = new Projectile(new GPoint(100, 50), 315, true);
 		add(oval);
 		add(bullet1.getOval());
 	}
@@ -132,6 +132,6 @@ class Projectile extends GraphicsProgram {
 	}
 	
 	public static void main(String args[]) {
-		new Projectile(new GPoint(200, 200), 90).start();
+		new Projectile(new GPoint(200, 200), 90, true).start();
 	}
 	}
