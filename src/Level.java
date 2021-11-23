@@ -43,7 +43,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 * @return
 	 */
 	Level(playerShip player){
-		enemies.add(new Enemy(50, 200, false, EntityType.SHOOTER, new GPoint(500, 100)));
+		enemies.add(new Enemy(50, 200, EntityType.SHOOTER, new GPoint(500, 100)));
 		this.player = player;
 	}
 	
@@ -276,7 +276,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	}
 	
 	public static void main(String args[]) {
-		new Level(new playerShip(5, 300, true, EntityType.PLAYER,new GPoint(200, 200))).start();
+		new Level(new playerShip(5, 300, EntityType.PLAYER, new GPoint(200, 200))).start();
 	}
 }
 

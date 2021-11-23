@@ -12,8 +12,8 @@ import acm.graphics.GRect;
 
 public class Enemy extends ourEntity {
 	
-	Enemy(int fD, int life, boolean friend, EntityType eT, GPoint entityLocation) {	// just to get rid of red squiggly
-		super(fD, life, friend, eT);
+	Enemy(int fD, int life, EntityType eT, GPoint entityLocation) {	// just to get rid of red squiggly
+		super(fD, life, eT);
 		
 		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
 		rect.setFilled(true);

@@ -33,20 +33,22 @@ public class ourEntity {
 	public GRect rect; //placeholder for image
 	
 	//************************************* constructor *************************************//
-	public ourEntity(int fD, int life, boolean friend, EntityType eT) {
+	public ourEntity(int fD, int life, EntityType eT) {
 		fireDelay = fD;
 		health = life;
-		friendly = friend;
 		eType = eT;
 		switch(eT) {
 			case PLAYER:
 				speed = 3;
+				friendly = true;
 				break;
 			case SCOOTER:
 				speed = 4;
+				friendly = false;
 				break;
 			case SHOOTER:
 				speed = 2;
+				friendly = false;
 				break;
 		}
 	}

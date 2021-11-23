@@ -22,8 +22,8 @@ public class playerShip extends ourEntity implements KeyListener{
 	 * 
 	 * @param entityLocation the starting location of the playerShip
 	 */
-	playerShip(int fD, int life, boolean friend, EntityType eT, GPoint entityLocation) {
-		super(fD, life, friend, eT);
+	playerShip(int fD, int life, EntityType eT, GPoint entityLocation) {
+		super(fD, life, eT);
 		
 		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
 		rect.setFilled(true);
@@ -121,28 +121,25 @@ public class playerShip extends ourEntity implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 			
-		//Move Stoppers
-        //Stops the Movement of the Player's Ship
-        //Will check the Char of the Key Released to check if it corresponds to WASD Keys
-        //If this fails, we may need to take in a string and check for key combinations
-        if (key == KeyEvent.VK_W) {
+		if (key == KeyEvent.VK_W) {
             //move player up
-            wKeyDown = false;
+            wKeyDown = true;
         }
     
         if (key == KeyEvent.VK_A) {
             //move player left
-            aKeyDown = false;
+            aKeyDown = true;
         }
     
         if (key == KeyEvent.VK_S) {
             //move player down
-            sKeyDown = false;
+            sKeyDown = true;
+
         }
     
         if (key == KeyEvent.VK_D) {
             //move player right
-            dKeyDown = false;
+            dKeyDown = true;
         }
         
         /*Bullet Movers
@@ -153,23 +150,24 @@ public class playerShip extends ourEntity implements KeyListener{
         
         if (key == KeyEvent.VK_UP) {
             //shoot up
-            upKeyDown = false;
+            upKeyDown = true;
         }
         
         if (key == KeyEvent.VK_LEFT) {
             //shoot left
-            leftKeyDown = false;
+            leftKeyDown = true;
         }
         
         if (key == KeyEvent.VK_DOWN) {
             //shoot down
-            downKeyDown = false;
+            downKeyDown = true;
         }
         
         if (key == KeyEvent.VK_RIGHT) {
             //shoot right
-            rightKeyDown = false;
+            rightKeyDown = true;
         }
+
 	}
 	
 	@Override
@@ -182,19 +180,19 @@ public class playerShip extends ourEntity implements KeyListener{
 		//Will check the Char of the Key Released to check if it corresponds to WASD Keys 
 		//If this fails, we may need to take in a string and check for key combinations
 			case KeyEvent.VK_W:
-				wKeyDown = true;
+				wKeyDown = false;
 				break;
 			
 			case KeyEvent.VK_A:
-				aKeyDown = true;
+				aKeyDown = false;
 				break;
 			
 			case KeyEvent.VK_S:
-				sKeyDown = true;
+				sKeyDown = false;
 				break;
 			
 			case KeyEvent.VK_D:
-				dKeyDown = true;
+				dKeyDown = false;
 				break;
 		
 		/*Bullet Movers
@@ -203,19 +201,19 @@ public class playerShip extends ourEntity implements KeyListener{
 		*Arrow Key ID: Left:37, Up:38, Right:39, Down:40
 		*/
 			case KeyEvent.VK_UP:
-				upKeyDown = true;
+				upKeyDown = false;
 				break;
 			
 			case KeyEvent.VK_DOWN:
-				downKeyDown = true;
+				downKeyDown = false;
 				break;
 			
 			case KeyEvent.VK_LEFT:
-				leftKeyDown = true;
+				leftKeyDown = false;
 				break;
 			
 			case KeyEvent.VK_RIGHT:
-				rightKeyDown = true;
+				rightKeyDown = false;
 				break;
 		}
 	}
