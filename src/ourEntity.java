@@ -9,13 +9,13 @@
 import java.util.ArrayList;
 import acm.graphics.GImage;
 import acm.graphics.GRect;
-import acm.program.GraphicsProgram;
 import acm.graphics.GPoint;
 
-public class ourEntity extends GraphicsProgram {
-	//***** private variables *****//	
+public class ourEntity {
+	//************************************* private variables *************************************//	
 	protected int fireDelay;
 	protected int curFireTime = 0;
+	protected EntityType eType;
 	protected boolean canMove = true;
 	protected boolean canShoot = true; 							//prevents enemies that cannot fire from firing
 	protected int health;
@@ -25,19 +25,32 @@ public class ourEntity extends GraphicsProgram {
 	protected Projectile newBullet; 							//used for creating/firing projectiles
 	
 	
-	//***** public variables *****//
+	//************************************* public variables *************************************//
 	public ArrayList<Projectile> bullets = new ArrayList<Projectile>();	
 	public EntityType type = null;								// Entity Type needs to be defined when object is made
 	public static final String IMG_FILENAME_PATH = "ships/";
 	public static final String IMG_EXTENSION = ".png";
 	public GRect rect; //placeholder for image
 	
-	//***** constructor *****//
-	public ourEntity() {
-		GPoint entityLocation = new GPoint(0,0);				// originally on line 17
+	//************************************* constructor *************************************//
+	public ourEntity(int fD, int life, boolean friend, EntityType eT) {
+		fireDelay = fD;
+		health = life;
+		friendly = friend;
+		eType = eT;
+		switch(eT) {
+			case PLAYER:
+				speed = 3;
+				break;
+			case SCOOTER:
+				speed = 4;
+				break;
+			case SHOOTER:
+				speed = 2;
+				break;
+		}
 	}
 	
-	//**** Setters *****//
 	ourEntity(EntityType type){
 		if(type == EntityType.PLAYER) {
 			health = 300;
@@ -50,6 +63,8 @@ public class ourEntity extends GraphicsProgram {
 			image = new GImage("milleniumFalcon.png", 200, 200);
 		}
 	}
+	
+	//************************************* Setter & Getters *************************************//
 	void setEntityLocation(GPoint location) {					// check for legal location elsewhere (?) Could be in logic
 		rect.setLocation(location);
 	}
@@ -65,11 +80,10 @@ public class ourEntity extends GraphicsProgram {
 	void setEntityType(EntityType type) {
 		this.type = type;
 	}
-	void setImage(EntityType shipType) {										// help with graphics
+	void setImage(EntityType shipType) {						// help with graphics
 		this.image.setImage(IMG_FILENAME_PATH + shipType + IMG_EXTENSION);		// PLEASE MAKE IMAGE NAMES SAME AS EntityTypes
 	}
 	
-	//***** Getters *****//
 	GPoint getEntityLocation() {
 		return new GPoint(rect.getX(), rect.getY());
 	}
@@ -79,7 +93,7 @@ public class ourEntity extends GraphicsProgram {
 	int getSpeed() {
 		return this.speed;
 	}
-	boolean isFriendly() {
+	boolean getFriendly() {
 		return this.friendly;
 	}
 	GImage getImage() {
@@ -94,16 +108,8 @@ public class ourEntity extends GraphicsProgram {
 	ArrayList<Projectile> getBulletArrayList() {//Added getter for the array list
 		return bullets;
 	}
-	public boolean canShoot() {
-		return (curFireTime >= fireDelay && canShoot);
-	}
-	public boolean isDead() {
-		return health < 1;
-	}
-	//***** Fundamental Functions *****//
 	
-	
-	
+	//************************************* Functions *************************************//	
 	/**This function iterates through all of the Projectiles inside of the bullets ArrayList and
 	 * moves them all once.
 	 */
@@ -112,6 +118,13 @@ public class ourEntity extends GraphicsProgram {
 			if(bullets.get(i) != null)
 				bullets.get(i).operateProjectile();
 		}
+	}
+	
+	public boolean canShoot() {
+		return (curFireTime >= fireDelay && canShoot);
+	}
+	public boolean isDead() {
+		return health < 1;
 	}
 	
 	/**Creates a copy of the ship that moves out ahead of the ship image to find the ship's 
@@ -172,7 +185,8 @@ public class ourEntity extends GraphicsProgram {
 	protected boolean shootPolar(float angle) {
 		//shoots a projectile based on the angle input to the function
 		if(canShoot) {
-			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle, friendly);
+			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), 
+					rect.getY() + (rect.getHeight() / 2)), angle, friendly);
 			//bullets.add(newBullet);
 			curFireTime = 0;
 			return true;
@@ -183,21 +197,13 @@ public class ourEntity extends GraphicsProgram {
 	}
 	
 	public Projectile shootProjectile(Projectile bullet, float angle) {
-		bullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), rect.getY() + (rect.getHeight() / 2)), angle, friendly);
+		bullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), 
+				rect.getY() + (rect.getHeight() / 2)), angle, friendly);
 		curFireTime = 0;
 		return bullet;
 	}
-	
-	public void init() {
-		setSize(700, 700);
-	}
-	
-	public void run() {
-		ourEntity newEntity = new ourEntity(EntityType.SCOOTER);
-		add(newEntity.getImage());
-	}
-	
-	public static void main(String[] args) {
-		new ourEntity(EntityType.SCOOTER).start();
-	}
 }
+
+
+
+

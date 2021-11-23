@@ -43,7 +43,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 * @return
 	 */
 	Level(playerShip player){
-		enemies.add(new Enemy(new GPoint(500, 100), EntityType.SHOOTER));
+		enemies.add(new Enemy(50, 200, false, EntityType.SHOOTER, new GPoint(500, 100)));
 		this.player = player;
 	}
 	
@@ -100,7 +100,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 	
 	
 	public void run() {
-		Projectile t = new Projectile(new GPoint(200, 200), player.getRect());
 		initLevel();
 		
 		uniTimer.start();
@@ -137,7 +136,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 					allBullets.remove(i);
 				}
 				//projectiles check if they can collide with the player
-				else if(allBullets.get(i).getFriendly() != player.isFriendly()) { //sees if the bullet is able to collide w/ player
+				else if(allBullets.get(i).getFriendly() != player.getFriendly()) { //sees if the bullet is able to collide w/ player
 					if(Logic.isCollided(allBullets.get(i).getOval(), player.getRect())) {
 						player.setHealth(player.getHealth() - allBullets.get(i).getDamage());
 						if(isLevelLost()) { //checks if player has died
@@ -152,7 +151,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 				else { //projectiles now check if they can collide with enemies
 					for(int j = 0; j < enemies.size(); j++) {
 						if(enemies.get(j) != null) {
-							if(allBullets.get(i).getFriendly() != enemies.get(j).isFriendly()) { //checks if the current enemy is on the opposing team of the bullet
+							if(allBullets.get(i).getFriendly() != enemies.get(j).getFriendly()) { //checks if the current enemy is on the opposing team of the bullet
 								if(Logic.isCollided(allBullets.get(i).getOval(), enemies.get(j).getRect())) { //checks if the enemy and projectile are colliding
 									enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
 									if(enemies.get(j).isDead()) {
@@ -163,12 +162,11 @@ public class Level extends GraphicsProgram implements KeyListener{
 									allBullets.remove(i);
 								}
 							}
-						}
-						 
+						}	 
 					}
 				}
-		 }
-	 }
+		}
+	}
 	
 	
 	/**This helper function is used by the timer to control the playerShip based on the
@@ -178,6 +176,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		player.operatePlayer(); //executes movement for timer and triggers curFireTime
 		
 		float fireAngle = player.getFiringAngle(); //checks the angle the player is trying to shoot in
+		
 		if(fireAngle != -1 && player.canShoot()) {
 			newBullet = player.shootProjectile(newBullet, fireAngle);
 			add(newBullet.getOval());
@@ -217,12 +216,12 @@ public class Level extends GraphicsProgram implements KeyListener{
 		
 		//System.out.println("Timer ticked");
 		controlPlayer();
-			for(int i = 0; i < enemies.size(); i++) {
-				if(enemies.get(i) != null) {
-					controlEnemy(enemies.get(i));
-				}
+		
+		for(int i = 0; i < enemies.size(); i++) {
+			if(enemies.get(i) != null) {
+				controlEnemy(enemies.get(i));
 			}
-			
+		}
 	}
 	
 	/**This class was taken from an outside source. It overrides the KeyListeners of your choosing.
@@ -235,15 +234,15 @@ public class Level extends GraphicsProgram implements KeyListener{
 
         @Override
         public void keyReleased(KeyEvent e) {
-            player.keyReleased(e);
+        	player.keyReleased(e);
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-            player.keyPressed(e);
-            int key = e.getKeyCode();
-			if (key == KeyEvent.VK_P) {
-				if(isPaused == false) {
+        	player.keyPressed(e);
+        	int key = e.getKeyCode();
+        	if (key == KeyEvent.VK_P) {
+        		if(isPaused == false) {
 					pause();
 				}
 				else {
@@ -254,30 +253,33 @@ public class Level extends GraphicsProgram implements KeyListener{
         
         @Override
         public void keyTyped(KeyEvent e) {
-        	//TODO: doesn't work
-		//Pauses the Game
-				//Will check if the player hit the Escape Key, pausing the game accordingly
+        //TODO: doesn't work
+        //Pauses the Game
+        //Will check if the player hit the Escape Key, pausing the game accordingly
 				
-				int key = e.getKeyCode();
-				if (key == KeyEvent.VK_P) {
-					if(isPaused == false) {
-						pause();
-						isPaused = true;
-					}
-					else {
-						play();
-						isPaused = false;
-					}
+        	int key = e.getKeyCode();
+			if (key == KeyEvent.VK_P) {
+				if(isPaused == false) {
+					pause();
+					isPaused = true;
 				}
+				else {
+					play();
+					isPaused = false;
+				}
+			}
+        }
 	}
-    }
 	
 	public void init() {
 		setSize(800, 600);
 	}
 	
 	public static void main(String args[]) {
-		
-		new Level(new playerShip(new GPoint(200, 200))).start();
+		new Level(new playerShip(5, 300, true, EntityType.PLAYER,new GPoint(200, 200))).start();
 	}
 }
+
+
+
+

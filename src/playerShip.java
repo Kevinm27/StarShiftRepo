@@ -6,8 +6,6 @@ import acm.graphics.GPoint;
 import acm.graphics.GRect;
 
 public class playerShip extends ourEntity implements KeyListener{
-	
-	
 	//These booleans tell us whether or not one of the keys on the keyboard is currently held down
 	private boolean wKeyDown = false;
 	private boolean aKeyDown = false;
@@ -24,15 +22,12 @@ public class playerShip extends ourEntity implements KeyListener{
 	 * 
 	 * @param entityLocation the starting location of the playerShip
 	 */
-	playerShip(GPoint entityLocation) {
-		fireDelay = 5;
-		health = 300;
-		speed = 3;
-		friendly = true;
+	playerShip(int fD, int life, boolean friend, EntityType eT, GPoint entityLocation) {
+		super(fD, life, friend, eT);
+		
 		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
 		rect.setFilled(true);
 		rect.setColor(Color.cyan);
-		type = EntityType.PLAYER;
 	}
 
 	/**This is the move function that playerShip will be using. It mostly just runs through movePolar 
@@ -51,10 +46,8 @@ public class playerShip extends ourEntity implements KeyListener{
 			}
 			return true;
 		}
-		
-		else {
+		else
 			return false;
-		}
 	}
 	
 	/**this is the shoot function that playerShip will be using. It essentially runs ourEntity's movePolar
@@ -65,11 +58,10 @@ public class playerShip extends ourEntity implements KeyListener{
 	 * @return false if no bullet was fired
 	 */
 	public boolean shoot(float angle) {
-		if(shootPolar(angle)) {
-
+		if(shootPolar(angle))
 			return true;
-			
-		}else {return false;}
+		else 
+			return false;
 	}
 	
 	/**This is the function that the gameTimer in Level will be calling to operate the playerShip. It 
@@ -101,8 +93,6 @@ public class playerShip extends ourEntity implements KeyListener{
 		else if(sKeyDown) //move player down
 			move(270);
 		
-		
-		
 		operateProjectiles();
 	}
 	
@@ -130,127 +120,109 @@ public class playerShip extends ourEntity implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		//System.out.print(e.getKeyChar());
 			
-			if (key == KeyEvent.VK_W) {
-				//move player up
-				wKeyDown = true;
-			}
-		
-			if (key == KeyEvent.VK_A) {
-				//move player left
-				aKeyDown = true;
-			}
-		
-			if (key == KeyEvent.VK_S) {
-				//move player down
-				sKeyDown = true;
-
-			}
-		
-			if (key == KeyEvent.VK_D) {
-				//move player right
-				dKeyDown = true;
-			}
-			
-			/*Bullet Movers
-			 *Moves the Player's Bullets
-			 *Will check the ID of the key pressed to check if it corresponds to Arrow Keys
-			 *Arrow Key ID: Left:37, Up:38, Right:39, Down:40
-			*/
-			
-			if (key == KeyEvent.VK_UP) {
-				//shoot up
-				upKeyDown = true;
-			}
-			
-			if (key == KeyEvent.VK_LEFT) {
-				//shoot left
-				leftKeyDown = true;
-			}
-			
-			if (key == KeyEvent.VK_DOWN) {
-				//shoot down
-				downKeyDown = true;
-			}
-			
-			if (key == KeyEvent.VK_RIGHT) {
-				//shoot right
-				rightKeyDown = true;
-			}
-		//remove the comment on the next line if you want to move the player around
-		//operatePlayer(); 
+		//Move Stoppers
+        //Stops the Movement of the Player's Ship
+        //Will check the Char of the Key Released to check if it corresponds to WASD Keys
+        //If this fails, we may need to take in a string and check for key combinations
+        if (key == KeyEvent.VK_W) {
+            //move player up
+            wKeyDown = false;
+        }
+    
+        if (key == KeyEvent.VK_A) {
+            //move player left
+            aKeyDown = false;
+        }
+    
+        if (key == KeyEvent.VK_S) {
+            //move player down
+            sKeyDown = false;
+        }
+    
+        if (key == KeyEvent.VK_D) {
+            //move player right
+            dKeyDown = false;
+        }
+        
+        /*Bullet Movers
+         *Moves the Player's Bullets
+         *Will check the ID of the key pressed to check if it corresponds to Arrow Keys
+         *Arrow Key ID: Left:37, Up:38, Right:39, Down:40
+        */
+        
+        if (key == KeyEvent.VK_UP) {
+            //shoot up
+            upKeyDown = false;
+        }
+        
+        if (key == KeyEvent.VK_LEFT) {
+            //shoot left
+            leftKeyDown = false;
+        }
+        
+        if (key == KeyEvent.VK_DOWN) {
+            //shoot down
+            downKeyDown = false;
+        }
+        
+        if (key == KeyEvent.VK_RIGHT) {
+            //shoot right
+            rightKeyDown = false;
+        }
 	}
 	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		
+		switch(key) {
 		//Move Stoppers
 		//Stops the Movement of the Player's Ship
 		//Will check the Char of the Key Released to check if it corresponds to WASD Keys 
 		//If this fails, we may need to take in a string and check for key combinations
-		if (key == KeyEvent.VK_W) {
-			//move player up
-			wKeyDown = false;
-		}
-	
-		if (key == KeyEvent.VK_A) {
-			//move player left
-			aKeyDown = false;
-
-		}
-	
-		if (key == KeyEvent.VK_S) {
-			//move player down
-			sKeyDown = false;
-
-		}
-	
-		if (key == KeyEvent.VK_D) {
-			//move player right
-			dKeyDown = false;
-
-		}
+			case KeyEvent.VK_W:
+				wKeyDown = true;
+				break;
+			
+			case KeyEvent.VK_A:
+				aKeyDown = true;
+				break;
+			
+			case KeyEvent.VK_S:
+				sKeyDown = true;
+				break;
+			
+			case KeyEvent.VK_D:
+				dKeyDown = true;
+				break;
 		
 		/*Bullet Movers
-		 *Moves the Player's Bullets
-		 *Will check the ID of the key pressed to check if it corresponds to Arrow Keys
-		 *Arrow Key ID: Left:37, Up:38, Right:39, Down:40
+		*Moves the Player's Bullets
+		*Will check the ID of the key pressed to check if it corresponds to Arrow Keys
+		*Arrow Key ID: Left:37, Up:38, Right:39, Down:40
 		*/
-		
-		if (key == KeyEvent.VK_UP) {
-			//shoot up
-			upKeyDown = false;
+			case KeyEvent.VK_UP:
+				upKeyDown = true;
+				break;
+			
+			case KeyEvent.VK_DOWN:
+				downKeyDown = true;
+				break;
+			
+			case KeyEvent.VK_LEFT:
+				leftKeyDown = true;
+				break;
+			
+			case KeyEvent.VK_RIGHT:
+				rightKeyDown = true;
+				break;
 		}
-		
-		if (key == KeyEvent.VK_LEFT) {
-			//shoot left
-			leftKeyDown = false;
-		}
-		
-		if (key == KeyEvent.VK_DOWN) {
-			//shoot down
-			downKeyDown = false;
-		}
-		
-		if (key == KeyEvent.VK_RIGHT) {
-			//shoot right
-			rightKeyDown = false;
-		}
-		
 	}
-	
+
 	@Override
-	public void run() {
-		addKeyListeners();
-		add(rect);
-	}
-	public void init() {
-		setSize(Level.LEVEL_BOUNDS_RIGHT, Level.LEVEL_BOUNDS_BOTTOM);
-	}
-	
-	public static void main(String args[]) {
-		new playerShip(new GPoint(200, 200)).start();
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

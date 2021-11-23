@@ -6,15 +6,15 @@ import acm.graphics.GRect;
 
 public class Projectile {
 	//************************************* Variables *************************************//
-	public static final int PROJECTILE_SPEED = 5;
-	public static final int PROJECTILE_SIZE = 10;
+	private static final int PROJECTILE_SPEED = 5;
+	private static final int PROJECTILE_SIZE = 10;
 	private static final int PROJECTILE_DAMAGE = 100;
 	
 	private int speed;
 	private int damage;
 	private boolean friendly;
 	  
-	private GOval oval; //placeholder for projectile image
+	private GOval oval;		//placeholder for projectile image
 	public static ArrayList<GOval> allProjOvals = new ArrayList<GOval>();
 	
 	private float angle;

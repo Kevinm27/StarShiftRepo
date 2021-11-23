@@ -12,20 +12,16 @@ import acm.graphics.GRect;
 
 public class Enemy extends ourEntity {
 	
-	Enemy(GPoint entityLocation, EntityType type) {						// just to get rid of red squiggly
-		health = 200;
-		friendly = false;
-		this.type = type;
+	Enemy(int fD, int life, boolean friend, EntityType eT, GPoint entityLocation) {	// just to get rid of red squiggly
+		super(fD, life, friend, eT);
+		
 		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
 		rect.setFilled(true);
 		if (type == EntityType.SCOOTER) {
-			speed = 3;
 			canShoot = false;
 			rect.setColor(Color.magenta);
 		}
 		else if (type == EntityType.SHOOTER) {
-			speed = 2;
-			fireDelay = 50;
 			rect.setColor(Color.PINK);
 		}
 	}
@@ -40,7 +36,6 @@ public class Enemy extends ourEntity {
 		curFireTime++;
 		
 		movePolar(towardsPlayer);
-		
 	}
 	
 	/**This is the move function that Enemy will be using. It mostly just runs through movePolar 
@@ -50,11 +45,10 @@ public class Enemy extends ourEntity {
 	 * @return true if the ship moved, otherwise false
 	 */
 	public boolean move(float angle) {				// takes in Type to change move rates
-		if(movePolar(angle)) {
-			
+		if(movePolar(angle))
 			return true;
-			
-		}else {return false;}
+		else
+			return false;
 	}
 	
 	/**this is the shoot function that playerShip will be using. It essentially runs ourEntity's movePolar
@@ -65,10 +59,10 @@ public class Enemy extends ourEntity {
 	 * @return false if no bullet was fired
 	 */
 	public boolean shoot(float angle) {
-		if(movePolar(angle)) {
+		if(movePolar(angle))
 			return true;
-			
-		}else {return false;}
+		else
+			return false;
 	}
 
 }
