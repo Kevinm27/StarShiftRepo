@@ -41,8 +41,12 @@ public class ShipCustomPane extends GraphicsPane{
 		change.setFont(space);
 		change.setColor(Color.white);
 		
-		leftArrow = new GImage("leftArrow.jpg", app.getWidth()/2 + 100, app.getHeight()/2 - SHIFT + 50); //fix later
+		leftArrow = new GImage("rightArrow.jpg", app.getWidth()/2 + 200, app.getHeight()/2-SHIFT + 50);
 		leftArrow.setSize(55,40);
+		leftArrow.rotate(180);
+		leftArrow.movePolar(leftArrow.getWidth(), 180);
+		leftArrow.movePolar(leftArrow.getHeight()+1, 270);			// +1 is debatable on whether or not to include
+
 		rightArrow = new GImage("rightArrow.jpg", app.getWidth()/2 + 200, app.getHeight()/2-SHIFT + 50);
 		rightArrow.setSize(55,40);
 	
