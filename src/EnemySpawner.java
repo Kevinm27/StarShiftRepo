@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 import acm.graphics.GPoint;
 import java.lang.Math;
 
@@ -11,6 +12,7 @@ public class EnemySpawner {
 	private EntityType eType;
 	private GPoint eLocation;
 	private int numEnemies;
+	Random rng = new Random();
 	
 	public EnemySpawner(int time, GPoint pL) {
 		currTime = time;
@@ -61,12 +63,35 @@ public class EnemySpawner {
 	}
 	
 	private EntityType createEntityType() {
-		
-		return eType;
+		int eTNum = rng.nextInt(1);
+		switch(eTNum) {
+		  case 0:
+		    return EntityType.SHOOTER;
+    case 1:
+      return EntityType.SCOOTER;
+    default:
+      return null;
+		}
 	}
 	
 	private GPoint createEnemyLocation(GPoint pL) {
-		
+		double x = pL.getX();
+		double y = pL.getY();
+	 
+		int quad = rng.nextInt(3);
+		switch(quad) {
+  case 0:
+    break;
+  case 1:
+    break;
+  case 2:
+    break;
+  case 3:
+    break;
+  default:
+    return null;
+}
+	  
 		return eLocation;
 	}
 }
