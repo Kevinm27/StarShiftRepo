@@ -9,14 +9,17 @@ public class EnemySpawner {
 	private GPoint playerLocation;
 	private int fireDelay;
 	private int health;
-	private EntityType eType;
 	private GPoint eLocation;
 	private int numEnemies;
-	Random rng = new Random();
+	private Random rng = new Random();
+	private int LEVEL_BOUNDS_BOTTOM;
+	private int LEVEL_BOUNDS_RIGHT;
 	
-	public EnemySpawner(int time, GPoint pL) {
+	public EnemySpawner(int time, GPoint pL, int bottomBounds, int rightBounds) {
 		currTime = time;
 		playerLocation = pL;
+		LEVEL_BOUNDS_BOTTOM = bottomBounds;
+		LEVEL_BOUNDS_RIGHT = rightBounds;
 	}
 	
 	public void setTime(int time) {
@@ -27,20 +30,12 @@ public class EnemySpawner {
 		playerLocation = pL;
 	}
 	
-	private int getTime() {
-		return currTime;
-	}
-	
-	private GPoint getPlayerLocation() {
-		return playerLocation;
-	}
-	
 	public ArrayList<Enemy> spawnEnemies() {
 		//clears ArrayList for next set of enemies
 		sEnemies.clear();
 		
 		//the number of enemies is the square root of the time rounded up plus 5
-		numEnemies = (int)Math.ceil(Math.sqrt(getTime()))+5;
+		numEnemies = (int)Math.ceil(Math.sqrt(currTime))+5;
 		
 		//goes through for loop to create enemies
 		for(int i=0; i < numEnemies; i++) {
@@ -63,35 +58,83 @@ public class EnemySpawner {
 	}
 	
 	private EntityType createEntityType() {
-		int eTNum = rng.nextInt(1);
+	int eTNum = rng.nextInt(2);
 		switch(eTNum) {
-		  case 0:
-		    return EntityType.SHOOTER;
-    case 1:
-      return EntityType.SCOOTER;
-    default:
-      return null;
+		case 0:
+			return EntityType.SHOOTER;
+		case 1:
+			return EntityType.SCOOTER;
+		default:
+			return null;
 		}
 	}
 	
 	private GPoint createEnemyLocation(GPoint pL) {
 		double x = pL.getX();
 		double y = pL.getY();
-	 
-		int quad = rng.nextInt(3);
-		switch(quad) {
-  case 0:
-    break;
-  case 1:
-    break;
-  case 2:
-    break;
-  case 3:
-    break;
-  default:
-    return null;
-}
-	  
+		
+		//generates random number to decide what quadrant the enemy will be in
+		//will either be quadrant 1-4
+		int quad = rng.nextInt(4) + 1;
+		
+		//using these if statements to check in which quadrants the enemies can spawn in
+		if(x + 100 <= LEVEL_BOUNDS_RIGHT && y - 100 >= 0 && quad == 1) {
+			//subtracting 100 so enemies domain to spawn is smaller
+			int disFromScreenX = (int)(600 - x - 100);
+			//subtracting 100 so enemies range to spawn is smaller
+			int disFromScreenY = (int)(y - 100);
+			
+			eLocation = new GPoint(rng.nextInt(disFromScreenX) + x + 100, y - 100 - rng.nextInt(disFromScreenY));
+		}
+		else if(x - 100 >= 0 && y - 100 >= 0 && quad <= 2) {
+			//subtracting 100 so enemies domain to spawn is smaller
+			int disFromScreenX = (int)(x - 100);
+			//subtracting 100 so enemies range to spawn is smaller
+			int disFromScreenY = (int)(y - 100);
+			
+			eLocation = new GPoint(x - 100 - rng.nextInt(disFromScreenX), y - 100 - rng.nextInt(disFromScreenY));
+		}
+		else if(x - 100 >= 0 && y + 100 <= LEVEL_BOUNDS_BOTTOM && quad <= 3) {
+			//subtracting 100 so enemies domain to spawn is smaller
+			int disFromScreenX = (int)(600 - x - 100);
+			//subtracting 100 so enemies range to spawn is smaller
+			int disFromScreenY = (int)(600 - y - 100);
+			
+			eLocation = new GPoint(rng.nextInt(disFromScreenX) + x + 100, rng.nextInt(disFromScreenY) + y + 100);
+		}
+		else if(x + 100 <= LEVEL_BOUNDS_RIGHT && y + 100 <= LEVEL_BOUNDS_BOTTOM && quad <= 4) {
+			//subtracting 100 so enemies domain to spawn is smaller
+			int disFromScreenX = (int)(x - 100);
+			//subtracting 100 so enemies range to spawn is smaller
+			int disFromScreenY = (int)(600 - y - 100);
+			
+			eLocation = new GPoint(x - 100 - rng.nextInt(disFromScreenX), rng.nextInt(disFromScreenY) + y + 100);
+		}
+		else if(x + 100 <= LEVEL_BOUNDS_RIGHT && y - 100 >= 0 && quad <= 4) {
+			//subtracting 100 so enemies domain to spawn is smaller
+			int disFromScreenX = (int)(600 - x - 100);
+			//subtracting 100 so enemies range to spawn is smaller
+			int disFromScreenY = (int)(y - 100);
+			
+			eLocation = new GPoint(rng.nextInt(disFromScreenX) + x + 100, y - 100 - rng.nextInt(disFromScreenY));
+		}
+		else if(x - 100 >= 0 && y - 100 >= 0 && quad <= 4) {
+			//subtracting 100 so enemies domain to spawn is smaller
+			int disFromScreenX = (int)(x - 100);
+			//subtracting 100 so enemies range to spawn is smaller
+			int disFromScreenY = (int)(y - 100);
+			
+			eLocation = new GPoint(x - 100 - rng.nextInt(disFromScreenX), y - 100 - rng.nextInt(disFromScreenY));
+		}
+		else if(x - 100 >= 0 && y + 100 <= LEVEL_BOUNDS_BOTTOM && quad <= 4) {
+			//subtracting 100 so enemies domain to spawn is smaller
+			int disFromScreenX = (int)(600 - x - 100);
+			//subtracting 100 so enemies range to spawn is smaller
+			int disFromScreenY = (int)(600 - y - 100);
+			
+			eLocation = new GPoint(rng.nextInt(disFromScreenX) + x + 100, rng.nextInt(disFromScreenY) + y + 100);
+		}
+		
 		return eLocation;
 	}
 }

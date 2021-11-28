@@ -10,6 +10,8 @@ import acm.graphics.GPoint;
 
 public class Level extends GraphicsProgram implements KeyListener{
 	private static final int DELAY_MS = 20;
+	private int timeCounter = 0;
+	private int secondCounter = 0;
 	
 	//TODO: Change these values below to match the bounds of the playable margin of the screen
 	public static final int LEVEL_BOUNDS_BOTTOM = 600;
@@ -17,12 +19,13 @@ public class Level extends GraphicsProgram implements KeyListener{
 	public static final int LEVEL_BOUNDS_TOP = 0;
 	public static final int LEVEL_BOUNDS_LEFT = 0;
 	
-	private ArrayList<Enemy> enemies = new ArrayList<> ();
+	private ArrayList<Enemy> enemies = new ArrayList<>();
 	private ArrayList<Projectile> allBullets = new ArrayList<>();
 	
 	private playerShip player;
 	private Projectile newBullet;
-	private Timer uniTimer = new Timer(DELAY_MS, this);;
+	private Timer uniTimer = new Timer(DELAY_MS, this);
+	private EnemySpawner enemySpawner;
 	
 	//Using variable to store when timer is called
 	
@@ -33,7 +36,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	//Level Constructor
 	public Level(ArrayList<Enemy> enemies, playerShip player) {
 		this.player = player;
-		this.enemies = enemies;
+		//this.enemies = enemies;
 		
 		initLevel();
 	}
@@ -43,7 +46,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 * @return
 	 */
 	Level(playerShip player){
-		enemies.add(new Enemy(50, 200, EntityType.SHOOTER, new GPoint(500, 100)));
+		//enemies.add(new Enemy(50, 200, EntityType.SHOOTER, new GPoint(500, 100)));
 		this.player = player;
 	}
 	
@@ -53,9 +56,9 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private void initLevel() {
 		addKeyListeners(new TAdapter());
 		add(player.getRect());
-		for(int i = 0; i < enemies.size(); i++) {
-			add(enemies.get(i).getRect());
-		}
+		//for(int i = 0; i < enemies.size(); i++) {
+		//	add(enemies.get(i).getRect());
+		//}
 		
 		uniTimer.start();
 	}
@@ -99,8 +102,10 @@ public class Level extends GraphicsProgram implements KeyListener{
 	}
 	
 	
-	public void run() {
+	public void run() {		
 		initLevel();
+		
+		enemySpawner = new EnemySpawner(timeCounter, player.getPlayerLocation(), LEVEL_BOUNDS_BOTTOM, LEVEL_BOUNDS_RIGHT);
 		
 		uniTimer.start();
 	}    
@@ -217,10 +222,28 @@ public class Level extends GraphicsProgram implements KeyListener{
 		//System.out.println("Timer ticked");
 		controlPlayer();
 		
+		if(timeCounter % 30 == 0 && secondCounter % 20 == 0) {
+			enemySpawner.setTime(timeCounter);
+			enemySpawner.setPlayerLocation(player.getPlayerLocation());
+			enemies = enemySpawner.spawnEnemies();
+			
+			System.out.print(enemies.size());
+			
+			for(Enemy enemy:enemies) {
+				add(enemy.getRect());
+			}
+		}
+		
 		for(int i = 0; i < enemies.size(); i++) {
 			if(enemies.get(i) != null) {
 				controlEnemy(enemies.get(i));
 			}
+		}
+		
+		secondCounter++;
+		if(secondCounter % 20 == 0) {
+			secondCounter = 0;
+			timeCounter++;
 		}
 	}
 	

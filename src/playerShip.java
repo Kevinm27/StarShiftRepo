@@ -18,6 +18,8 @@ public class playerShip extends ourEntity implements KeyListener{
 	
 	private double angleRotation = 90;
 	
+	private GPoint playerLocation;
+	
 	/**Our default constructor for playerShip
 	 * 
 	 * @param entityLocation the starting location of the playerShip
@@ -25,9 +27,15 @@ public class playerShip extends ourEntity implements KeyListener{
 	playerShip(int fD, int life, EntityType eT, GPoint entityLocation) {
 		super(fD, life, eT);
 		
+		playerLocation = entityLocation;
 		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
 		rect.setFilled(true);
 		rect.setColor(Color.cyan);
+	}
+	
+	//getPlayerLocation is for the EnemySpawner Class
+	public GPoint getPlayerLocation() {
+		return playerLocation;
 	}
 
 	/**This is the move function that playerShip will be using. It mostly just runs through movePolar 
