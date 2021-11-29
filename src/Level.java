@@ -7,6 +7,7 @@ import javax.swing.*;
 import acm.program.GraphicsProgram;
 import acm.graphics.GOval;
 import acm.graphics.GPoint;
+import acm.graphics.GRect;
 
 public class Level extends GraphicsProgram implements KeyListener{
 	private static final int DELAY_MS = 20;
@@ -27,11 +28,9 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private Projectile newBullet;
 	private Timer uniTimer = new Timer(DELAY_MS, this);
 	private EnemySpawner enemySpawner;
-	
+	private GRect playArea; //outlines the playable margin of the screen in black
 	//Using variable to store when timer is called
 	
-	//if we need playerShip as a component of the ArrayList
-	//rewrite the code to iterate through the list looking for instance of playerShip
 	private boolean isPaused = false;
 	
 	//Level Constructor
@@ -60,6 +59,9 @@ public class Level extends GraphicsProgram implements KeyListener{
 		//for(int i = 0; i < enemies.size(); i++) {
 		//	add(enemies.get(i).getRect());
 		//}
+		playArea = new GRect(LEVEL_BOUNDS_LEFT, LEVEL_BOUNDS_TOP, LEVEL_BOUNDS_RIGHT, LEVEL_BOUNDS_BOTTOM);
+		playArea.setLineWidth(2);
+		add(playArea);
 		initHP();
 		uniTimer.start();
 	}
@@ -105,6 +107,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	boolean isLevelLost() {
 		if(player.getHealth() < 1) {
+			uniTimer.stop();
 			System.out.println("Game over");
 			return true;
 		}
@@ -178,12 +181,15 @@ public class Level extends GraphicsProgram implements KeyListener{
 		}
 	}
 	
+	/**A helper function for damaging the player. This is mainly to help with decluttering
+	 * other functions where the player may be damaged
+	 * @param damage
+	 */
 	private void damagePlayer(int damage) {
 		player.setHealth(player.getHealth() - damage);
 		playerHP.modifyHealthBar(player.getHealth());
 		if(isLevelLost()) { //checks if player has died
 			//TODO: make this if statement trigger some sort of game over function or screen
-			uniTimer.stop();
 			remove(player.getRect());
 			
 		}
