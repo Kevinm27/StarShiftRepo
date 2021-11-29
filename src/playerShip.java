@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import acm.graphics.GImage;
 import acm.graphics.GPoint;
 import acm.graphics.GRect;
 
@@ -21,9 +20,7 @@ public class playerShip extends ourEntity implements KeyListener{
 	private boolean leftKeyDown = false;
 	private boolean downKeyDown = false;
 	private boolean rightKeyDown = false;
-	
-	private double angleRotation = 90;
-	
+		
 	private GPoint playerLocation;
 
 	
@@ -134,52 +131,56 @@ public class playerShip extends ourEntity implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 			
-		if (key == KeyEvent.VK_W) {
-            //move player up
-            wKeyDown = true;
-        }
-    
-        if (key == KeyEvent.VK_A) {
-            //move player left
-            aKeyDown = true;
-        }
-    
-        if (key == KeyEvent.VK_S) {
-            //move player down
-            sKeyDown = true;
-
-        }
-    
-        if (key == KeyEvent.VK_D) {
-            //move player right
-            dKeyDown = true;
-        }
-        
-        /*Bullet Movers
-         *Moves the Player's Bullets
-         *Will check the ID of the key pressed to check if it corresponds to Arrow Keys
-         *Arrow Key ID: Left:37, Up:38, Right:39, Down:40
-        */
-        
-        if (key == KeyEvent.VK_UP) {
-            //shoot up
-            upKeyDown = true;
-        }
-        
-        if (key == KeyEvent.VK_LEFT) {
-            //shoot left
-            leftKeyDown = true;
-        }
-        
-        if (key == KeyEvent.VK_DOWN) {
-            //shoot down
-            downKeyDown = true;
-        }
-        
-        if (key == KeyEvent.VK_RIGHT) {
-            //shoot right
-            rightKeyDown = true;
-        }
+		switch(key) {
+		//Move Stoppers
+		//Stops the Movement of the Player's Ship
+		//Will check the Char of the Key Released to check if it corresponds to WASD Keys 
+		//If this fails, we may need to take in a string and check for key combinations
+			case KeyEvent.VK_W:
+				//move player up
+	            wKeyDown = true;
+				break;
+			
+			case KeyEvent.VK_A:
+				//move player left
+	            aKeyDown = true;
+				break;
+			
+			case KeyEvent.VK_S:
+				//move player down
+	            sKeyDown = true;
+				break;
+			
+			case KeyEvent.VK_D:
+				//move player right
+	            dKeyDown = true;
+				break;
+		
+		/*Bullet Movers
+		*Moves the Player's Bullets
+		*Will check the ID of the key pressed to check if it corresponds to Arrow Keys
+		*Arrow Key ID: Left:37, Up:38, Right:39, Down:40
+		*/
+			case KeyEvent.VK_UP:
+				//shoot up
+	            upKeyDown = true;
+				break;
+			
+			case KeyEvent.VK_DOWN:
+				//shoot down
+	            downKeyDown = true;
+				break;
+			
+			case KeyEvent.VK_LEFT:
+				//shoot left
+	            leftKeyDown = true;
+				break;
+			
+			case KeyEvent.VK_RIGHT:
+				//shoot right
+	            rightKeyDown = true;
+				break;
+		}
 
 	}
 	

@@ -330,7 +330,3 @@ public class Level extends GraphicsProgram implements KeyListener{
 		new Level(new playerShip(5, 300, EntityType.PLAYER, new GPoint(200, 200))).start();
 	}
 }
-
-
-
-
