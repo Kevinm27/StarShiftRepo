@@ -17,12 +17,17 @@ public class Enemy extends ourEntity {
 		
 		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
 		rect.setFilled(true);
-		if (type == EntityType.SCOOTER) {
-			canShoot = false;
-			rect.setColor(Color.magenta);
-		}
-		else if (type == EntityType.SHOOTER) {
-			rect.setColor(Color.PINK);
+		
+		switch(eT) {
+			case PLAYER:
+				break;
+			case SCOOTER:
+				canShoot = false;
+				rect.setColor(Color.magenta);
+				break;
+			case SHOOTER:
+				rect.setColor(Color.PINK);
+				break;
 		}
 	}
 		

@@ -35,7 +35,7 @@ public class EnemySpawner {
 		sEnemies.clear();
 		
 		//the number of enemies is the square root of the time rounded up plus 5
-		numEnemies = (int)Math.ceil(Math.sqrt(currTime))+5;
+		numEnemies = (int)(Math.floor(Math.sqrt(currTime/2))+3);
 		
 		//goes through for loop to create enemies
 		for(int i=0; i < numEnemies; i++) {
