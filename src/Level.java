@@ -7,6 +7,7 @@ import javax.swing.*;
 import acm.program.GraphicsProgram;
 import acm.graphics.GOval;
 import acm.graphics.GPoint;
+import acm.graphics.GRect;
 
 public class Level extends GraphicsProgram implements KeyListener{
 	private static final int DELAY_MS = 20;
@@ -23,14 +24,13 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private ArrayList<Projectile> allBullets = new ArrayList<>();
 	
 	private playerShip player;
+	private PlayerHealthBar playerHP;
 	private Projectile newBullet;
 	private Timer uniTimer = new Timer(DELAY_MS, this);
 	private EnemySpawner enemySpawner;
-	
+	private GRect playArea; //outlines the playable margin of the screen in black
 	//Using variable to store when timer is called
 	
-	//if we need playerShip as a component of the ArrayList
-	//rewrite the code to iterate through the list looking for instance of playerShip
 	private boolean isPaused = false;
 	
 	//Level Constructor
@@ -59,8 +59,20 @@ public class Level extends GraphicsProgram implements KeyListener{
 		//for(int i = 0; i < enemies.size(); i++) {
 		//	add(enemies.get(i).getRect());
 		//}
-		
+		playArea = new GRect(LEVEL_BOUNDS_LEFT, LEVEL_BOUNDS_TOP, LEVEL_BOUNDS_RIGHT, LEVEL_BOUNDS_BOTTOM);
+		playArea.setLineWidth(2);
+		add(playArea);
+		initHP();
 		uniTimer.start();
+	}
+	
+	/**Helper function to help initialize the player's health bar.
+	 * 
+	 */
+	private void initHP() {
+		playerHP = new PlayerHealthBar(new GPoint(30, 630), 100, 20, player.getHealth());
+		add(playerHP.getHpBack());
+		add(playerHP.getCurHealthBar());
 	}
 	
 	public playerShip getPlayer() {
@@ -95,7 +107,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	boolean isLevelLost() {
 		if(player.getHealth() < 1) {
-			System.out.println("Game over");
 			return true;
 		}
 		return false;
@@ -135,7 +146,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	public void moveAllProjectiles() {
 		for(int i = 0; i < allBullets.size(); i++) {
-			if(allBullets.get(i) != null)
+			if(allBullets.get(i) != null && !isLevelLost())
 				if(allBullets.get(i).operateProjectile()) { //if the bullet collides with a wall it is deleted
 					remove(allBullets.get(i).getOval());
 					allBullets.remove(i);
@@ -143,12 +154,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 				//projectiles check if they can collide with the player
 				else if(allBullets.get(i).getFriendly() != player.getFriendly()) { //sees if the bullet is able to collide w/ player
 					if(Logic.isCollided(allBullets.get(i).getOval(), player.getRect())) {
-						player.setHealth(player.getHealth() - allBullets.get(i).getDamage());
-						if(isLevelLost()) { //checks if player has died
-							//TODO: make this if statement trigger some sort of game over function
-							remove(player.getRect());
-							
-						}
+						damagePlayer(allBullets.get(i).getDamage());
 						remove(allBullets.get(i).getOval());
 						allBullets.remove(i);
 					}
@@ -173,6 +179,21 @@ public class Level extends GraphicsProgram implements KeyListener{
 		}
 	}
 	
+	/**A helper function for damaging the player. This is mainly to help with decluttering
+	 * other functions where the player may be damaged
+	 * @param damage
+	 */
+	private void damagePlayer(int damage) {
+		player.setHealth(player.getHealth() - damage);
+		playerHP.modifyHealthBar(player.getHealth());
+		if(isLevelLost()) { //checks if player has died
+			//TODO: make this if statement trigger some sort of game over function or screen
+			uniTimer.stop();
+			System.out.println("Game over");
+			remove(player.getRect());
+			
+		}
+	}
 	
 	/**This helper function is used by the timer to control the playerShip based on the
 	 * current keyboard inputs
@@ -190,7 +211,11 @@ public class Level extends GraphicsProgram implements KeyListener{
 		for(int i = 0; i < enemies.size(); i++) {
 			if(enemies.get(i) != null) {
 				if(Logic.isCollided(player.getRect(), enemies.get(i).getRect())){
-					//TODO: what is going to happen when the player collides with an enemy?
+					//TODO: what is going to happen when the player collides with an enemy? currently the player is damaged by 100
+					damagePlayer(100);
+					remove(enemies.get(i).getRect());
+					enemies.remove(enemies.get(i));
+					
 				}
 			}
 		}
@@ -295,7 +320,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	}
 	
 	public void init() {
-		setSize(800, 600);
+		setSize(800, 800);
 	}
 	
 	public static void main(String args[]) {
