@@ -23,10 +23,10 @@ public class Enemy extends ourEntity {
 				break;
 			case SCOOTER:
 				canShoot = false;
-				rect.setColor(Color.magenta);
+				image.setColor(Color.magenta);		// changed from rect ------- need to replace with an actual image
 				break;
 			case SHOOTER:
-				rect.setColor(Color.PINK);
+				image.setColor(Color.PINK);			// changed from rect ------- need to replace with an actual image
 				break;
 		}
 	}

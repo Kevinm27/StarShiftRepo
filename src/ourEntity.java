@@ -72,12 +72,12 @@ public class ourEntity {
 	void setImage(String color) {						// help with graphics
 		String selected;
 		if (color == null) {
-			selected = "olive";
+			selected = "green";
 		}
 		else {
 			selected = color;
 		}
-		image.setImage(IMG_FILENAME_PATH + selected + "Ship" + IMG_EXTENSION);		// PLEASE MAKE IMAGE NAMES SAME AS EntityTypes
+		image.setImage(IMG_FILENAME_PATH + "Big" + selected + "Ship" + IMG_EXTENSION);		// PLEASE MAKE IMAGE NAMES SAME AS EntityTypes
 	}
 	
 	GPoint getEntityLocation() {
