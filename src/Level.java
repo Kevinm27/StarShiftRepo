@@ -23,6 +23,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private ArrayList<Projectile> allBullets = new ArrayList<>();
 	
 	private playerShip player;
+	private PlayerHealthBar playerHP;
 	private Projectile newBullet;
 	private Timer uniTimer = new Timer(DELAY_MS, this);
 	private EnemySpawner enemySpawner;
@@ -59,8 +60,17 @@ public class Level extends GraphicsProgram implements KeyListener{
 		//for(int i = 0; i < enemies.size(); i++) {
 		//	add(enemies.get(i).getRect());
 		//}
-		
+		initHP();
 		uniTimer.start();
+	}
+	
+	/**Helper function to help initialize the player's health bar.
+	 * 
+	 */
+	private void initHP() {
+		playerHP = new PlayerHealthBar(new GPoint(30, 630), 100, 20, player.getHealth());
+		add(playerHP.getHpBack());
+		add(playerHP.getCurHealthBar());
 	}
 	
 	public playerShip getPlayer() {
@@ -143,12 +153,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 				//projectiles check if they can collide with the player
 				else if(allBullets.get(i).getFriendly() != player.getFriendly()) { //sees if the bullet is able to collide w/ player
 					if(Logic.isCollided(allBullets.get(i).getOval(), player.getRect())) {
-						player.setHealth(player.getHealth() - allBullets.get(i).getDamage());
-						if(isLevelLost()) { //checks if player has died
-							//TODO: make this if statement trigger some sort of game over function
-							remove(player.getRect());
-							
-						}
+						damagePlayer(allBullets.get(i).getDamage());
 						remove(allBullets.get(i).getOval());
 						allBullets.remove(i);
 					}
@@ -173,6 +178,16 @@ public class Level extends GraphicsProgram implements KeyListener{
 		}
 	}
 	
+	private void damagePlayer(int damage) {
+		player.setHealth(player.getHealth() - damage);
+		playerHP.modifyHealthBar(player.getHealth());
+		if(isLevelLost()) { //checks if player has died
+			//TODO: make this if statement trigger some sort of game over function or screen
+			uniTimer.stop();
+			remove(player.getRect());
+			
+		}
+	}
 	
 	/**This helper function is used by the timer to control the playerShip based on the
 	 * current keyboard inputs
@@ -190,7 +205,11 @@ public class Level extends GraphicsProgram implements KeyListener{
 		for(int i = 0; i < enemies.size(); i++) {
 			if(enemies.get(i) != null) {
 				if(Logic.isCollided(player.getRect(), enemies.get(i).getRect())){
-					//TODO: what is going to happen when the player collides with an enemy?
+					//TODO: what is going to happen when the player collides with an enemy? currently the player is damaged by 100
+					damagePlayer(100);
+					remove(enemies.get(i).getRect());
+					enemies.remove(enemies.get(i));
+					
 				}
 			}
 		}
@@ -295,7 +314,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	}
 	
 	public void init() {
-		setSize(800, 600);
+		setSize(800, 800);
 	}
 	
 	public static void main(String args[]) {
