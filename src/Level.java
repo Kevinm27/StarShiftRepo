@@ -55,7 +55,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	private void initLevel() {
 		addKeyListeners(new TAdapter());
-		add(player.getRect());
+		add(player.getImage());
 		//for(int i = 0; i < enemies.size(); i++) {
 		//	add(enemies.get(i).getRect());
 		//}
@@ -153,7 +153,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 				}
 				//projectiles check if they can collide with the player
 				else if(allBullets.get(i).getFriendly() != player.getFriendly()) { //sees if the bullet is able to collide w/ player
-					if(Logic.isCollided(allBullets.get(i).getOval(), player.getRect())) {
+					if(Logic.isCollided(allBullets.get(i).getOval(), player.getImage())) {
 						damagePlayer(allBullets.get(i).getDamage());
 						remove(allBullets.get(i).getOval());
 						allBullets.remove(i);
@@ -163,10 +163,10 @@ public class Level extends GraphicsProgram implements KeyListener{
 					for(int j = 0; j < enemies.size(); j++) {
 						if(enemies.get(j) != null) {
 							if(allBullets.get(i).getFriendly() != enemies.get(j).getFriendly()) { //checks if the current enemy is on the opposing team of the bullet
-								if(Logic.isCollided(allBullets.get(i).getOval(), enemies.get(j).getRect())) { //checks if the enemy and projectile are colliding
+								if(Logic.isCollided(allBullets.get(i).getOval(), enemies.get(j).getImage())) { //checks if the enemy and projectile are colliding
 									enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
 									if(enemies.get(j).isDead()) {
-										remove(enemies.get(j).getRect());
+										remove(enemies.get(j).getImage());
 										enemies.remove(j);
 									}
 									remove(allBullets.get(i).getOval());
@@ -190,7 +190,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 			//TODO: make this if statement trigger some sort of game over function or screen
 			uniTimer.stop();
 			System.out.println("Game over");
-			remove(player.getRect());
+			remove(player.getImage());
 			
 		}
 	}
@@ -210,10 +210,10 @@ public class Level extends GraphicsProgram implements KeyListener{
 		}
 		for(int i = 0; i < enemies.size(); i++) {
 			if(enemies.get(i) != null) {
-				if(Logic.isCollided(player.getRect(), enemies.get(i).getRect())){
+				if(Logic.isCollided(player.getImage(), enemies.get(i).getImage())){
 					//TODO: what is going to happen when the player collides with an enemy? currently the player is damaged by 100
 					damagePlayer(100);
-					remove(enemies.get(i).getRect());
+					remove(enemies.get(i).getImage());
 					enemies.remove(enemies.get(i));
 					
 				}
@@ -226,7 +226,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 * @param enemy the current enemy you are controlling
 	 */
 	public void controlEnemy(Enemy enemy) {
-		float towardsPlayer = Logic.getAngle(enemy.getRect(), player.getRect()); //calculates angle towards playerShip
+		float towardsPlayer = Logic.getAngle(enemy.getImage(), player.getImage()); //calculates angle towards playerShip
 		enemy.operateEnemy(towardsPlayer);
 		if(enemy.canShoot()) {
 			newBullet = enemy.shootProjectile(newBullet, towardsPlayer);
@@ -257,7 +257,7 @@ public class Level extends GraphicsProgram implements KeyListener{
                 
                 //TODO: change so that passed array list is added to enemies not replace enemies
                 for(Enemy enemy:enemies) {
-                    add(enemy.getRect());
+                    add(enemy.getImage());
                 }
             }
             

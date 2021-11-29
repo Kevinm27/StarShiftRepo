@@ -1,11 +1,12 @@
 import java.awt.Color;
+
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
 
-public class ShipCustomPane extends GraphicsPane{
+public class ShipCustomPane extends GraphicsPane {
 	private MainApplication program;
 	private GImage background;
 	private GLabel title;
@@ -19,6 +20,8 @@ public class ShipCustomPane extends GraphicsPane{
 	private GLabel ok;
 	private int num = 0;
 	private final int SHIFT = 50;
+	
+	public static String shipColor;
 
 	
 	public ShipCustomPane(MainApplication app) {
@@ -111,16 +114,19 @@ public class ShipCustomPane extends GraphicsPane{
 				ship.setImage("OliveShip.png");
 				ship.setSize(150,150);
 							//change the gimage for the ship temporarily
+				shipColor = "Olive";
 			}
 			else if(num == 1) {
 				num++;
 				ship.setImage("BrownShip.png");
 				ship.setSize(150,150);
+				shipColor = "Brown";
 			}
 			else {
 				num = 0;
 				ship.setImage("GreenShip.png");
 				ship.setSize(150,150);
+				shipColor = "Green";
 			}
 		}
 		else if(obj == rightArrow) {
@@ -129,16 +135,19 @@ public class ShipCustomPane extends GraphicsPane{
 				num++;
 				ship.setImage("GreenShip.png");
 				ship.setSize(150,150);
+				shipColor = "Green";
 			}
 			else if(num == 1) {
 				num++;
 				ship.setImage("OliveShip.png");		
 				ship.setSize(150,150);
+				shipColor = "Olive";
 			}
 			else {
 				num = 0;
 				ship.setImage("BrownShip.png");
 				ship.setSize(150,150);
+				shipColor = "Brown";
 			}
 		}
 		else if(obj == save) {
@@ -151,7 +160,6 @@ public class ShipCustomPane extends GraphicsPane{
 		else if(obj == ok) {
 			program.switchToShipCustom();
 		}
-		
 	}
 
 }

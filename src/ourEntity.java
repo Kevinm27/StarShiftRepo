@@ -21,14 +21,13 @@ public class ourEntity {
 	protected int health;
 	protected int speed;
 	protected boolean friendly;									// IsFriendly should be here instead of logic
-	protected GImage image;
+	protected GImage image = new GImage("media/oliveship.png");
 	protected Projectile newBullet; 							//used for creating/firing projectiles
-	
 	
 	//************************************* public variables *************************************//
 	public ArrayList<Projectile> bullets = new ArrayList<Projectile>();	
 	public EntityType type = null;								// Entity Type needs to be defined when object is made
-	public static final String IMG_FILENAME_PATH = "ships/";
+	public static final String IMG_FILENAME_PATH = "media/";
 	public static final String IMG_EXTENSION = ".png";
 	public GRect rect; //placeholder for image
 	
@@ -41,6 +40,7 @@ public class ourEntity {
 			case PLAYER:
 				speed = 3;
 				friendly = true;
+				setImage(ShipCustomPane.shipColor);
 				break;
 			case SCOOTER:
 				speed = 4;
@@ -52,20 +52,7 @@ public class ourEntity {
 				break;
 		}
 	}
-	
-	ourEntity(EntityType type){
-		if(type == EntityType.PLAYER) {
-			health = 300;
-			speed = 3;
-			friendly = true;
-			rect = new GRect(50, 50, 200, 200);
-		}
-		else {
-			this.type = type;
-			image = new GImage("milleniumFalcon.png", 200, 200);
-		}
-	}
-	
+		
 	//************************************* Setter & Getters *************************************//
 	void setEntityLocation(GPoint location) {					// check for legal location elsewhere (?) Could be in logic
 		rect.setLocation(location);
@@ -82,8 +69,15 @@ public class ourEntity {
 	void setEntityType(EntityType type) {
 		this.type = type;
 	}
-	void setImage(EntityType shipType) {						// help with graphics
-		this.image.setImage(IMG_FILENAME_PATH + shipType + IMG_EXTENSION);		// PLEASE MAKE IMAGE NAMES SAME AS EntityTypes
+	void setImage(String color) {						// help with graphics
+		String selected;
+		if (color == null) {
+			selected = "olive";
+		}
+		else {
+			selected = color;
+		}
+		image.setImage(IMG_FILENAME_PATH + selected + "Ship" + IMG_EXTENSION);		// PLEASE MAKE IMAGE NAMES SAME AS EntityTypes
 	}
 	
 	GPoint getEntityLocation() {
@@ -99,10 +93,7 @@ public class ourEntity {
 		return this.friendly;
 	}
 	GImage getImage() {
-		return this.image; 	
-	}
-	GRect getRect() {
-		return this.rect;
+		return this.image;
 	}
 	Projectile getNewBullet() {
 		return this.newBullet;
@@ -139,6 +130,7 @@ public class ourEntity {
 	 */
 	protected GPoint moveWithinBounds(float angle) {
 		GRect nextPosition = rect;
+		//GImage nextPosition = image;				// ******* TO ADD WHEN IMAGE REPLACES RECT
 		nextPosition.movePolar(speed, angle);
 	
 		//if the ship is too far to the right
@@ -172,7 +164,7 @@ public class ourEntity {
 		else {
 			//moves the ship to a position within the bounds of the screen
 			rect.setLocation(moveWithinBounds(angle));//runs isInBounds and corrects entityLocation to sit within bounds of board if needed
-				
+			image.setLocation(moveWithinBounds(angle));		// ************* TESTING FOR IMAGE
 			return true;
 		}
 	}
@@ -187,9 +179,11 @@ public class ourEntity {
 	protected boolean shootPolar(float angle) {
 		//shoots a projectile based on the angle input to the function
 		if(canShoot) {
-			newBullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), 
-					rect.getY() + (rect.getHeight() / 2)), angle, friendly);
+			newBullet = new Projectile(new GPoint(image.getX() + (image.getWidth() / 2), 		// replaced rect with image
+					image.getY() + (image.getHeight() / 2)), angle, friendly);
 			//bullets.add(newBullet);
+//			newBullet = new Projectile(new GPoint(image.getX() + (image.getWidth() / 2), 
+//					image.getY() + (image.getHeight() / 2)), angle, friendly);
 			curFireTime = 0;
 			return true;
 		}
@@ -201,6 +195,9 @@ public class ourEntity {
 	public Projectile shootProjectile(Projectile bullet, float angle) {
 		bullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), 
 				rect.getY() + (rect.getHeight() / 2)), angle, friendly);
+		
+//		bullet = new Projectile(new GPoint(image.getX() + (image.getWidth() / 2), 
+//				image.getY() + (image.getHeight() / 2)), angle, friendly);
 		curFireTime = 0;
 		return bullet;
 	}

@@ -29,7 +29,7 @@ public class TestArena extends GraphicsProgram implements KeyListener {
 
 	public void run() {												
 		myLevel = new Level(new playerShip(5, 300, EntityType.PLAYER, new GPoint(200, 200)));
-		add(myLevel.getPlayer().getRect());
+		add(myLevel.getPlayer().getImage());
 		//Projectile bullet1 = new Projectile(new GPoint(100,50), (float)315);
 		//add(bullet1.getOval());
 		

@@ -5,6 +5,12 @@ import acm.graphics.GImage;
 import acm.graphics.GPoint;
 import acm.graphics.GRect;
 
+//import java.awt.geom.AffineTransform;		// ************* TESTING WITH IMAGE WORK
+//import java.awt.Graphics2D;
+//import java.awt.image.*;
+//
+//import javax.imageio.ImageIO;
+
 public class playerShip extends ourEntity implements KeyListener{
 	//These booleans tell us whether or not one of the keys on the keyboard is currently held down
 	private boolean wKeyDown = false;
@@ -19,6 +25,7 @@ public class playerShip extends ourEntity implements KeyListener{
 	private double angleRotation = 90;
 	
 	private GPoint playerLocation;
+
 	
 	/**Our default constructor for playerShip
 	 * 
@@ -26,9 +33,11 @@ public class playerShip extends ourEntity implements KeyListener{
 	 */
 	playerShip(int fD, int life, EntityType eT, GPoint entityLocation) {
 		super(fD, life, eT);
-		
 		playerLocation = entityLocation;
 		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
+		image.setLocation(entityLocation.getX(), entityLocation.getY());			// ****** ADDED WITH IMAGE WORK
+//		image.setLocation(entityLocation);
+		image.setColor(Color.red);
 		rect.setFilled(true);
 		rect.setColor(Color.cyan);
 	}
@@ -44,18 +53,14 @@ public class playerShip extends ourEntity implements KeyListener{
 	 * @param angle the angle at which you plan on moving the ship
 	 * @return true if the ship moved, otherwise false
 	 */
-	public boolean move(float angle) {
-		GPoint shipStart = rect.getLocation();
-		if(movePolar(angle)) {
-			if(angleRotation != angle) {
-				rect.rotate(Math.abs(angleRotation - angle));
-				angleRotation = angle;
-				rect.setLocation(shipStart);
-			}
-			return true;
-		}
-		else
-			return false;
+	public boolean move(float angle) {				// ************* WILL NOT ROTATE IMAGES - FUNCTION CHANGED
+		return(movePolar(angle));
+		
+//		if(movePolar(angle)) {
+//			return true;
+//		}
+//		else
+//			return false;
 	}
 	
 	/**this is the shoot function that playerShip will be using. It essentially runs ourEntity's movePolar
