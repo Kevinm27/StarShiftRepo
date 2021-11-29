@@ -251,14 +251,14 @@ public class Level extends GraphicsProgram implements KeyListener{
             if(timeCounter % 15 == 0) {
                 enemySpawner.setTime(timeCounter);
                 enemySpawner.setPlayerLocation(player.getPlayerLocation());
-                enemies = enemySpawner.spawnEnemies();
                 
-                System.out.print(enemies.size());
-                
-                //TODO: change so that passed array list is added to enemies not replace enemies
-                for(Enemy enemy:enemies) {
-                    add(enemy.getImage());
+                ArrayList<Enemy> temp = enemySpawner.spawnEnemies();
+                for(Enemy t:temp) {
+                  enemies.add(t);
+                  add(enemies.get(enemies.indexOf(t)).getImage());
                 }
+                
+                System.out.println(enemies.size());
             }
             
             //resetting secondCounter because every 50 passes through
