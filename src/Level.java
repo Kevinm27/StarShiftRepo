@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -23,6 +24,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private ArrayList<Enemy> enemies = new ArrayList<>();
 	private ArrayList<Projectile> allBullets = new ArrayList<>();
 	
+	private Score score;
 	private playerShip player;
 	private PlayerHealthBar playerHP;
 	private Projectile newBullet;
@@ -62,17 +64,21 @@ public class Level extends GraphicsProgram implements KeyListener{
 		playArea = new GRect(LEVEL_BOUNDS_LEFT, LEVEL_BOUNDS_TOP, LEVEL_BOUNDS_RIGHT, LEVEL_BOUNDS_BOTTOM);
 		playArea.setLineWidth(2);
 		add(playArea);
-		initHP();
+		initHUD();
+		
 		uniTimer.start();
 	}
 	
 	/**Helper function to help initialize the player's health bar.
 	 * 
 	 */
-	private void initHP() {
+	private void initHUD() {
 		playerHP = new PlayerHealthBar(new GPoint(30, 630), 100, 20, player.getHealth());
 		add(playerHP.getHpBack());
 		add(playerHP.getCurHealthBar());
+		score = new Score(new GPoint(500, 700), 15);
+		add(score.getText());
+		add(score.getComboText());
 	}
 	
 	public playerShip getPlayer() {
@@ -168,6 +174,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 									if(enemies.get(j).isDead()) {
 										remove(enemies.get(j).getImage());
 										enemies.remove(j);
+										score.updateScore(10);
 									}
 									remove(allBullets.get(i).getOval());
 									allBullets.remove(i);
@@ -265,6 +272,7 @@ public class Level extends GraphicsProgram implements KeyListener{
             //actionPerformed is 1 second so just resetting back to 0
             secondCounter = 0;
             timeCounter++;
+            score.controlComboTimer();
         }
         secondCounter++;
 		
