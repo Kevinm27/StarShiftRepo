@@ -77,7 +77,7 @@ public class musicAndSFX{
 	 }
 	 //Seconday constructor takes in string to play initialize certain sfx
 	 public musicAndSFX(String sfxName) {
-		 String path = new File("").getAbsolutePath() + "\\media\\song1.wav";
+		 String path = new File("").getAbsolutePath() + "\\media\\" + sfxName;
 		 File sound = new File(path);
 	        try {
 	            AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
