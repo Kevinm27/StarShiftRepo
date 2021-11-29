@@ -107,8 +107,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	boolean isLevelLost() {
 		if(player.getHealth() < 1) {
-			uniTimer.stop();
-			System.out.println("Game over");
 			return true;
 		}
 		return false;
@@ -148,7 +146,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	public void moveAllProjectiles() {
 		for(int i = 0; i < allBullets.size(); i++) {
-			if(allBullets.get(i) != null)
+			if(allBullets.get(i) != null && !isLevelLost())
 				if(allBullets.get(i).operateProjectile()) { //if the bullet collides with a wall it is deleted
 					remove(allBullets.get(i).getOval());
 					allBullets.remove(i);
@@ -190,6 +188,8 @@ public class Level extends GraphicsProgram implements KeyListener{
 		playerHP.modifyHealthBar(player.getHealth());
 		if(isLevelLost()) { //checks if player has died
 			//TODO: make this if statement trigger some sort of game over function or screen
+			uniTimer.stop();
+			System.out.println("Game over");
 			remove(player.getRect());
 			
 		}
