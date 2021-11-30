@@ -34,7 +34,7 @@ public class playerShip extends ourEntity implements KeyListener{
 		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
 		image.setLocation(entityLocation.getX(), entityLocation.getY());			// ****** ADDED WITH IMAGE WORK
 //		image.setLocation(entityLocation);
-		image.setColor(Color.red);
+//		image.setColor(Color.red);
 		rect.setFilled(true);
 		rect.setColor(Color.cyan);
 	}

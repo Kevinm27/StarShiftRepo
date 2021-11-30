@@ -16,17 +16,21 @@ public class Enemy extends ourEntity {
 		super(fD, life, eT);														// based on type, assign fD and life value
 		
 		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
-		rect.setFilled(true);
-		
-		switch(eT) {
+		rect.setFilled(true);														// *********** LOOK TO REPLACE IN OURENTITY 155
+																					// *********** LOOK TO REPLACE IN ENEMY 45
+		switch(eT) {																// *********** LOOK TO REPLACE IN LEVEL 238
 			case PLAYER:
 				break;
 			case SCOOTER:
 				canShoot = false;
-				image.setColor(Color.magenta);		// changed from rect ------- need to replace with an actual image
+				image.setImage(IMG_FILENAME_PATH + "2Enemy" + IMG_EXTENSION);
+//				image.setColor(Color.magenta);		// changed from rect ------- need to replace with an actual image
+				image.scale(0.55);
 				break;
 			case SHOOTER:
-				image.setColor(Color.PINK);			// changed from rect ------- need to replace with an actual image
+				image.setImage(IMG_FILENAME_PATH + "3Enemy" + IMG_EXTENSION);
+//				image.setColor(Color.PINK);			// changed from rect ------- need to replace with an actual image
+				image.scale(0.55);
 				break;
 		}
 	}

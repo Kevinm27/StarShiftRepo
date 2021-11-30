@@ -54,7 +54,7 @@ public class ourEntity {
 		
 	//************************************* Setter & Getters *************************************//
 	void setEntityLocation(GPoint location) {					// check for legal location elsewhere (?) Could be in logic
-		rect.setLocation(location);
+		image.setLocation(location);							// **************** CHANGED FROM RECT TO IMAGE
 	}
 	void setHealth(int hp) {
 		this.health = hp;
@@ -80,7 +80,7 @@ public class ourEntity {
 	}
 	
 	GPoint getEntityLocation() {
-		return new GPoint(rect.getX(), rect.getY());
+		return new GPoint(image.getX(), image.getY());	// ************ CHANGED FROM RECT TO IMAGE
 	}
 	int getHealth() {
 		return this.health;
@@ -118,8 +118,8 @@ public class ourEntity {
 	 * @return the next location of the ship
 	 */
 	protected GPoint moveWithinBounds(float angle) {
-		GRect nextPosition = rect;
-		//GImage nextPosition = image;				// ******* TO ADD WHEN IMAGE REPLACES RECT
+//		GRect nextPosition = rect;
+		GImage nextPosition = image;				// ******* TO ADD WHEN IMAGE REPLACES RECT
 		nextPosition.movePolar(speed, angle);
 	
 		//if the ship is too far to the right
