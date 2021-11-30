@@ -13,6 +13,7 @@ public class MainApplication extends GraphicsProgram {
 	private PlayGameMenu playGameScn;
 	private ShipCustomPane shipCustom;
 	private OptionsMenu options;
+	private gameOverPane gameOver;
 	
 	/* Method: setupInteractions
 	 * -------------------------
@@ -73,6 +74,7 @@ public class MainApplication extends GraphicsProgram {
 		playGameScn = new PlayGameMenu(this);
 		options = new OptionsMenu(this);
 		shipCustom = new ShipCustomPane(this);
+		gameOver = new gameOverPane(this);
 		setupInteractions();
 		switchToMenu();
 	}
@@ -92,8 +94,12 @@ public class MainApplication extends GraphicsProgram {
 	public void switchToOptions() {
 		switchToScreen(options);
 	}
-
+	public void switchToGameOver() {
+		switchToScreen(gameOver);
+	}
 	public static void main(String[] args) {
 		new MainApplication().start();
 	}
+
+
 }
