@@ -152,7 +152,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	public void moveAllProjectiles() {
 		for(int i = 0; i < allBullets.size(); i++) {
-			if(allBullets.get(i) != null && !isLevelLost())
+			if(allBullets.get(i) != null) {
 				if(allBullets.get(i).operateProjectile()) { //if the bullet collides with a wall it is deleted
 					remove(allBullets.get(i).getOval());
 					allBullets.remove(i);
@@ -183,6 +183,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 						}	 
 					}
 				}
+			}
 		}
 	}
 	

@@ -25,7 +25,6 @@ public class ourEntity {
 	protected Projectile newBullet; 							//used for creating/firing projectiles
 	
 	//************************************* public variables *************************************//
-	public ArrayList<Projectile> bullets = new ArrayList<Projectile>();	
 	public EntityType type = null;								// Entity Type needs to be defined when object is made
 	public static final String IMG_FILENAME_PATH = "media/";
 	public static final String IMG_EXTENSION = ".png";
@@ -98,21 +97,11 @@ public class ourEntity {
 	Projectile getNewBullet() {
 		return this.newBullet;
 	}
-	ArrayList<Projectile> getBulletArrayList() {//Added getter for the array list
-		return bullets;
-	}
 	
 	//************************************* Functions *************************************//	
 	/**This function iterates through all of the Projectiles inside of the bullets ArrayList and
 	 * moves them all once.
 	 */
-	public void operateProjectiles() {
-		for(int i = 0; i < bullets.size(); i++) {
-			if(bullets.get(i) != null)
-				bullets.get(i).operateProjectile();
-		}
-	}
-	
 	public boolean canShoot() {
 		return (curFireTime >= fireDelay && canShoot);
 	}
@@ -181,9 +170,6 @@ public class ourEntity {
 		if(canShoot) {
 			newBullet = new Projectile(new GPoint(image.getX() + (image.getWidth() / 2), 		// replaced rect with image
 					image.getY() + (image.getHeight() / 2)), angle, friendly);
-			//bullets.add(newBullet);
-//			newBullet = new Projectile(new GPoint(image.getX() + (image.getWidth() / 2), 
-//					image.getY() + (image.getHeight() / 2)), angle, friendly);
 			curFireTime = 0;
 			return true;
 		}
@@ -193,11 +179,11 @@ public class ourEntity {
 	}
 	
 	public Projectile shootProjectile(Projectile bullet, float angle) {
-		bullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), 
-				rect.getY() + (rect.getHeight() / 2)), angle, friendly);
+		//bullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), 
+		//		rect.getY() + (rect.getHeight() / 2)), angle, friendly);
 		
-//		bullet = new Projectile(new GPoint(image.getX() + (image.getWidth() / 2), 
-//				image.getY() + (image.getHeight() / 2)), angle, friendly);
+		bullet = new Projectile(new GPoint(image.getX() + (image.getWidth() / 2), 
+				image.getY() + (image.getHeight() / 2)), angle, friendly);
 		curFireTime = 0;
 		return bullet;
 	}

@@ -103,7 +103,6 @@ public class playerShip extends ourEntity implements KeyListener{
 		else if(sKeyDown) //move player down
 			move(270);
 		
-		operateProjectiles();
 	}
 	
 	public float getFiringAngle() {
