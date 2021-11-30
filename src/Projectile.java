@@ -15,7 +15,7 @@ public class Projectile {
 	private boolean friendly;
 	  
 	private GOval oval;		//placeholder for projectile image
-	public static ArrayList<GOval> allProjOvals = new ArrayList<GOval>();
+	public ArrayList<GOval> allProjOvals = new ArrayList<GOval>();
 	
 	private float angle;
 	  

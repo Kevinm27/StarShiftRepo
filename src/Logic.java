@@ -1,3 +1,4 @@
+import acm.graphics.GImage;
 import acm.graphics.GObject;
 import acm.graphics.GPoint;
 
@@ -44,7 +45,7 @@ public class Logic {
 	 * @param target whatever direction you want your angle to focus in
 	 * @return angle of trajectory
 	 */
-	public static float getAngle(GObject start, GObject target) {
+	public static float getAngle(GImage start, GImage target) {
 		float angle = (float) Math.toDegrees(Math.atan2(
 	    		(target.getX() + (target.getWidth() / 2)) - (start.getX() + (start.getWidth() / 2)),
 	    		(target.getY() + (target.getHeight() / 2)) - (start.getY() + (start.getHeight() / 2)))) - 90;
@@ -54,6 +55,13 @@ public class Logic {
 		return angle;
 	}
 	
-	
-
+	public static float getAngle(GObject start, GObject target) {
+		float angle = (float) Math.toDegrees(Math.atan2(
+	    		(target.getX() + (target.getWidth() / 2)) - (start.getX() + (start.getWidth() / 2)),
+	    		(target.getY() + (target.getHeight() / 2)) - (start.getY() + (start.getHeight() / 2)))) - 90;
+		if(angle < 0){
+	        angle += 360;
+	    }
+		return angle;
+	}
 }
