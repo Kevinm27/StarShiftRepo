@@ -53,8 +53,8 @@ public class ShipCustomPane extends GraphicsPane {
 		rightArrow = new GImage("rightArrow.jpg", app.getWidth()/2 + 200, app.getHeight()/2-SHIFT + 50);
 		rightArrow.setSize(55,40);
 	
-		ship = new GImage("GreenShip.png", app.getWidth() / 2 - 80, app.getHeight() / 2 - 2*SHIFT - SHIFT);
-		ship.setSize(150,150);
+		ship = new GImage("BigGreenShip.png", app.getWidth() / 2 - 50, app.getHeight() / 2 - 2*SHIFT - 25);
+		ship.setSize(75,75);
 		
 		save = new GLabel("Save", app.getWidth() / 2 - 28, app.getHeight() / 2 + 3*SHIFT - 50);
 		save.setFont(space);
@@ -111,21 +111,21 @@ public class ShipCustomPane extends GraphicsPane {
 		else if(obj == leftArrow) {
 			if(num == 0){
 				num++;
-				ship.setImage("OliveShip.png");
-				ship.setSize(150,150);
+				ship.setImage("BigOliveShip.png");
+				ship.setSize(75,75);
 							//change the gimage for the ship temporarily
 				shipColor = "Olive";
 			}
 			else if(num == 1) {
 				num++;
-				ship.setImage("BrownShip.png");
-				ship.setSize(150,150);
+				ship.setImage("BigBrownShip.png");
+				ship.setSize(75,75);
 				shipColor = "Brown";
 			}
 			else {
 				num = 0;
-				ship.setImage("GreenShip.png");
-				ship.setSize(150,150);
+				ship.setImage("BigGreenShip.png");
+				ship.setSize(75,75);
 				shipColor = "Green";
 			}
 		}
@@ -133,20 +133,20 @@ public class ShipCustomPane extends GraphicsPane {
 			//change the display for the ship temporarily
 			if(num == 0) {
 				num++;
-				ship.setImage("GreenShip.png");
-				ship.setSize(150,150);
+				ship.setImage("BigGreenShip.png");
+				ship.setSize(75,75);
 				shipColor = "Green";
 			}
 			else if(num == 1) {
 				num++;
-				ship.setImage("OliveShip.png");		
-				ship.setSize(150,150);
+				ship.setImage("BigOliveShip.png");		
+				ship.setSize(75,75);
 				shipColor = "Olive";
 			}
 			else {
 				num = 0;
-				ship.setImage("BrownShip.png");
-				ship.setSize(150,150);
+				ship.setImage("BigBrownShip.png");
+				ship.setSize(75,75);
 				shipColor = "Brown";
 			}
 		}

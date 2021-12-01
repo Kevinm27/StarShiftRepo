@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.*;
 import acm.program.GraphicsProgram;
+import acm.graphics.GImage;
 import acm.graphics.GOval;
 import acm.graphics.GPoint;
 import acm.graphics.GRect;
@@ -31,6 +32,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private Timer uniTimer = new Timer(DELAY_MS, this);
 	private EnemySpawner enemySpawner;
 	private GRect playArea; //outlines the playable margin of the screen in black
+	private GImage background = new GImage("media/background.jpg");
 	//Using variable to store when timer is called
 	
 	private boolean isPaused = false;
@@ -127,13 +129,15 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	private void initLevel() {
 		addKeyListeners(new TAdapter());
-		add(player.getImage());
-		//for(int i = 0; i < enemies.size(); i++) {
-		//	add(enemies.get(i).getRect());
-		//}
 		playArea = new GRect(LEVEL_BOUNDS_LEFT, LEVEL_BOUNDS_TOP, LEVEL_BOUNDS_RIGHT, LEVEL_BOUNDS_BOTTOM);
 		playArea.setLineWidth(2);
+		playArea.setColor(Color.red);		
+		background.sendBackward();
+//		background.scale(0.312, 0.555);	// x,y		// Scales the background down to playArea
+		
+		add(background);
 		add(playArea);
+		add(player.getImage());
 		initHUD();
 		
 		uniTimer.start();

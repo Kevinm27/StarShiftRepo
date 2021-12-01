@@ -1,5 +1,5 @@
 import java.awt.Color;
-
+import java.util.Random;
 import acm.graphics.GPoint;
 import acm.graphics.GRect;
 
@@ -23,16 +23,58 @@ public class Enemy extends ourEntity {
 				break;
 			case SCOOTER:
 				canShoot = false;
-				image.setImage(IMG_FILENAME_PATH + "2Enemy" + IMG_EXTENSION);
-//				image.setColor(Color.magenta);		// changed from rect ------- need to replace with an actual image
-				image.scale(0.55);
+				selectSCOOTER();
 				break;
 			case SHOOTER:
-				image.setImage(IMG_FILENAME_PATH + "3Enemy" + IMG_EXTENSION);
-//				image.setColor(Color.PINK);			// changed from rect ------- need to replace with an actual image
-				image.scale(0.55);
+				selectSHOOTER();
 				break;
 		}
+	}
+	
+	/**These are the functions called by Enemy constructor every time an enemy is created. Depending on the
+	 * type of enemy, this function randomly selects from Enemy Sprites and randomly scales them.
+	 */
+	
+	public void selectSCOOTER() {
+		int min = 7;
+	    int max = 12;
+	    int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
+	    image.setImage(IMG_FILENAME_PATH + random_int + "Enemy" + IMG_EXTENSION);
+	    int scaleMin = 0;
+	    int scaleMax = 2;
+	    int scaleRand = (int)Math.floor(Math.random()*(scaleMax-scaleMin+1)+scaleMin);
+	    switch(scaleRand) {
+	    	case 0:
+	    		image.scale(0.25);			// might be too small for the speed
+	    		break;
+	    	case 1:
+	    		image.scale(0.5);
+	    		break;
+	    	case 2:
+	    		image.scale(0.75);
+	    		break;
+	    }
+	}
+	
+	public void selectSHOOTER() {
+		int min = 1;
+	    int max = 6;
+	    int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
+	    image.setImage(IMG_FILENAME_PATH + random_int + "Enemy" + IMG_EXTENSION);
+	    int scaleMin = 0;
+	    int scaleMax = 2;
+	    int scaleRand = (int)Math.floor(Math.random()*(scaleMax-scaleMin+1)+scaleMin);
+	    switch(scaleRand) {
+	    	case 0:
+	    		image.scale(0.5);
+	    		break;
+	    	case 1:
+	    		image.scale(0.75);
+	    		break;
+	    	case 2:
+	    		image.scale(1.15);
+	    		break;
+	    }
 	}
 		
 	/**This is the function called by level every time the clock ticks. It's going to move the enemy
