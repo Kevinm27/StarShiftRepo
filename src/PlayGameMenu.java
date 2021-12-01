@@ -26,6 +26,8 @@ public class PlayGameMenu extends GraphicsPane {
 	private boolean level3Clicked = false;
 	private boolean level4Clicked = false;
 	private boolean level5Clicked = false;
+	
+	public static int levelSelected;
 
 	public PlayGameMenu(MainApplication app) {
 		super();
@@ -117,7 +119,9 @@ public class PlayGameMenu extends GraphicsPane {
 		else if(level1Clicked) {	
 			if(obj == yes) {
 				level1Clicked = false;
-				program.switchToPlayGameMenu(); // for now to test it	
+				program.switchToPlayGameMenu(); 	
+				program.switchToPlay();	// will likely need to change input to levelSelected to determine which level variable gets called
+				levelSelected = 1;
 			}
 			else if(obj == no) {
 				level1Clicked = false;
@@ -131,7 +135,9 @@ public class PlayGameMenu extends GraphicsPane {
 		else if(level2Clicked) {
 			if(obj == yes) { // We can make a method called setScreen so we have less redundancy
 				level2Clicked = false;
-				program.switchToPlayGameMenu(); // for now to test it
+				program.switchToPlayGameMenu(); 
+				program.switchToPlay();
+				levelSelected = 2;
 			}
 			else if(obj == no) {
 				level2Clicked = false;
@@ -146,6 +152,8 @@ public class PlayGameMenu extends GraphicsPane {
 			if(obj == yes) {
 				level3Clicked = false;
 				program.switchToPlayGameMenu();
+				program.switchToPlay();
+				levelSelected = 3;
 			}
 			else if(obj == no){
 				level3Clicked = false;
@@ -161,6 +169,8 @@ public class PlayGameMenu extends GraphicsPane {
 			if(obj == yes) {
 				level4Clicked = false;
 				program.switchToPlayGameMenu();
+				program.switchToPlay();
+				levelSelected = 4;
 			}
 			else if(obj == no){
 				level4Clicked = false;
@@ -175,6 +185,8 @@ public class PlayGameMenu extends GraphicsPane {
 			if(obj == yes) {
 				level5Clicked = false;
 				program.switchToPlayGameMenu();
+				program.switchToPlay();
+				levelSelected = 5;
 			}
 			else if(obj == no){
 				level5Clicked = false;

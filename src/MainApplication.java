@@ -1,5 +1,7 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+
+import acm.graphics.GPoint;
 import acm.program.GraphicsProgram;
 
 public class MainApplication extends GraphicsProgram {
@@ -38,6 +40,14 @@ public class MainApplication extends GraphicsProgram {
 		}
 		newScreen.showContents();
 		curScreen = newScreen;
+	}
+	
+	protected void switchToPlay() {		// o.g. param. GraphicsProgram newLevel
+		if(curScreen != null) {
+			curScreen.hideContents();
+		}
+//		level.run();
+		Level.main(null);
 	}
 	
 	@Override
@@ -97,6 +107,7 @@ public class MainApplication extends GraphicsProgram {
 	public void switchToGameOver() {
 		switchToScreen(gameOver);
 	}
+	
 	public static void main(String[] args) {
 		new MainApplication().start();
 	}
