@@ -152,7 +152,7 @@ public class ourEntity {
 		}
 		else {
 			//moves the ship to a position within the bounds of the screen
-			rect.setLocation(moveWithinBounds(angle));//runs isInBounds and corrects entityLocation to sit within bounds of board if needed
+			//rect.setLocation(moveWithinBounds(angle));//runs isInBounds and corrects entityLocation to sit within bounds of board if needed
 			image.setLocation(moveWithinBounds(angle));		// ************* TESTING FOR IMAGE
 			return true;
 		}
