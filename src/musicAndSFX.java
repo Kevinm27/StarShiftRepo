@@ -15,11 +15,13 @@ public class musicAndSFX{
 	private static long clipTimePosition = 0;	//clip time position just remembers when the song paused
 	public static boolean pause = false;
 	public static boolean mute = false;
+	public static String sfx = "shortBulletSFX.wav";
+	public static String sfx1 = "longBulletSFX.wav";
 	public static void main(String[] args) {
 			Scanner myObj = new Scanner(System.in);
 	        musicAndSFX song = new musicAndSFX();
-	        String sfx = "shortBulletSFX.wav";
-	        String sfx1 = "longBulletSFX.wav";
+	        
+	        
 	        musicAndSFX sound = new musicAndSFX(sfx);
 	        musicAndSFX sound1 = new musicAndSFX(sfx1);
 	        

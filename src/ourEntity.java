@@ -40,7 +40,7 @@ public class ourEntity {
 				setImage(ShipCustomPane.shipColor);
 				break;
 			case SCOOTER:
-				speed = 4;
+				speed = 5;
 				friendly = false;
 				break;
 			case SHOOTER:
