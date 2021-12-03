@@ -45,7 +45,8 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private boolean isInfinite = true;
 	File bullet = new File("Media/longBulletSFX.wav");
 	File damage = new File("Media/takingDamageSFX.wav");
-	File givDamage = new File("Media/takingDamageSFX.wav"); // find new audio?
+	File giveDamage = new File("Media/takingDamageSFX.wav"); // find new audio?
+	File enemyBullet = new File("Media/shortBulletSFX.wav");
 	
 	//************************************* Constructors *************************************//
 	
@@ -158,7 +159,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 									if(Logic.isCollided(allBullets.get(i).getOval(), enemies.get(j).getImage())) { //checks if the enemy and projectile are colliding
 										enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
 										if(enemies.get(j).isDead()) {
-											musicAndSFX.playSFX(givDamage);
+											musicAndSFX.playSFX(giveDamage);
 											remove(enemies.get(j).getImage());
 											enemies.remove(j);
 											score.updateScore(10);
@@ -184,6 +185,9 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	private void damagePlayer(int damage) {
 		player.setHealth(player.getHealth() - damage);
+		if(player.getHealth() < 0) {
+			player.setHealth(0);
+		}
 		playerHP.modifyHealthBar(player.getHealth());
 		if(isLevelLost()) { //checks if player has died
 			//TODO: make this if statement trigger some sort of game over function or screen
@@ -231,6 +235,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		float towardsPlayer = Logic.getAngle(enemy.getImage(), player.getImage()); //calculates angle towards playerShip
 		enemy.operateEnemy(towardsPlayer);
 		if(enemy.canShoot()) {
+			musicAndSFX.playSFX(enemyBullet);
 			newBullet = enemy.shootProjectile(newBullet, towardsPlayer);
 			allBullets.add(newBullet);
 			add(newBullet.getOval());
