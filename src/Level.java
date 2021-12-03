@@ -179,17 +179,22 @@ public class Level extends GraphicsProgram implements KeyListener{
 				else { //projectiles now check if they can collide with enemies
 					for(int j = 0; j < enemies.size(); j++) {
 						if(enemies.get(j) != null) {
-							if(allBullets.get(i).getFriendly() != enemies.get(j).getFriendly()) { //checks if the current enemy is on the opposing team of the bullet
-								if(Logic.isCollided(allBullets.get(i).getOval(), enemies.get(j).getImage())) { //checks if the enemy and projectile are colliding
-									enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
-									if(enemies.get(j).isDead()) {
-										remove(enemies.get(j).getImage());
-										enemies.remove(j);
-										score.updateScore(10);
+							try {
+								if(allBullets.get(i).getFriendly() != enemies.get(j).getFriendly()) { //checks if the current enemy is on the opposing team of the bullet
+									if(Logic.isCollided(allBullets.get(i).getOval(), enemies.get(j).getImage())) { //checks if the enemy and projectile are colliding
+										enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
+										if(enemies.get(j).isDead()) {
+											remove(enemies.get(j).getImage());
+											enemies.remove(j);
+											score.updateScore(10);
+										}
+										remove(allBullets.get(i).getOval());
+										allBullets.remove(i);
 									}
-									remove(allBullets.get(i).getOval());
-									allBullets.remove(i);
 								}
+							}
+							catch(Exception e) {
+								System.out.println("Index Error");
 							}
 						}	 
 					}
@@ -269,7 +274,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		if(secondCounter % 50 == 0) {
 			
 			if(isInfinite  == true) {
-	            if(timeCounter % 15 == 0) {
+	            if(timeCounter % 5 == 0) {
 	                enemySpawner.setTime(timeCounter);
 	                enemySpawner.setPlayerLocation(player.getPlayerLocation());
 	                
