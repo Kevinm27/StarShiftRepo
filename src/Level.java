@@ -237,11 +237,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	public void actionPerformed(ActionEvent e) {
 		moveAllProjectiles();
 		
-		controlPlayer();for(int i = 0; i < enemies.size(); i++) {
-			if(enemies.get(i) != null) {
-				controlEnemy(enemies.get(i));
-			}
-		}
+		controlPlayer();
 		
 		if(secondCounter % 50 == 0) {
 			
