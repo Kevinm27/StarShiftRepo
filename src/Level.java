@@ -11,6 +11,7 @@ import acm.graphics.GImage;
 import acm.graphics.GOval;
 import acm.graphics.GPoint;
 import acm.graphics.GRect;
+import acm.graphics.GLabel;
 
 public class Level extends GraphicsProgram implements KeyListener{
 	
@@ -38,6 +39,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private GRect playArea;		//outlines the playable margin of the screen in black
 	private GRect backDrop;
 	private GImage background = new GImage("media/background.jpg");
+	private GLabel pauseLabel = new GLabel("Paused", LEVEL_BOUNDS_RIGHT / 2, LEVEL_BOUNDS_BOTTOM / 2);
 	
 	private boolean isPaused = false;
 	private boolean isInfinite = true;
@@ -113,6 +115,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	public void pause() {
 		System.out.println("Game paused");
+		pauseLabel.setVisible(true);
 		uniTimer.stop();
 		isPaused = true;
 	}
@@ -121,6 +124,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 * 
 	 */
 	void play() {
+		pauseLabel.setVisible(false);
 		uniTimer.start();
 		isPaused = false;
 	}
@@ -332,12 +336,17 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	private void initHUD() {
 		playerHP = new PlayerHealthBar(new GPoint(30, 530), 100, 20, player.getHealth());
+		pauseLabel.setVisible(false);
+		pauseLabel.setColor(Color.white);
+		pauseLabel.setFont("Roboto-30");
+		add(pauseLabel);
 		add(playerHP.getHealthText());
 		add(playerHP.getHpBack());
 		add(playerHP.getCurHealthBar());
 		score = new Score(new GPoint(500, 530), 15);
 		add(score.getText());
 		add(score.getComboText());
+		
 	}
 	
 	public void run() {		
