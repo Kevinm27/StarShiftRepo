@@ -6,13 +6,11 @@
  * that can access projectile objects.
  */
 
-import java.util.ArrayList;
 import acm.graphics.GImage;
-import acm.graphics.GRect;
 import acm.graphics.GPoint;
 
 public class ourEntity {
-	//************************************* private variables *************************************//	
+	//************************************* Variables *************************************//	
 	protected int fireDelay;
 	protected int curFireTime = 0;
 	protected EntityType eType;
@@ -21,22 +19,22 @@ public class ourEntity {
 	protected int health;
 	protected int speed;
 	protected boolean friendly;									// IsFriendly should be here instead of logic
-	protected GImage image = new GImage("media/oliveship.png");
+	protected GImage image;
 	protected Projectile newBullet; 							//used for creating/firing projectiles
 	
-	//************************************* public variables *************************************//
 	public EntityType type = null;								// Entity Type needs to be defined when object is made
 	public static final String IMG_FILENAME_PATH = "media/";
 	public static final String IMG_EXTENSION = ".png";
-	public GRect rect; //placeholder for image
 	
-	//************************************* constructor *************************************//
+	//************************************* Constructor *************************************//
+	
 	public ourEntity(int fD, int life, EntityType eT) {
 		fireDelay = fD;
 		health = life;
 		eType = eT;
 		switch(eT) {
 			case PLAYER:
+				image = new GImage("media/oliveship.png");
 				speed = 3;
 				friendly = true;
 				setImage(ShipCustomPane.shipColor);
@@ -53,21 +51,23 @@ public class ourEntity {
 	}
 		
 	//************************************* Setter & Getters *************************************//
-	void setEntityLocation(GPoint location) {					// check for legal location elsewhere (?) Could be in logic
-		image.setLocation(location);							// **************** CHANGED FROM RECT TO IMAGE
-	}
+	
 	void setHealth(int hp) {
 		this.health = hp;
 	}
+	
 	void setSpeed(int howFast) {
 		this.speed = howFast;
 	}
+	
 	void setIsFriendly(boolean isFriendly) {
 		this.friendly = isFriendly; 
 	}
+	
 	void setEntityType(EntityType type) {
 		this.type = type;
 	}
+	
 	void setImage(String color) {						// help with graphics
 		String selected;
 		if (color == null) {
@@ -79,32 +79,35 @@ public class ourEntity {
 		image.setImage(IMG_FILENAME_PATH + "Big" + selected + "Ship" + IMG_EXTENSION);		// PLEASE MAKE IMAGE NAMES SAME AS EntityTypes
 	}
 	
-	GPoint getEntityLocation() {
-		return new GPoint(image.getX(), image.getY());	// ************ CHANGED FROM RECT TO IMAGE
-	}
 	int getHealth() {
 		return this.health;
 	}
+	
 	int getSpeed() {
 		return this.speed;
 	}
+	
 	boolean getFriendly() {
 		return this.friendly;
 	}
+	
 	GImage getImage() {
 		return this.image;
 	}
+	
 	Projectile getNewBullet() {
 		return this.newBullet;
 	}
 	
-	//************************************* Functions *************************************//	
+	//************************************* Functions *************************************//
+	
 	/**This function iterates through all of the Projectiles inside of the bullets ArrayList and
 	 * moves them all once.
 	 */
 	public boolean canShoot() {
 		return (curFireTime >= fireDelay && canShoot);
 	}
+	
 	public boolean isDead() {
 		return health < 1;
 	}
@@ -118,7 +121,6 @@ public class ourEntity {
 	 * @return the next location of the ship
 	 */
 	protected GPoint moveWithinBounds(float angle) {
-//		GRect nextPosition = rect;
 		GImage nextPosition = image;				// ******* TO ADD WHEN IMAGE REPLACES RECT
 		nextPosition.movePolar(speed, angle);
 	
@@ -147,13 +149,13 @@ public class ourEntity {
 	 * @return false & does nothing if the move timer has not reset
 	 */
 	protected boolean movePolar(float angle) {
-		if(canMove == false) { //checks if enough time has passed since the last move
-			return false; //returns false if not enough time has passed
+		if(canMove == false) {		//checks if enough time has passed since the last move
+			return false;			//returns false if not enough time has passed
 		}
 		else {
 			//moves the ship to a position within the bounds of the screen
-			//rect.setLocation(moveWithinBounds(angle));//runs isInBounds and corrects entityLocation to sit within bounds of board if needed
-			image.setLocation(moveWithinBounds(angle));		// ************* TESTING FOR IMAGE
+
+			image.setLocation(moveWithinBounds(angle));
 			return true;
 		}
 	}
@@ -168,7 +170,7 @@ public class ourEntity {
 	protected boolean shootPolar(float angle) {
 		//shoots a projectile based on the angle input to the function
 		if(canShoot) {
-			newBullet = new Projectile(new GPoint(image.getX() + (image.getWidth() / 2), 		// replaced rect with image
+			newBullet = new Projectile(new GPoint(image.getX() + (image.getWidth() / 2),
 					image.getY() + (image.getHeight() / 2)), angle, friendly);
 			curFireTime = 0;
 			return true;
@@ -178,10 +180,7 @@ public class ourEntity {
 		}
 	}
 	
-	public Projectile shootProjectile(Projectile bullet, float angle) {
-		//bullet = new Projectile(new GPoint(rect.getX() + (rect.getWidth() / 2), 
-		//		rect.getY() + (rect.getHeight() / 2)), angle, friendly);
-		
+	public Projectile shootProjectile(Projectile bullet, float angle) {		
 		bullet = new Projectile(new GPoint(image.getX() + (image.getWidth() / 2), 
 				image.getY() + (image.getHeight() / 2)), angle, friendly);
 		curFireTime = 0;

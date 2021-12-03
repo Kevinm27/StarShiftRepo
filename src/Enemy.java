@@ -1,7 +1,8 @@
 import java.awt.Color;
 import java.util.Random;
+
+import acm.graphics.GImage;
 import acm.graphics.GPoint;
-import acm.graphics.GRect;
 
 /**
  * @author MeganA
@@ -15,18 +16,15 @@ public class Enemy extends ourEntity {
 	Enemy(int fD, int life, EntityType eT, GPoint entityLocation) {					// easier to have input be EntityType and location
 		super(fD, life, eT);														// based on type, assign fD and life value
 		
-		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
-		rect.setFilled(true);														// *********** LOOK TO REPLACE IN OURENTITY 155
-																					// *********** LOOK TO REPLACE IN ENEMY 45
-		switch(eT) {																// *********** LOOK TO REPLACE IN LEVEL 238
+		switch(eT) {
 			case PLAYER:
 				break;
 			case SCOOTER:
 				canShoot = false;
-				selectSCOOTER();
+				selectSCOOTER(entityLocation);
 				break;
 			case SHOOTER:
-				selectSHOOTER();
+				selectSHOOTER(entityLocation);
 				break;
 		}
 	}
@@ -35,11 +33,12 @@ public class Enemy extends ourEntity {
 	 * type of enemy, this function randomly selects from Enemy Sprites and randomly scales them.
 	 */
 	
-	public void selectSCOOTER() {
+	public void selectSCOOTER(GPoint entityLocation) {
 		int min = 7;
 	    int max = 12;
 	    int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
-	    image.setImage(IMG_FILENAME_PATH + random_int + "Enemy" + IMG_EXTENSION);
+	    image = new GImage(IMG_FILENAME_PATH + random_int + "Enemy" + IMG_EXTENSION, 
+	    		entityLocation.getX(), entityLocation.getY());
 	    int scaleMin = 0;
 	    int scaleMax = 2;
 	    int scaleRand = (int)Math.floor(Math.random()*(scaleMax-scaleMin+1)+scaleMin);
@@ -56,11 +55,12 @@ public class Enemy extends ourEntity {
 	    }
 	}
 	
-	public void selectSHOOTER() {
+	public void selectSHOOTER(GPoint entityLocation) {
 		int min = 1;
 	    int max = 6;
 	    int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
-	    image.setImage(IMG_FILENAME_PATH + random_int + "Enemy" + IMG_EXTENSION);
+	    image = new GImage(IMG_FILENAME_PATH + random_int + "Enemy" + IMG_EXTENSION, 
+	    		entityLocation.getX(), entityLocation.getY());
 	    int scaleMin = 0;
 	    int scaleMax = 2;
 	    int scaleRand = (int)Math.floor(Math.random()*(scaleMax-scaleMin+1)+scaleMin);

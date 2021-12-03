@@ -1,14 +1,6 @@
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import acm.graphics.GPoint;
-import acm.graphics.GRect;
-
-//import java.awt.geom.AffineTransform;		// ************* TESTING WITH IMAGE WORK
-//import java.awt.Graphics2D;
-//import java.awt.image.*;
-//
-//import javax.imageio.ImageIO;
 
 public class playerShip extends ourEntity implements KeyListener{
 	//These booleans tell us whether or not one of the keys on the keyboard is currently held down
@@ -31,12 +23,7 @@ public class playerShip extends ourEntity implements KeyListener{
 	playerShip(int fD, int life, EntityType eT, GPoint entityLocation) {
 		super(fD, life, eT);
 		playerLocation = entityLocation;
-		rect = new GRect(entityLocation.getX(), entityLocation.getY(), 30, 30);
-		image.setLocation(entityLocation.getX(), entityLocation.getY());			// ****** ADDED WITH IMAGE WORK
-//		image.setLocation(entityLocation);
-//		image.setColor(Color.red);
-		rect.setFilled(true);
-		rect.setColor(Color.cyan);
+		image.setLocation(entityLocation.getX(), entityLocation.getY());
 	}
 	
 	//getPlayerLocation is for the EnemySpawner Class

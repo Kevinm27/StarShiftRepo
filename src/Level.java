@@ -12,11 +12,14 @@ import acm.graphics.GPoint;
 import acm.graphics.GRect;
 
 public class Level extends GraphicsProgram implements KeyListener{
+	
+	//************************************* Variables *************************************//
+	
 	private static final int DELAY_MS = 20;
 	private int timeCounter = 0;
 	private int secondCounter = 0;
 	
-	//TODO: Change these values below to match the bounds of the playable margin of the screen
+	//Change these values below to match the bounds of the playable margin of the screen
 	public static final int LEVEL_BOUNDS_BOTTOM = 600;
 	public static final int LEVEL_BOUNDS_RIGHT = 600;
 	public static final int LEVEL_BOUNDS_TOP = 0;
@@ -31,14 +34,18 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private Projectile newBullet;
 	private Timer uniTimer = new Timer(DELAY_MS, this);
 	private EnemySpawner enemySpawner;
-	private GRect playArea; //outlines the playable margin of the screen in black
+	private GRect playArea;		//outlines the playable margin of the screen in black
 	private GImage background = new GImage("media/background.jpg");
-	//Using variable to store when timer is called
 	
 	private boolean isPaused = false;
 	private boolean isInfinite = true;
 	
-	//Level Constructor
+	//************************************* Constructors *************************************//
+	
+	/**level constructor (for designed levels)
+	 * 
+	 * @return
+	 */
 	public Level(ArrayList<Enemy> enemies, playerShip player, boolean infinite) {
 		this.player = player;
 		this.enemies = enemies;
@@ -47,46 +54,15 @@ public class Level extends GraphicsProgram implements KeyListener{
 		initLevel();
 	}
 	
-	/**level constructor (for Luke to play around with PlayerShip)
+	/**level constructor (for infinite levels)
 	 * 
 	 * @return
 	 */
 	Level(playerShip player){
-		//enemies.add(new Enemy(50, 200, EntityType.SHOOTER, new GPoint(500, 100)));
 		this.player = player;
 	}
 	
-	/**Called inside the Level constructor. Adds playerShip and all enemies to the screen, activates
-	 * KeyListeners, then starts the game timer.
-	 */
-	private void initLevel() {
-		addKeyListeners(new TAdapter());
-		playArea = new GRect(LEVEL_BOUNDS_LEFT, LEVEL_BOUNDS_TOP, LEVEL_BOUNDS_RIGHT, LEVEL_BOUNDS_BOTTOM);
-		playArea.setLineWidth(2);
-		playArea.setColor(Color.red);		
-		background.sendBackward();
-//		background.scale(0.312, 0.555);	// x,y		// Scales the background down to playArea
-		
-		add(background);
-		add(playArea);
-		add(player.getImage());
-		initHUD();
-		
-		uniTimer.start();
-	}
-	
-	/**Helper function to help initialize the player's health bar.
-	 * 
-	 */
-	private void initHUD() {
-		playerHP = new PlayerHealthBar(new GPoint(30, 630), 100, 20, player.getHealth());
-		add(playerHP.getHpBack());
-		add(playerHP.getCurHealthBar());
-		score = new Score(new GPoint(500, 700), 15);
-		add(score.getText());
-		add(score.getComboText());
-	}
-	
+	//************************************* Setter & Getters *************************************//
 	public playerShip getPlayer() {
 		return player;
 	}
@@ -95,7 +71,10 @@ public class Level extends GraphicsProgram implements KeyListener{
 		this.player = player;
 	}
 	
+	//************************************* Functions *************************************//
+	
 	/**Level Win Check
+	 * Will only ever be used for the designed levels
 	 * 
 	 * @return true if all enemies are dead
 	 */
@@ -124,18 +103,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		return false;
 	}
 	
-	
-	public void run() {		
-		initLevel();
-		
-		enemySpawner = new EnemySpawner(timeCounter, player.getPlayerLocation(), LEVEL_BOUNDS_BOTTOM, LEVEL_BOUNDS_RIGHT);
-		
-		uniTimer.start();
-	}    
-	
-	//Console Functions
-	
-	/**pauses the game once the P key is pressed. Basically just stops the game timer
+	/**pauses the game once the P or Esc key is pressed. Basically just stops the game timer
 	 * 
 	 */
 	public void pause() {
@@ -152,7 +120,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		isPaused = false;
 	}
 	
-	/**This helper function is used by the timer to move every single projectile once. 
+	/**This function is used by the timer to move every single projectile once. 
 	 * This is done by iterating through the allBullets ArrayList. It also checks if a
 	 * projectile is colliding with a ship of the opposite team.
 	 */
@@ -174,17 +142,23 @@ public class Level extends GraphicsProgram implements KeyListener{
 				else { //projectiles now check if they can collide with enemies
 					for(int j = 0; j < enemies.size(); j++) {
 						if(enemies.get(j) != null) {
-							if(allBullets.get(i).getFriendly() != enemies.get(j).getFriendly()) { //checks if the current enemy is on the opposing team of the bullet
-								if(Logic.isCollided(allBullets.get(i).getOval(), enemies.get(j).getImage())) { //checks if the enemy and projectile are colliding
-									enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
-									if(enemies.get(j).isDead()) {
-										remove(enemies.get(j).getImage());
-										enemies.remove(j);
-										score.updateScore(10);
+							//used try-catch to catch the index error we were getting for projectiles
+							try {
+								if(allBullets.get(i).getFriendly() != enemies.get(j).getFriendly()) { //checks if the current enemy is on the opposing team of the bullet
+									if(Logic.isCollided(allBullets.get(i).getOval(), enemies.get(j).getImage())) { //checks if the enemy and projectile are colliding
+										enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
+										if(enemies.get(j).isDead()) {
+											remove(enemies.get(j).getImage());
+											enemies.remove(j);
+											score.updateScore(10);
+										}
+										remove(allBullets.get(i).getOval());
+										allBullets.remove(i);
 									}
-									remove(allBullets.get(i).getOval());
-									allBullets.remove(i);
 								}
+							}
+							catch(Exception e) {
+								System.out.println("Index Error");
 							}
 						}	 
 					}
@@ -193,7 +167,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		}
 	}
 	
-	/**A helper function for damaging the player. This is mainly to help with decluttering
+	/**A function for damaging the player. This is mainly to help with decluttering
 	 * other functions where the player may be damaged
 	 * @param damage
 	 */
@@ -209,7 +183,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		}
 	}
 	
-	/**This helper function is used by the timer to control the playerShip based on the
+	/**This function is used by the timer to control the playerShip based on the
 	 * current keyboard inputs
 	 */
 	public void controlPlayer() {
@@ -258,13 +232,12 @@ public class Level extends GraphicsProgram implements KeyListener{
 	public void actionPerformed(ActionEvent e) {
 		moveAllProjectiles();
 		
-		//System.out.println("Timer ticked");
 		controlPlayer();
 		
 		if(secondCounter % 50 == 0) {
 			
 			if(isInfinite  == true) {
-	            if(timeCounter % 15 == 0) {
+	            if(timeCounter % 5 == 0) {
 	                enemySpawner.setTime(timeCounter);
 	                enemySpawner.setPlayerLocation(player.getPlayerLocation());
 	                
@@ -318,6 +291,45 @@ public class Level extends GraphicsProgram implements KeyListener{
 				}
 			}
         }
+	}
+	
+	/**Called inside the Level constructor. Adds playerShip and all enemies to the screen, activates
+	 * KeyListeners, then starts the game timer.
+	 */
+	private void initLevel() {
+		addKeyListeners(new TAdapter());
+		playArea = new GRect(LEVEL_BOUNDS_LEFT, LEVEL_BOUNDS_TOP, LEVEL_BOUNDS_RIGHT, LEVEL_BOUNDS_BOTTOM);
+		playArea.setLineWidth(2);
+		playArea.setColor(Color.red);		
+		background.sendBackward();
+		background.scale(0.312, 0.555);	// x,y		// Scales the background down to playArea
+		add(background);
+		add(playArea);
+		add(player.getImage());
+		initHUD();
+		
+		uniTimer.start();
+		
+		//Initializes EnemySpawner
+		enemySpawner = new EnemySpawner(timeCounter, player.getPlayerLocation(), LEVEL_BOUNDS_BOTTOM, LEVEL_BOUNDS_RIGHT);
+	}
+	
+	/**Function to initialize the player's health bar.
+	 * 
+	 */
+	private void initHUD() {
+		playerHP = new PlayerHealthBar(new GPoint(30, 630), 100, 20, player.getHealth());
+		add(playerHP.getHpBack());
+		add(playerHP.getCurHealthBar());
+		score = new Score(new GPoint(500, 700), 15);
+		add(score.getText());
+		add(score.getComboText());
+	}
+	
+	public void run() {		
+		initLevel();
+		
+		uniTimer.start();
 	}
 	
 	public void init() {

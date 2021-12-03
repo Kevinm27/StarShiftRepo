@@ -27,7 +27,7 @@ public class PlayArena {
 		Enemy a = new Enemy(2, 200, EntityType.SCOOTER, new GPoint(50,50)); 					
 		enemies.add(a);
 		playerShip playerONE = new playerShip(5, 500, EntityType.PLAYER, new GPoint (10,10));
-		TEST = new Level(enemies, playerONE);
+		//TEST = new Level(enemies, playerONE);
 	}
 	static void levelStart(Level theLevel) {
 		while (theLevel.isLevelLost() == false && theLevel.isLevelWon() == false) {		// constant check of win/lose conditions
