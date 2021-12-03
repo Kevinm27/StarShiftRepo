@@ -37,6 +37,19 @@ public class Logic {
 		return false;
 	}
 	
+	public static boolean isCollided(GObject one, GImage two) {
+		
+		for (int i = (int) one.getX(); i < one.getX() + one.getWidth(); i++) {
+			for (int j = (int) one.getY(); j < one.getY() + one.getHeight(); j++) {	
+				if (two.contains(new GPoint(i, j))) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
 	
 	/**This function calculates the angle between 2 objects. It is a static function, so it does not 
 	 * require a logic object to be called. Simply call it by typing "Logic.getAngle(start, target)"
