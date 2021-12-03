@@ -20,8 +20,8 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private int secondCounter = 0;
 	
 	//Change these values below to match the bounds of the playable margin of the screen
-	public static final int LEVEL_BOUNDS_BOTTOM = 600;
-	public static final int LEVEL_BOUNDS_RIGHT = 600;
+	public static final int LEVEL_BOUNDS_BOTTOM = 500;
+	public static final int LEVEL_BOUNDS_RIGHT = 800;
 	public static final int LEVEL_BOUNDS_TOP = 0;
 	public static final int LEVEL_BOUNDS_LEFT = 0;
 	
@@ -35,6 +35,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private Timer uniTimer = new Timer(DELAY_MS, this);
 	private EnemySpawner enemySpawner;
 	private GRect playArea;		//outlines the playable margin of the screen in black
+	private GRect backDrop;
 	private GImage background = new GImage("media/background.jpg");
 	
 	private boolean isPaused = false;
@@ -200,7 +201,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 			if(enemies.get(i) != null) {
 				if(Logic.isCollided(player.getImage(), enemies.get(i).getImage())){
 					//TODO: what is going to happen when the player collides with an enemy? currently the player is damaged by 100
-					damagePlayer(100);
+					damagePlayer(200);
 					remove(enemies.get(i).getImage());
 					enemies.remove(enemies.get(i));
 					
@@ -302,7 +303,10 @@ public class Level extends GraphicsProgram implements KeyListener{
 		playArea.setLineWidth(2);
 		playArea.setColor(Color.red);		
 		background.sendBackward();
-		background.scale(0.312, 0.555);	// x,y		// Scales the background down to playArea
+		background.scale(0.417, 0.462);	// x,y		// Scales the background down to playArea
+		backDrop = new GRect(0, 0, 800, 600);
+		backDrop.setFilled(true);
+		add(backDrop);
 		add(background);
 		add(playArea);
 		add(player.getImage());
@@ -318,10 +322,10 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 * 
 	 */
 	private void initHUD() {
-		playerHP = new PlayerHealthBar(new GPoint(30, 630), 100, 20, player.getHealth());
+		playerHP = new PlayerHealthBar(new GPoint(30, 530), 100, 20, player.getHealth());
 		add(playerHP.getHpBack());
 		add(playerHP.getCurHealthBar());
-		score = new Score(new GPoint(500, 700), 15);
+		score = new Score(new GPoint(500, 530), 15);
 		add(score.getText());
 		add(score.getComboText());
 	}
@@ -333,10 +337,10 @@ public class Level extends GraphicsProgram implements KeyListener{
 	}
 	
 	public void init() {
-		setSize(800, 800);
+		setSize(800, 600);
 	}
 	
 	public static void main(String args[]) {
-		new Level(new playerShip(5, 30000, EntityType.PLAYER, new GPoint(200, 200))).start();
+		new Level(new playerShip(8, 800, EntityType.PLAYER, new GPoint(200, 200))).start();
 	}
 }

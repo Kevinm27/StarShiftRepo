@@ -46,13 +46,13 @@ public class EnemySpawner {
 	}
 	
 	private int createFireDelay(int t) {
-		fireDelay = 50;
+		fireDelay = 25;
 		
 		return fireDelay;
 	}
 	
 	private int createHealth(int t) {
-		health = 200;
+		health = 300;
 		
 		return health;
 	}

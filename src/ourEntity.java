@@ -35,7 +35,7 @@ public class ourEntity {
 		switch(eT) {
 			case PLAYER:
 				image = new GImage("media/oliveship.png");
-				speed = 3;
+				speed = 4;
 				friendly = true;
 				setImage(ShipCustomPane.shipColor);
 				break;
@@ -44,7 +44,7 @@ public class ourEntity {
 				friendly = false;
 				break;
 			case SHOOTER:
-				speed = 2;
+				speed = 1;
 				friendly = false;
 				break;
 		}
