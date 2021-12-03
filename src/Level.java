@@ -103,7 +103,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		return false;
 	}
 	
-	/**pauses the game once the P key is pressed. Basically just stops the game timer
+	/**pauses the game once the P or Esc key is pressed. Basically just stops the game timer
 	 * 
 	 */
 	public void pause() {
@@ -302,7 +302,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		playArea.setLineWidth(2);
 		playArea.setColor(Color.red);		
 		background.sendBackward();
-		
+		background.scale(0.312, 0.555);	// x,y		// Scales the background down to playArea
 		add(background);
 		add(playArea);
 		add(player.getImage());
