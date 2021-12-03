@@ -238,7 +238,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		if(secondCounter % 50 == 0) {
 			
 			if(isInfinite  == true) {
-	            if(timeCounter % 5 == 0) {
+	            if(timeCounter % 5 == 3) {
 	                enemySpawner.setTime(timeCounter);
 	                enemySpawner.setPlayerLocation(player.getPlayerLocation());
 	                
@@ -323,6 +323,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	private void initHUD() {
 		playerHP = new PlayerHealthBar(new GPoint(30, 530), 100, 20, player.getHealth());
+		add(playerHP.getHealthText());
 		add(playerHP.getHpBack());
 		add(playerHP.getCurHealthBar());
 		score = new Score(new GPoint(500, 530), 15);
@@ -341,6 +342,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 	}
 	
 	public static void main(String args[]) {
-		new Level(new playerShip(8, 800, EntityType.PLAYER, new GPoint(200, 200))).start();
+		new Level(new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200))).start();
 	}
 }
