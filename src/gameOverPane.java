@@ -33,7 +33,10 @@ public class gameOverPane extends GraphicsPane{
 		yes = new GLabel("Yes", app.getWidth() / 2, app.getHeight() / 2);
 		yes.setFont(space);
 		yes.setColor(Color.white);
-	
+		
+		no = new GLabel("No", app.getWidth() / 2 + 100, app.getHeight() / 2);
+		no.setFont(space);
+		no.setColor(Color.white);
 		
 	}
 
@@ -43,6 +46,8 @@ public class gameOverPane extends GraphicsPane{
 		program.add(background);
 		program.add(title);
 		program.add(title1);
+		program.add(yes);
+		program.add(no);
 	}
 
 	@Override
@@ -51,11 +56,19 @@ public class gameOverPane extends GraphicsPane{
 		program.remove(background);
 		program.remove(title);
 		program.remove(title1);
+		program.remove(yes);
+		program.remove(no);
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
+		if(obj == yes) {
+			program.switchToLevel();
+		}
+		else if(obj == no) {
+			program.switchToMenu();
+		}
 	}
 		
 

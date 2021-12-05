@@ -127,8 +127,9 @@ public class PlayGameMenu extends GraphicsPane {
 		else if(endlessModeClicked) {
 			if (obj == yes) {
 				endlessModeClicked = false;
-				program.switchToPlayGameMenu();
-				program.switchToPlay();
+				program.switchToLevel();
+				//program.switchToPlayGameMenu();
+				//program.switchToPlay();
 				levelSelected = 0;
 			}
 		}
@@ -139,8 +140,8 @@ public class PlayGameMenu extends GraphicsPane {
 		else if(level1Clicked) {	
 			if(obj == yes) {
 				level1Clicked = false;
-				program.switchToPlayGameMenu(); 	
-				program.switchToPlay();	// will likely need to change input to levelSelected to determine which level variable gets called
+				program.switchToLevel1(); 	
+				//program.switchToPlay();	// will likely need to change input to levelSelected to determine which level variable gets called
 				levelSelected = 1;
 			}
 			else if(obj == no) {
@@ -156,7 +157,7 @@ public class PlayGameMenu extends GraphicsPane {
 			if(obj == yes) { // We can make a method called setScreen so we have less redundancy
 				level2Clicked = false;
 				program.switchToPlayGameMenu(); 
-				program.switchToPlay();
+				//program.switchToPlay();
 				levelSelected = 2;
 			}
 			else if(obj == no) {
@@ -172,7 +173,7 @@ public class PlayGameMenu extends GraphicsPane {
 			if(obj == yes) {
 				level3Clicked = false;
 				program.switchToPlayGameMenu();
-				program.switchToPlay();
+				//program.switchToPlay();
 				levelSelected = 3;
 			}
 			else if(obj == no){
@@ -189,7 +190,7 @@ public class PlayGameMenu extends GraphicsPane {
 			if(obj == yes) {
 				level4Clicked = false;
 				program.switchToPlayGameMenu();
-				program.switchToPlay();
+				//program.switchToPlay();
 				levelSelected = 4;
 			}
 			else if(obj == no){
@@ -205,7 +206,7 @@ public class PlayGameMenu extends GraphicsPane {
 			if(obj == yes) {
 				level5Clicked = false;
 				program.switchToPlayGameMenu();
-				program.switchToPlay();
+				//program.switchToPlay();
 				levelSelected = 5;
 			}
 			else if(obj == no){

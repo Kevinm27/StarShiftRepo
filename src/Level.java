@@ -64,6 +64,13 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		
 		initLevel();
 	}
+	public Level(MainApplication app, playerShip player, ArrayList<Enemy> enemies) {
+		this.player = player;
+		this.enemies = enemies;
+		isInfinite = false;
+		program = app;
+		initLevel();
+	}
 	
 	/**level constructor (for infinite levels)
 	 * 
@@ -111,6 +118,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	 */
 	boolean isLevelLost() {
 		if(player.getHealth() < 1) {
+			program.switchToGameOver();
 			return true;
 		}
 		return false;
@@ -344,6 +352,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	 * 
 	 */
 	private void initHUD() {
+		program.setSize(800, 600);
 		playerHP = new PlayerHealthBar(new GPoint(30, 530), 100, 20, player.getHealth());
 		pauseLabel.setVisible(false);
 		pauseLabel.setColor(Color.white);

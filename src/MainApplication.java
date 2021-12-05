@@ -17,7 +17,9 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 	private ShipCustomPane shipCustom;
 	private OptionsMenu options;
 	private gameOverPane gameOver;
-	private Level level;
+	private Level endless;
+	private Levels levels;
+	private Level level1;
 	
 	
 	/* Method: setupInteractions
@@ -45,13 +47,6 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 		curScreen = newScreen;
 	}
 	
-	protected void switchToPlay() {		// o.g. param. GraphicsProgram newLevel
-		if(curScreen != null) {
-			curScreen.hideContents();
-		}
-//		level.run();
-		Level.main(null);
-	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -83,12 +78,14 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 
 	public void run() {
 		musicAndSFX.playMusic();
+		levels = new Levels();
+		//level1 = new Level(this, new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200)), levels.getLevel1Enemies());
 		menu = new MenuPane(this);
 		playGameScn = new PlayGameMenu(this);
 		options = new OptionsMenu(this);
 		shipCustom = new ShipCustomPane(this);
 		gameOver = new gameOverPane(this);
-		level = new Level(this, new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200)));
+		endless = new Level(this, new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200)));
 		setupInteractions();
 		switchToMenu();
 	}
@@ -113,7 +110,10 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 	}
 	
 	public void switchToLevel() {
-		switchToScreen(level);
+		switchToScreen(endless);
+	}
+	public void switchToLevel1() {
+		switchToScreen(level1);
 	}
 	
 	public static void main(String[] args) {
