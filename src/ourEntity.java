@@ -56,8 +56,8 @@ public class ourEntity {
 		this.health = hp;
 	}
 	
-	void setSpeed(int howFast) {
-		this.speed = howFast;
+	void setSpeed(double spd) {
+		this.speed = spd;
 	}
 	
 	void setIsFriendly(boolean isFriendly) {
