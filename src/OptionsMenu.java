@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
@@ -116,7 +117,7 @@ private MainApplication program;
 		if(obj == onButton0 && !on0) {
 			on0 = true;
 			underline0.move(-1 * SHIFT - 18, 0);
-			musicAndSFX.playMusic();//play music
+			musicAndSFX.resumeMusic();//play music
 			
 		}
 		else if(obj == offButton0 && on0) {
@@ -127,12 +128,12 @@ private MainApplication program;
 		else if(obj == onButton1 && !on1) {
 			on1 = true;
 			underline1.move(-1 * SHIFT - 18, 0);
-			musicAndSFX.unmuteSFX();//unmute sound effects
+			musicAndSFX.muteSFX = false;//unmute sound effects
 		}
 		else if(obj == offButton1 && on1) {
 			on1 = false;
 			underline1.move(SHIFT + 18, 0);
-			musicAndSFX.muteSFX();//mute/pause sfx
+			musicAndSFX.muteSFX = true;//mute/pause sfx
 		}
 		
 		if (obj == backButton) {

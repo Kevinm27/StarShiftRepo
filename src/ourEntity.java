@@ -17,7 +17,7 @@ public class ourEntity {
 	protected boolean canMove = true;
 	protected boolean canShoot = true; 							//prevents enemies that cannot fire from firing
 	protected int health;
-	protected int speed;
+	protected double speed;
 	protected boolean friendly;									// IsFriendly should be here instead of logic
 	protected GImage image;
 	protected Projectile newBullet; 							//used for creating/firing projectiles
@@ -35,7 +35,7 @@ public class ourEntity {
 		switch(eT) {
 			case PLAYER:
 				image = new GImage("media/oliveship.png");
-				speed = 4;
+				speed = 4.5;
 				friendly = true;
 				setImage(ShipCustomPane.shipColor);
 				break;
@@ -83,7 +83,7 @@ public class ourEntity {
 		return this.health;
 	}
 	
-	int getSpeed() {
+	double getSpeed() {
 		return this.speed;
 	}
 	

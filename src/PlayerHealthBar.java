@@ -12,7 +12,12 @@ public class PlayerHealthBar {
 	private GRect hpBack; //the "background" of the health bar
 	private GRect curHealthBar; //visually represents the current HP of the player
 	private double maxHP;
+	private GLabel healthText;
 	
+	public GLabel getHealthText() {
+		return healthText;
+	}
+
 	//Constructor\\
 	PlayerHealthBar(GPoint start, int width, int height, int playerHealth){ 
 		hpBack = new GRect(start.getX(), start.getY(), width, height);
@@ -23,6 +28,9 @@ public class PlayerHealthBar {
 		curHealthBar.setFilled(true);
 		curHealthBar.setFillColor(Color.green);
 		maxHP = playerHealth;
+		healthText = new GLabel("Health: " + maxHP, start.getX(), start.getY() - 2);
+		healthText.setFont("Broadway-30");
+		healthText.setColor(Color.green);
 	}
 	
 	/**After initializing the class, this will be the only method used. It recieves the player's 
@@ -32,8 +40,11 @@ public class PlayerHealthBar {
 	 * @param curHP the player's current health
 	 */
 	public void modifyHealthBar(double curHP) {
-		if(curHP > 0)
+		healthText.setLabel("Health: " + curHP);
+		if(curHP > 0) {
 			curHealthBar.setSize(hpBack.getWidth() * (curHP / maxHP), curHealthBar.getHeight());
+			
+		}
 		else
 			curHealthBar.setVisible(false);
 	}

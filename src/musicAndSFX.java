@@ -1,138 +1,92 @@
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
-//import javax.swing.JOptionPane;
 import java.io.File;
 import java.util.Scanner;
 
-public class musicAndSFX{
-	//two clips, one is static which represents the one song
-	//the other clip is so we can make objects for the various sfx
-	private static Clip c;
-	private Clip sfxClip;
-	private static long clipTimePosition = 0;	//clip time position just remembers when the song paused
-	public static boolean pause = false;
-	public static boolean mute = false;
-	public static String sfx = "shortBulletSFX.wav";
-	public static String sfx1 = "longBulletSFX.wav";
-	public static void main(String[] args) {
-			Scanner myObj = new Scanner(System.in);
-	        musicAndSFX song = new musicAndSFX();
-	        
-	        
-	        musicAndSFX sound = new musicAndSFX(sfx);
-	        musicAndSFX sound1 = new musicAndSFX(sfx1);
-	        
-	        playMusic();
-	        System.out.print("Enter 1 if you want to pause: ");
-	        int num = myObj.nextInt();
-	        if(num == 1) {
-	        	pauseMusic();
-	        }
-	        
-	        
-	        System.out.print("Enter 1 if you want to play the sfx: ");
-	        num = myObj.nextInt();
-	        if(num == 1) {
-	        	sound.playSFX();
-	        	sound1.playSFX();
-	        }
-	        muteSFX();
-	        System.out.print("Enter 0 if you want to play the sfx: ");
-	        num = myObj.nextInt();
-	        if(num == 0) {
-	        	sound.playSFX();
-	        	sound1.playSFX();
-	        }
-	        
-	        unmuteSFX();
-	        System.out.print("Enter 1 if you want to play the sfx: ");
-	        num = myObj.nextInt();
-	        if(num == 1) {
-	        	sound.playSFX();
-	        	sound1.playSFX();
-	        }
-	        while(true) {
-	        	
-	        }
-	        
-	      
-	    }
-	
-	 //Default constructor plays the song with no arguments
-	 public musicAndSFX() {
-		 String path = new File("").getAbsolutePath() + "\\media\\song1.wav";
-		 File sound = new File(path);
-	        try {
-	            AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
-	            c = AudioSystem.getClip();
-	            c.open(ais); //Clip opens AudioInputStream
-	            c.start(); //Start playing audio
-	            c.loop(Clip.LOOP_CONTINUOUSLY);
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
-	            
-	        } catch (Exception e) {
-	            System.out.println(e.getMessage());
-	        } 
-	 }
-	 //Seconday constructor takes in string to play initialize certain sfx
-	 public musicAndSFX(String sfxName) {
-		 String path = new File("").getAbsolutePath() + "\\media\\" + sfxName;
-		 File sound = new File(path);
-	        try {
-	            AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
-	            this.sfxClip = AudioSystem.getClip();
-	            this.sfxClip.open(ais); //Clip opens AudioInputStream
-	        } 
-	        catch (Exception e) {
-	            System.out.println(e.getMessage());
-	        } 
-	 }
-	 /*
-	  * Wont need to lower the volume so i just commented these out for now
-	 public void lowerSFXVolume(float num) {
-	     FloatControl gainControl = (FloatControl) this.sfxClip.getControl(FloatControl.Type.MASTER_GAIN);
-	     gainControl.setValue(10.0f); // Reduce volume by 10 decibels.
-	 }
-	 public static void lowerMusicVolum(){
-	  	 FloatControl gainControl = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
-	     gainControl.setValue(10.0f); // Reduce volume by 10 decibels.
-	 }
-	 */
-	 //Static since we can just call the function and pause the song without an object
-	 //This only works if we call the default cosntructor first
-	 public static void pauseMusic() {
+public class musicAndSFX {
 
-		 if(pause == false) {
-			 pause = true;
-			 clipTimePosition = c.getMicrosecondPosition();
-			 c.stop();
-		 }
-		 
-	 }
-	 public static void playMusic() {
+    static Clip clip;
+    static boolean muteSFX;
+    static long backgroundSongclipTimePosition = 0;
+    public static boolean pause = false;
+    public static File song = new File("Media/song1.wav");
+ 
 
-		 if(pause == true) {
-			 pause = false;
-			 c.setMicrosecondPosition(clipTimePosition);
-			 c.start();
-		 }
-	 }
-	 
-	 public void playSFX() {
-		 if(mute == false) {
-			 c.setMicrosecondPosition(0);
-			 c.start();
-		 }
-	 }
-	 //This will mute all the sfx since all sfx objects need to check the static variable mute first
-	 public static void muteSFX() {
-		 mute = true;
-	 }
-	 public static void unmuteSFX() {
-		 mute = false;
-	 }
+    musicAndSFX() {}
+
+    static void playMusic () {
+        try {
+            clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(song));
+            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+            //Thread.sleep(Audio.getMicrosecondLength()/1000);
+        }
+        catch (Exception e) {}
+    }
+    
+    static void playSFX (File SelectedAudio) {
+        try {
+        	if(muteSFX == false) {
+                clip = AudioSystem.getClip();
+                clip.open(AudioSystem.getAudioInputStream(SelectedAudio));
+                clip.start();
+                
+        	}
+        }
+        catch (Exception e) {}
+    }
+
+    static void pauseMusic () {
+       if(pause == false){
+    	   pause = true;
+    	   backgroundSongclipTimePosition = clip.getMicrosecondPosition();
+    	   clip.stop();
+       }
+    }
+    static void resumeMusic(){
+    	if(pause == true){
+    		pause = false;
+    		
+    		try {
+    			clip = AudioSystem.getClip();
+    			clip.open(AudioSystem.getAudioInputStream(song));
+    			System.out.print(backgroundSongclipTimePosition);
+        		clip.setMicrosecondPosition(backgroundSongclipTimePosition);
+        		clip.start();
+            }
+            catch (Exception e) {}
+    	}
+    }
+    
+
+    public static void main (String [] args) {
+    	
+    	musicAndSFX.playMusic();
+		Scanner myObj = new Scanner(System.in);
+
+    	System.out.print("Enter 1 if you want to pause: ");
+        int num = myObj.nextInt();
+        if(num == 1) {
+        	musicAndSFX.pauseMusic();
+        }
+        
+        
+        
+        num = myObj.nextInt();
+        if(num == 1) {
+        	musicAndSFX.resumeMusic();
+
+        }
+        
+        num = myObj.nextInt();
+        if(num == 1) {
+        	musicAndSFX.pauseMusic();
+        }
+        
+    	
+    }
 
 }

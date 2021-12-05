@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
 import acm.program.GraphicsProgram;
@@ -10,6 +11,7 @@ import acm.graphics.GImage;
 import acm.graphics.GOval;
 import acm.graphics.GPoint;
 import acm.graphics.GRect;
+import acm.graphics.GLabel;
 
 public class Level extends GraphicsProgram implements KeyListener{
 	
@@ -37,9 +39,14 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private GRect playArea;		//outlines the playable margin of the screen in black
 	private GRect backDrop;
 	private GImage background = new GImage("media/background.jpg");
+	private GLabel pauseLabel = new GLabel("Paused", LEVEL_BOUNDS_RIGHT / 2, LEVEL_BOUNDS_BOTTOM / 2);
 	
 	private boolean isPaused = false;
 	private boolean isInfinite = true;
+	File bullet = new File("Media/longBulletSFX.wav");
+	File damage = new File("Media/takingDamageSFX.wav");
+	File giveDamage = new File("Media/takingDamageSFX.wav"); // find new audio?
+	File enemyBullet = new File("Media/shortBulletSFX.wav");
 	
 	//************************************* Constructors *************************************//
 	
@@ -109,6 +116,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	public void pause() {
 		System.out.println("Game paused");
+		pauseLabel.setVisible(true);
 		uniTimer.stop();
 		isPaused = true;
 	}
@@ -117,6 +125,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 * 
 	 */
 	void play() {
+		pauseLabel.setVisible(false);
 		uniTimer.start();
 		isPaused = false;
 	}
@@ -135,6 +144,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 				//projectiles check if they can collide with the player
 				else if(allBullets.get(i).getFriendly() != player.getFriendly()) { //sees if the bullet is able to collide w/ player
 					if(Logic.isCollided(allBullets.get(i).getOval(), player.getImage())) {
+						musicAndSFX.playSFX(damage);
 						damagePlayer(allBullets.get(i).getDamage());
 						remove(allBullets.get(i).getOval());
 						allBullets.remove(i);
@@ -149,6 +159,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 									if(Logic.isCollided(allBullets.get(i).getOval(), enemies.get(j).getImage())) { //checks if the enemy and projectile are colliding
 										enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
 										if(enemies.get(j).isDead()) {
+											musicAndSFX.playSFX(giveDamage);
 											remove(enemies.get(j).getImage());
 											enemies.remove(j);
 											score.updateScore(10);
@@ -174,6 +185,9 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	private void damagePlayer(int damage) {
 		player.setHealth(player.getHealth() - damage);
+		if(player.getHealth() < 0) {
+			player.setHealth(0);
+		}
 		playerHP.modifyHealthBar(player.getHealth());
 		if(isLevelLost()) { //checks if player has died
 			//TODO: make this if statement trigger some sort of game over function or screen
@@ -193,6 +207,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		float fireAngle = player.getFiringAngle(); //checks the angle the player is trying to shoot in
 		
 		if(fireAngle != -1 && player.canShoot()) {
+			musicAndSFX.playSFX(bullet);
 			newBullet = player.shootProjectile(newBullet, fireAngle);
 			add(newBullet.getOval());
 			allBullets.add(newBullet);
@@ -201,6 +216,8 @@ public class Level extends GraphicsProgram implements KeyListener{
 			if(enemies.get(i) != null) {
 				if(Logic.isCollided(player.getImage(), enemies.get(i).getImage())){
 					//TODO: what is going to happen when the player collides with an enemy? currently the player is damaged by 100
+					//musicAndSFX.playSF
+					musicAndSFX.playSFX(damage);
 					damagePlayer(200);
 					remove(enemies.get(i).getImage());
 					enemies.remove(enemies.get(i));
@@ -218,6 +235,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		float towardsPlayer = Logic.getAngle(enemy.getImage(), player.getImage()); //calculates angle towards playerShip
 		enemy.operateEnemy(towardsPlayer);
 		if(enemy.canShoot()) {
+			musicAndSFX.playSFX(enemyBullet);
 			newBullet = enemy.shootProjectile(newBullet, towardsPlayer);
 			allBullets.add(newBullet);
 			add(newBullet.getOval());
@@ -238,7 +256,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		if(secondCounter % 50 == 0) {
 			
 			if(isInfinite  == true) {
-	            if(timeCounter % 5 == 0) {
+	            if(timeCounter % 5 == 3) {
 	                enemySpawner.setTime(timeCounter);
 	                enemySpawner.setPlayerLocation(player.getPlayerLocation());
 	                
@@ -323,11 +341,17 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	private void initHUD() {
 		playerHP = new PlayerHealthBar(new GPoint(30, 530), 100, 20, player.getHealth());
+		pauseLabel.setVisible(false);
+		pauseLabel.setColor(Color.white);
+		pauseLabel.setFont("Roboto-30");
+		add(pauseLabel);
+		add(playerHP.getHealthText());
 		add(playerHP.getHpBack());
 		add(playerHP.getCurHealthBar());
 		score = new Score(new GPoint(500, 530), 15);
 		add(score.getText());
 		add(score.getComboText());
+		
 	}
 	
 	public void run() {		
@@ -341,6 +365,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	}
 	
 	public static void main(String args[]) {
-		new Level(new playerShip(8, 800, EntityType.PLAYER, new GPoint(200, 200))).start();
+		musicAndSFX.playMusic();
+		new Level(new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200))).start();
 	}
 }
