@@ -98,7 +98,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 				numEnemies++;
 		}
 		if (numEnemies < 1) {
-			System.out.println("You won!");
+			//System.out.println("You won!");
 			return true;
 		}
 		else 
@@ -122,7 +122,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	 * 
 	 */
 	public void pause() {
-		System.out.println("Game paused");
+		//System.out.println("Game paused");
 		pauseLabel.setVisible(true);
 		uniTimer.stop();
 		isPaused = true;
@@ -199,7 +199,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		if(isLevelLost()) { //checks if player has died
 			//TODO: make this if statement trigger some sort of game over function or screen
 			uniTimer.stop();
-			System.out.println("Game over");
+			//System.out.println("Game over");
 			program.remove(player.getImage());
 		}
 	}
@@ -272,7 +272,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	                  program.add(enemies.get(enemies.indexOf(t)).getImage());
 	                }
 	                
-	                System.out.println(enemies.size());
+	               // System.out.println(enemies.size());
 	            }
 			}
             //resetting secondCounter because every 50 passes through

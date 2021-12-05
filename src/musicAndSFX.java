@@ -56,8 +56,8 @@ public class musicAndSFX {
     		try {
     			clip = AudioSystem.getClip();
     			clip.open(AudioSystem.getAudioInputStream(song));
-    			System.out.print(backgroundSongclipTimePosition);
-        		clip.setMicrosecondPosition(backgroundSongclipTimePosition);
+    			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(-20.0f);        		clip.setMicrosecondPosition(backgroundSongclipTimePosition);
         		clip.start();
             }
             catch (Exception e) {}
