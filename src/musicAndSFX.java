@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 public class musicAndSFX {
 
@@ -21,7 +22,8 @@ public class musicAndSFX {
             clip.open(AudioSystem.getAudioInputStream(song));
             clip.start();
             clip.loop(Clip.LOOP_CONTINUOUSLY);
-
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-20.0f);
             //Thread.sleep(Audio.getMicrosecondLength()/1000);
         }
         catch (Exception e) {}
@@ -33,7 +35,8 @@ public class musicAndSFX {
                 clip = AudioSystem.getClip();
                 clip.open(AudioSystem.getAudioInputStream(SelectedAudio));
                 clip.start();
-                
+                FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(-20.0f);
         	}
         }
         catch (Exception e) {}
