@@ -39,7 +39,8 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private GRect playArea;		//outlines the playable margin of the screen in black
 	private GRect backDrop;
 	private GImage background = new GImage("media/background.jpg");
-	private GLabel pauseLabel = new GLabel("Paused", LEVEL_BOUNDS_RIGHT / 2, LEVEL_BOUNDS_BOTTOM / 2);
+	private GLabel pauseLabel = new GLabel("Paused", LEVEL_BOUNDS_RIGHT / 2 - 55, LEVEL_BOUNDS_BOTTOM / 2);
+	private GLabel gameOverLabel = new GLabel("Game Over", LEVEL_BOUNDS_RIGHT / 2 -55, LEVEL_BOUNDS_BOTTOM / 2);
 	
 	private boolean isPaused = false;
 	private boolean isInfinite = true;
@@ -106,6 +107,8 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 */
 	boolean isLevelLost() {
 		if(player.getHealth() < 1) {
+			gameOverLabel.sendToFront();
+			gameOverLabel.setVisible(true);
 			return true;
 		}
 		return false;
@@ -194,7 +197,6 @@ public class Level extends GraphicsProgram implements KeyListener{
 			uniTimer.stop();
 			System.out.println("Game over");
 			remove(player.getImage());
-			
 		}
 	}
 	
@@ -345,6 +347,10 @@ public class Level extends GraphicsProgram implements KeyListener{
 		pauseLabel.setColor(Color.white);
 		pauseLabel.setFont("Roboto-30");
 		add(pauseLabel);
+		gameOverLabel.setVisible(false);
+		gameOverLabel.setColor(Color.white);
+		gameOverLabel.setFont("Roboto-30");
+		add(gameOverLabel);
 		add(playerHP.getHealthText());
 		add(playerHP.getHpBack());
 		add(playerHP.getCurHealthBar());
