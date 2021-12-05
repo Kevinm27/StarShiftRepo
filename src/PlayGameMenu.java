@@ -13,6 +13,7 @@ public class PlayGameMenu extends GraphicsPane {
 	private GLabel yes;
 	private GLabel no;
 	private GLabel levelSelect;
+	private GLabel endlessMode;
 	private GLabel level1;
 	private GLabel level2;
 	private GLabel level3;
@@ -21,6 +22,7 @@ public class PlayGameMenu extends GraphicsPane {
 	private GLabel backButton;
 	private GLabel confirmText;
 	private final int SHIFT = 50;
+	private boolean endlessModeClicked = false;
 	private boolean level1Clicked = false;
 	private boolean level2Clicked = false;
 	private boolean level3Clicked = false;
@@ -36,31 +38,35 @@ public class PlayGameMenu extends GraphicsPane {
 		background = new GImage("Background.jpg");
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		
-		levelSelect = new GLabel("Level Select", app.getWidth()/2 - 50, app.getHeight()/2 - 150);
+		levelSelect = new GLabel("Level Select", app.getWidth()/2 - 45, app.getHeight()/2 - 150);
 		levelSelect.setFont(new Font("Space", Font.BOLD, 20));
 		levelSelect.setColor(Color.WHITE);
 		
-		level1 = new GLabel("1", app.getWidth()/2 - 2*SHIFT + 35, app.getHeight()/2-2*SHIFT);
+		endlessMode = new GLabel("Endless", app.getWidth()/2-SHIFT/2, app.getHeight()/2 - 2*SHIFT);
+		endlessMode.setFont(new Font("Space", Font.BOLD, 18));
+		endlessMode.setColor(Color.white);
+		
+		level1 = new GLabel("1", app.getWidth()/2 - 2*SHIFT + 35, app.getHeight()/2-SHIFT);			
 		level1.setFont(new Font("Space", Font.BOLD, 18));
 		level1.setColor(Color.WHITE);
 		
-		level2 = new GLabel("2", app.getWidth()/2 - 2*SHIFT + 70, app.getHeight()/2-2*SHIFT);
+		level2 = new GLabel("2", app.getWidth()/2 - 2*SHIFT + 70, app.getHeight()/2-SHIFT);
 		level2.setFont(new Font("Space", Font.BOLD, 18));
 		level2.setColor(Color.WHITE);
 		
-		level3 = new GLabel("3", app.getWidth()/2 - 2*SHIFT + 105, app.getHeight()/2-2*SHIFT);
+		level3 = new GLabel("3", app.getWidth()/2 - 2*SHIFT + 105, app.getHeight()/2-SHIFT);
 		level3.setFont(new Font("Space", Font.BOLD, 18));
 		level3.setColor(Color.WHITE);
 		
-		level4 = new GLabel("4", app.getWidth()/2 - 2*SHIFT + 140, app.getHeight()/2-2*SHIFT);
+		level4 = new GLabel("4", app.getWidth()/2 - 2*SHIFT + 140, app.getHeight()/2-SHIFT);
 		level4.setFont(new Font("Space", Font.BOLD, 18));
 		level4.setColor(Color.WHITE);
 		
-		level5 = new GLabel("5", app.getWidth()/2 - 2*SHIFT + 175, app.getHeight()/2-2*SHIFT);
+		level5 = new GLabel("5", app.getWidth()/2 - 2*SHIFT + 175, app.getHeight()/2-SHIFT);
 		level5.setFont(new Font("Space", Font.BOLD, 18));
 		level5.setColor(Color.WHITE);
 		
-		backButton = new GLabel("Back", app.getWidth()/2-SHIFT/2, app.getHeight()/2);
+		backButton = new GLabel("Back", app.getWidth()/2-15, app.getHeight()/2);  //app.getWidth()/2-SHIFT/2
 		backButton.setFont(new Font("Space", Font.BOLD, 18));
 		backButton.setColor(Color.WHITE);
 		
@@ -84,6 +90,7 @@ public class PlayGameMenu extends GraphicsPane {
 		program.add(confirmText);
 		program.add(background);
 		program.add(levelSelect);
+		program.add(endlessMode);
 		program.add(level1);
 		program.add(level2);
 		program.add(level3);
@@ -96,6 +103,7 @@ public class PlayGameMenu extends GraphicsPane {
 	public void hideContents() {
 		program.remove(background);
 		program.remove(levelSelect);
+		program.remove(endlessMode);
 		program.remove(level1);
 		program.remove(level2);
 		program.remove(level3);
@@ -112,6 +120,18 @@ public class PlayGameMenu extends GraphicsPane {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
+		if(obj == endlessMode) {
+			endlessModeClicked = true;
+			sendPopUpToFront();
+		}
+		else if(endlessModeClicked) {
+			if (obj == yes) {
+				endlessModeClicked = false;
+				program.switchToPlayGameMenu();
+				program.switchToPlay();
+				levelSelected = 0;
+			}
+		}
 		if (obj == level1) {
 			level1Clicked = true;
 			sendPopUpToFront();
