@@ -111,12 +111,13 @@ public class MenuPane extends GraphicsPane {
 			yes.sendToFront();
 			no.sendToFront();
 		}
-		else if(exitBool) {
-			exitBool = false;
+		if(exitBool) {
+			
 			if(obj == yes) {
 				System.exit(0);
 			}
 			if(obj == no) {
+				exitBool = false;
 				program.switchToMenu();
 			}
 		}
