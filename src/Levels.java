@@ -117,5 +117,22 @@ public class Levels {
 	Level four = new Level(enlevfour, player, false);
 	Level five = new Level(enlevfive, player , false);
 	
+	//Level Getters
+	Level getLevelOne() {
+		return one;
+	}
+	Level getLevelTwo() {
+		return two;
+	}
+	Level getLevelThree() {
+		return three;
+	}
+	Level getLevelFour() {
+		return four;
+	}
+	Level getLevelFive() {
+		return five;
+	}
+	
 	
 }
