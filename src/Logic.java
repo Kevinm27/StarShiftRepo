@@ -23,20 +23,7 @@ public class Logic {
 	 * @param GObject representing player ship
 	 * @param GObject representing enemy ship
 	 * @return If objects overlap
-	 */
-	public static boolean isCollided(GObject one, GObject two) {
-		
-		for (int i = (int) one.getX(); i < one.getX() + one.getWidth(); i++) {
-			for (int j = (int) one.getY(); j < one.getY() + one.getHeight(); j++) {	
-				if (two.contains(new GPoint(i, j))) {
-					return true;
-				}
-			}
-		}
-		
-		return false;
-	}
-	
+	 */	
 	public static boolean isCollided(GObject one, GImage two) {
 		
 		for (int i = (int) one.getX(); i < one.getX() + one.getWidth(); i++) {
@@ -59,16 +46,6 @@ public class Logic {
 	 * @return angle of trajectory
 	 */
 	public static float getAngle(GImage start, GImage target) {
-		float angle = (float) Math.toDegrees(Math.atan2(
-	    		(target.getX() + (target.getWidth() / 2)) - (start.getX() + (start.getWidth() / 2)),
-	    		(target.getY() + (target.getHeight() / 2)) - (start.getY() + (start.getHeight() / 2)))) - 90;
-		if(angle < 0){
-	        angle += 360;
-	    }
-		return angle;
-	}
-	
-	public static float getAngle(GObject start, GObject target) {
 		float angle = (float) Math.toDegrees(Math.atan2(
 	    		(target.getX() + (target.getWidth() / 2)) - (start.getX() + (start.getWidth() / 2)),
 	    		(target.getY() + (target.getHeight() / 2)) - (start.getY() + (start.getHeight() / 2)))) - 90;
