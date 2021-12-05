@@ -92,7 +92,7 @@ public class MenuPane extends GraphicsPane {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		
 		if (obj == playGame) {
-			program.switchToPlayGameMenu();
+			program.switchToLevel();
 		}
 		
 		else if(obj == shipCustom) {

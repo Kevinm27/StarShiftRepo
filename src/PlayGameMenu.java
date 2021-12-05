@@ -40,7 +40,7 @@ public class PlayGameMenu extends GraphicsPane {
 		levelSelect.setFont(new Font("Space", Font.BOLD, 20));
 		levelSelect.setColor(Color.WHITE);
 		
-		level1 = new GLabel("1", app.getWidth()/2 - 2*SHIFT + 35, app.getHeight()/2-2*SHIFT);
+		level1 = new GLabel("Infinite", app.getWidth()/2 - 2*SHIFT + 35, app.getHeight()/2-2*SHIFT);
 		level1.setFont(new Font("Space", Font.BOLD, 18));
 		level1.setColor(Color.WHITE);
 		

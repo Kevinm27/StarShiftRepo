@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -13,9 +14,10 @@ import acm.graphics.GPoint;
 import acm.graphics.GRect;
 import acm.graphics.GLabel;
 
-public class Level extends GraphicsProgram implements KeyListener{
+public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	
 	//************************************* Variables *************************************//
+	private MainApplication program;
 	
 	private static final int DELAY_MS = 20;
 	private int timeCounter = 0;
@@ -34,7 +36,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	private playerShip player;
 	private PlayerHealthBar playerHP;
 	private Projectile newBullet;
-	private Timer uniTimer = new Timer(DELAY_MS, this);
+	private Timer uniTimer;
 	private EnemySpawner enemySpawner;
 	private GRect playArea;		//outlines the playable margin of the screen in black
 	private GRect backDrop;
@@ -66,7 +68,9 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 * 
 	 * @return
 	 */
-	Level(playerShip player){
+	Level(MainApplication app, playerShip player){
+		super();
+		program = app;
 		this.player = player;
 	}
 	
@@ -138,7 +142,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		for(int i = 0; i < allBullets.size(); i++) {
 			if(allBullets.get(i) != null) {
 				if(allBullets.get(i).operateProjectile()) { //if the bullet collides with a wall it is deleted
-					remove(allBullets.get(i).getOval());
+					program.remove(allBullets.get(i).getOval());
 					allBullets.remove(i);
 				}
 				//projectiles check if they can collide with the player
@@ -146,7 +150,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 					if(Logic.isCollided(allBullets.get(i).getOval(), player.getImage())) {
 						musicAndSFX.playSFX(damage);
 						damagePlayer(allBullets.get(i).getDamage());
-						remove(allBullets.get(i).getOval());
+						program.remove(allBullets.get(i).getOval());
 						allBullets.remove(i);
 					}
 				}
@@ -160,11 +164,11 @@ public class Level extends GraphicsProgram implements KeyListener{
 										enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
 										if(enemies.get(j).isDead()) {
 											musicAndSFX.playSFX(giveDamage);
-											remove(enemies.get(j).getImage());
+											program.remove(enemies.get(j).getImage());
 											enemies.remove(j);
 											score.updateScore(10);
 										}
-										remove(allBullets.get(i).getOval());
+										program.remove(allBullets.get(i).getOval());
 										allBullets.remove(i);
 									}
 								}
@@ -193,7 +197,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 			//TODO: make this if statement trigger some sort of game over function or screen
 			uniTimer.stop();
 			System.out.println("Game over");
-			remove(player.getImage());
+			program.remove(player.getImage());
 			
 		}
 	}
@@ -209,7 +213,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 		if(fireAngle != -1 && player.canShoot()) {
 			musicAndSFX.playSFX(bullet);
 			newBullet = player.shootProjectile(newBullet, fireAngle);
-			add(newBullet.getOval());
+			program.add(newBullet.getOval());
 			allBullets.add(newBullet);
 		}
 		for(int i = 0; i < enemies.size(); i++) {
@@ -219,7 +223,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 					//musicAndSFX.playSF
 					musicAndSFX.playSFX(damage);
 					damagePlayer(200);
-					remove(enemies.get(i).getImage());
+					program.remove(enemies.get(i).getImage());
 					enemies.remove(enemies.get(i));
 					
 				}
@@ -238,7 +242,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 			musicAndSFX.playSFX(enemyBullet);
 			newBullet = enemy.shootProjectile(newBullet, towardsPlayer);
 			allBullets.add(newBullet);
-			add(newBullet.getOval());
+			program.add(newBullet.getOval());
 		}
 	}
 	
@@ -263,7 +267,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	                ArrayList<Enemy> temp = enemySpawner.spawnEnemies();
 	                for(Enemy t:temp) {
 	                  enemies.add(t);
-	                  add(enemies.get(enemies.indexOf(t)).getImage());
+	                  program.add(enemies.get(enemies.indexOf(t)).getImage());
 	                }
 	                
 	                System.out.println(enemies.size());
@@ -316,7 +320,7 @@ public class Level extends GraphicsProgram implements KeyListener{
 	 * KeyListeners, then starts the game timer.
 	 */
 	private void initLevel() {
-		addKeyListeners(new TAdapter());
+		program.addKeyListeners(new TAdapter());
 		playArea = new GRect(LEVEL_BOUNDS_LEFT, LEVEL_BOUNDS_TOP, LEVEL_BOUNDS_RIGHT, LEVEL_BOUNDS_BOTTOM);
 		playArea.setLineWidth(2);
 		playArea.setColor(Color.red);		
@@ -324,13 +328,11 @@ public class Level extends GraphicsProgram implements KeyListener{
 		background.scale(0.417, 0.462);	// x,y		// Scales the background down to playArea
 		backDrop = new GRect(0, 0, 800, 600);
 		backDrop.setFilled(true);
-		add(backDrop);
-		add(background);
-		add(playArea);
-		add(player.getImage());
+		program.add(backDrop);
+		program.add(background);
+		program.add(playArea);
+		program.add(player.getImage());
 		initHUD();
-		
-		uniTimer.start();
 		
 		//Initializes EnemySpawner
 		enemySpawner = new EnemySpawner(timeCounter, player.getPlayerLocation(), LEVEL_BOUNDS_BOTTOM, LEVEL_BOUNDS_RIGHT);
@@ -344,13 +346,13 @@ public class Level extends GraphicsProgram implements KeyListener{
 		pauseLabel.setVisible(false);
 		pauseLabel.setColor(Color.white);
 		pauseLabel.setFont("Roboto-30");
-		add(pauseLabel);
-		add(playerHP.getHealthText());
-		add(playerHP.getHpBack());
-		add(playerHP.getCurHealthBar());
+		program.add(pauseLabel);
+		program.add(playerHP.getHealthText());
+		program.add(playerHP.getHpBack());
+		program.add(playerHP.getCurHealthBar());
 		score = new Score(new GPoint(500, 530), 15);
-		add(score.getText());
-		add(score.getComboText());
+		program.add(score.getText());
+		program.add(score.getComboText());
 		
 	}
 	
@@ -361,11 +363,29 @@ public class Level extends GraphicsProgram implements KeyListener{
 	}
 	
 	public void init() {
-		setSize(800, 600);
+		//setSize(800, 600);
+	}
+	
+	@Override
+	public void showContents() {
+		initLevel();
+		musicAndSFX.playMusic();
+		
+		uniTimer = new Timer(DELAY_MS, this);
+		uniTimer.start();
+	}
+	
+	@Override
+	public void hideContents() {
+		
 	}
 	
 	public static void main(String args[]) {
 		musicAndSFX.playMusic();
-		new Level(new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200))).start();
+		//new Level(new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200))).start();
 	}
 }
+
+
+
+

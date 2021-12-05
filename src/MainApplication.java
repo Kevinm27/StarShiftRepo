@@ -1,10 +1,11 @@
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 
 import acm.graphics.GPoint;
 import acm.program.GraphicsProgram;
 
-public class MainApplication extends GraphicsProgram {
+public class MainApplication extends GraphicsProgram implements KeyListener{
 	
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
@@ -16,6 +17,8 @@ public class MainApplication extends GraphicsProgram {
 	private ShipCustomPane shipCustom;
 	private OptionsMenu options;
 	private gameOverPane gameOver;
+	private Level level;
+	
 	
 	/* Method: setupInteractions
 	 * -------------------------
@@ -85,6 +88,7 @@ public class MainApplication extends GraphicsProgram {
 		options = new OptionsMenu(this);
 		shipCustom = new ShipCustomPane(this);
 		gameOver = new gameOverPane(this);
+		level = new Level(this, new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200)));
 		setupInteractions();
 		switchToMenu();
 	}
@@ -108,9 +112,11 @@ public class MainApplication extends GraphicsProgram {
 		switchToScreen(gameOver);
 	}
 	
+	public void switchToLevel() {
+		switchToScreen(level);
+	}
+	
 	public static void main(String[] args) {
 		new MainApplication().start();
 	}
-
-
 }
