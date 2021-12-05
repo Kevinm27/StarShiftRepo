@@ -375,7 +375,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	@Override
 	public void showContents() {
 		initLevel();
-		musicAndSFX.playMusic();
+		//musicAndSFX.playMusic();
 		
 		uniTimer = new Timer(DELAY_MS, this);
 		uniTimer.start();

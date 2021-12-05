@@ -82,7 +82,7 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 	}
 
 	public void run() {
-		musicAndSFX music = new musicAndSFX();
+		musicAndSFX.playMusic();
 		menu = new MenuPane(this);
 		playGameScn = new PlayGameMenu(this);
 		options = new OptionsMenu(this);
