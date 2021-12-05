@@ -111,8 +111,6 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	 */
 	boolean isLevelLost() {
 		if(player.getHealth() < 1) {
-			gameOverLabel.sendToFront();
-			gameOverLabel.setVisible(true);
 			return true;
 		}
 		return false;
@@ -197,6 +195,8 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		}
 		playerHP.modifyHealthBar(player.getHealth());
 		if(isLevelLost()) { //checks if player has died
+			gameOverLabel.sendToFront();
+			gameOverLabel.setVisible(true);
 			//TODO: make this if statement trigger some sort of game over function or screen
 			uniTimer.stop();
 			//System.out.println("Game over");
@@ -372,10 +372,42 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		//setSize(800, 600);
 	}
 	
+	public void reset() {
+		if(enemies != null) {
+			for(Enemy rE:enemies) {
+				program.remove(rE.getImage());
+			}
+			enemies.clear();
+		}
+		
+		if(allBullets != null) {
+			for(Projectile p:allBullets) {
+				program.remove(p.getOval());
+			}
+			allBullets.clear();
+		}
+		
+		if(isLevelLost() == true) {
+			program.remove(backDrop);
+			program.remove(background);
+			program.remove(playArea);
+			program.remove(player.getImage());
+			program.remove(pauseLabel);
+			program.remove(gameOverLabel);
+			program.remove(playerHP.getHealthText());
+			program.remove(playerHP.getHpBack());
+			program.remove(playerHP.getCurHealthBar());
+			program.remove(score.getText());
+			program.remove(score.getComboText());
+		}
+		
+		player.setHealth(1000);
+	}
+	
 	@Override
 	public void showContents() {
+		reset();
 		initLevel();
-		//musicAndSFX.playMusic();
 		
 		uniTimer = new Timer(DELAY_MS, this);
 		uniTimer.start();
@@ -383,7 +415,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	
 	@Override
 	public void hideContents() {
-		
+		reset();
 	}
 	
 	public static void main(String args[]) {
