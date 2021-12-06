@@ -101,7 +101,6 @@ public class MenuPane extends GraphicsPane {
 		
 		else if (obj == options) {
 			program.switchToOptions();
-//			program.switchToGameOver();
 		}
 		
 		else if(obj == exit) {

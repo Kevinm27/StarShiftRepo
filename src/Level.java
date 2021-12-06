@@ -220,8 +220,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		for(int i = 0; i < enemies.size(); i++) {
 			if(enemies.get(i) != null) {
 				if(Logic.isCollidedEnemy(player.getImage(), enemies.get(i).getImage())){
-					//TODO: what is going to happen when the player collides with an enemy? currently the player is damaged by 100
-					//musicAndSFX.playSF
+					//When the player collides with an enemy currently the player is damaged by 100
 					musicAndSFX.playSFX(damage);
 					damagePlayer(200);
 					program.remove(enemies.get(i).getImage());

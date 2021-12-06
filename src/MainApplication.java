@@ -19,10 +19,7 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 	private ShipCustomPane shipCustom;
 	private OptionsMenu options;
 	private gameOverPane gameOver;
-	private Level endless;
-	private Levels levels;
-	private Level level1;
-	
+	private Level endless;	
 	
 	/* Method: setupInteractions
 	 * -------------------------
@@ -80,8 +77,6 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 
 	public void run() {
 		musicAndSFX.playMusic();
-		//levels = new Levels();
-		//level1 = new Level(this, new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200)), levels.getLevel1Enemies());
 		menu = new MenuPane(this);
 		playGameScn = new PlayGameMenu(this);
 		options = new OptionsMenu(this);
@@ -114,9 +109,6 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 	
 	public void switchToLevel() {
 		switchToScreen(endless);
-	}
-	public void switchToLevel1() {
-		switchToScreen(level1);
 	}
 	
 	public static void main(String[] args) {

@@ -37,14 +37,8 @@ public class playerShip extends ourEntity implements KeyListener{
 	 * @param angle the angle at which you plan on moving the ship
 	 * @return true if the ship moved, otherwise false
 	 */
-	public boolean move(float angle) {				// ************* WILL NOT ROTATE IMAGES - FUNCTION CHANGED
+	public boolean move(float angle) {
 		return(movePolar(angle));
-		
-//		if(movePolar(angle)) {
-//			return true;
-//		}
-//		else
-//			return false;
 	}
 	
 	/**this is the shoot function that playerShip will be using. It essentially runs ourEntity's movePolar

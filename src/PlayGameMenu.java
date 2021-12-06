@@ -140,7 +140,7 @@ public class PlayGameMenu extends GraphicsPane {
 		else if(level1Clicked) {	
 			if(obj == yes) {
 				level1Clicked = false;
-				program.switchToLevel1(); 	
+				//program.switchToLevel1(); 	
 				//program.switchToPlay();	// will likely need to change input to levelSelected to determine which level variable gets called
 				levelSelected = 1;
 			}
