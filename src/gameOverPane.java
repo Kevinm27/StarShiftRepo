@@ -19,22 +19,23 @@ public class gameOverPane extends GraphicsPane{
 		super();
 		program = app;
 		Font space = new Font("Space", Font.PLAIN, 20);
+		Font lose = new Font("Typewriter", Font.BOLD, 40);
 		background = new GImage("background.jpg");
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 
-		title = new GLabel("Game Over", app.getWidth() / 2 - 55, app.getHeight() / 2 - 100);
-		title.setFont(space);
-		title.setColor(Color.white);
+		title = new GLabel("Game Over", app.getWidth() / 2 - 100, app.getHeight() / 2 - 150);
+		title.setFont(lose);
+		title.setColor(Color.red);
 		
 		title1 = new GLabel("Play Again?", app.getWidth() / 2 - 55, app.getHeight() / 2 - 80);
 		title1.setFont(space);
 		title1.setColor(Color.white);
 		
-		yes = new GLabel("Yes", app.getWidth() / 2, app.getHeight() / 2);
+		yes = new GLabel("Yes", app.getWidth() / 2 - 75, app.getHeight() / 2 );
 		yes.setFont(space);
 		yes.setColor(Color.white);
 		
-		no = new GLabel("No", app.getWidth() / 2 + 100, app.getHeight() / 2);
+		no = new GLabel("No", app.getWidth() / 2  + 50, app.getHeight() / 2);
 		no.setFont(space);
 		no.setColor(Color.white);
 		

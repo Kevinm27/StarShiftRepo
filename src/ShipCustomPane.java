@@ -15,9 +15,6 @@ public class ShipCustomPane extends GraphicsPane {
 	private GImage leftArrow;
 	private GImage rightArrow;
 	private GImage ship;
-	private GLabel save;
-	private GLabel shipSaved;
-	private GLabel ok;
 	private int num = 0;
 	private final int SHIFT = 50;
 	
@@ -35,7 +32,7 @@ public class ShipCustomPane extends GraphicsPane {
 		title.setFont(space);
 		title.setColor(Color.white);
 	
-		returnButton = new GLabel("Return to Menu",app.getWidth()/2 - 250, app.getHeight()/2-SHIFT);
+		returnButton = new GLabel("Return and Save",app.getWidth()/2 - 250, app.getHeight()/2-SHIFT);
 		returnButton.setFont(space);
 		returnButton.setColor(Color.white);
 		
@@ -56,25 +53,13 @@ public class ShipCustomPane extends GraphicsPane {
 		ship = new GImage("BigGreenShip.png", app.getWidth() / 2 - 50, app.getHeight() / 2 - 2*SHIFT - 25);
 		ship.setSize(75,75);
 		
-		save = new GLabel("Save", app.getWidth() / 2 - 28, app.getHeight() / 2 + 3*SHIFT - 50);
-		save.setFont(space);
-		save.setColor(Color.white);
-		
-		shipSaved = new GLabel("Ship Saved", app.getWidth() / 2 - 50, app.getHeight() / 2 - SHIFT - 25);
-		shipSaved.setFont(space);
-		shipSaved.setColor(Color.white);
-		
-		
-		ok = new GLabel("Ok", app.getWidth()/2 - 28, app.getHeight()/2 + 2 * SHIFT - 50);
-		ok.setFont(space);
-		ok.setColor(Color.white);
+
 	}
 
 	@Override
 	public void showContents() {
 		// TODO Auto-generated method stub
-		program.add(shipSaved);
-		program.add(ok);
+
 		program.add(background);
 		program.add(title);
 		program.add(returnButton);
@@ -82,7 +67,6 @@ public class ShipCustomPane extends GraphicsPane {
 		program.add(rightArrow);
 		program.add(change);
 		program.add(ship);
-		program.add(save);
 		
 	}
 
@@ -96,9 +80,6 @@ public class ShipCustomPane extends GraphicsPane {
 		program.remove(rightArrow);
 		program.remove(change);
 		program.remove(ship);
-		program.remove(save);
-		program.remove(ok);
-		program.remove(shipSaved);
 		
 	}
 	
@@ -151,16 +132,7 @@ public class ShipCustomPane extends GraphicsPane {
 				shipColor = "Green";
 			}
 		}
-		else if(obj == save) {
-			//save the ship / change it permanently
-			background.sendToFront();
-			ok.sendToFront();
-			shipSaved.sendToFront();
-
-		}
-		else if(obj == ok) {
-			program.switchToShipCustom();
-		}
+		
 	}
 
 }
