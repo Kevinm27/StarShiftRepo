@@ -118,7 +118,6 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	 */
 	boolean isLevelLost() {
 		if(player.getHealth() < 1) {
-			program.switchToGameOver();
 			return true;
 		}
 		return false;
@@ -202,14 +201,6 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 			player.setHealth(0);
 		}
 		playerHP.modifyHealthBar(player.getHealth());
-		if(isLevelLost()) { //checks if player has died
-			gameOverLabel.sendToFront();
-			gameOverLabel.setVisible(true);
-			//TODO: make this if statement trigger some sort of game over function or screen
-			uniTimer.stop();
-			//System.out.println("Game over");
-			program.remove(player.getImage());
-		}
 	}
 	
 	/**This function is used by the timer to control the playerShip based on the
@@ -228,7 +219,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		}
 		for(int i = 0; i < enemies.size(); i++) {
 			if(enemies.get(i) != null) {
-				if(Logic.isCollided(player.getImage(), enemies.get(i).getImage())){
+				if(Logic.isCollidedEnemy(player.getImage(), enemies.get(i).getImage())){
 					//TODO: what is going to happen when the player collides with an enemy? currently the player is damaged by 100
 					//musicAndSFX.playSF
 					musicAndSFX.playSFX(damage);
@@ -263,6 +254,14 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(isLevelLost()) { //checks if player has died
+			uniTimer.stop();
+			gameOverLabel.sendToFront();
+			gameOverLabel.setVisible(true);
+			
+			program.switchToGameOver();
+		}
+		
 		moveAllProjectiles();
 		
 		controlPlayer();
@@ -381,15 +380,16 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		//setSize(800, 600);
 	}
 	
+	//reset clears the screen and removes everything
 	public void reset() {
-		if(enemies != null) {
+		if(enemies.size() != 0) {
 			for(Enemy rE:enemies) {
 				program.remove(rE.getImage());
 			}
 			enemies.clear();
 		}
 		
-		if(allBullets != null) {
+		if(allBullets.size() != 0) {
 			for(Projectile p:allBullets) {
 				program.remove(p.getOval());
 			}
@@ -410,6 +410,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 			program.remove(score.getComboText());
 		}
 		
+		timeCounter = 0;
 		player.setHealth(1000);
 	}
 	

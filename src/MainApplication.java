@@ -78,7 +78,7 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 
 	public void run() {
 		musicAndSFX.playMusic();
-		levels = new Levels();
+		//levels = new Levels();
 		//level1 = new Level(this, new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200)), levels.getLevel1Enemies());
 		menu = new MenuPane(this);
 		playGameScn = new PlayGameMenu(this);
@@ -105,6 +105,7 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 	public void switchToOptions() {
 		switchToScreen(options);
 	}
+	
 	public void switchToGameOver() {
 		switchToScreen(gameOver);
 	}

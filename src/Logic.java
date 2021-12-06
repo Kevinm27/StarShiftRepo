@@ -1,5 +1,6 @@
 import acm.graphics.GImage;
 import acm.graphics.GObject;
+import acm.graphics.GOval;
 import acm.graphics.GPoint;
 
 public class Logic {
@@ -24,7 +25,20 @@ public class Logic {
 	 * @param GObject representing enemy ship
 	 * @return If objects overlap
 	 */	
-	public static boolean isCollided(GObject one, GImage two) {
+	public static boolean isCollided(GOval one, GImage two) {
+		
+		for (int i = (int) one.getX(); i < one.getX() + one.getWidth(); i++) {
+			for (int j = (int) one.getY(); j < one.getY() + one.getHeight(); j++) {	
+				if (two.contains(new GPoint(i, j))) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public static boolean isCollidedEnemy(GImage one, GImage two) {
 		
 		for (int i = (int) one.getX(); i < one.getX() + one.getWidth(); i++) {
 			for (int j = (int) one.getY(); j < one.getY() + one.getHeight(); j++) {	
