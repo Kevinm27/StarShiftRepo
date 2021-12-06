@@ -329,6 +329,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	 * KeyListeners, then starts the game timer.
 	 */
 	private void initLevel() {
+		Score.resetScore();
 		program.addKeyListeners(new TAdapter());
 		playArea = new GRect(LEVEL_BOUNDS_LEFT, LEVEL_BOUNDS_TOP, LEVEL_BOUNDS_RIGHT, LEVEL_BOUNDS_BOTTOM);
 		playArea.setLineWidth(2);

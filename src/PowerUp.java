@@ -10,6 +10,16 @@ public class PowerUp {
 	GImage HPUPP = new GImage("media/healthup.png");
 	GImage SPDUPP = new GImage("media/speedup.png");
 	GImage MEGAUPP = new GImage("media/megaup.png");
+	PowerUpType type;
+	
+	PowerUp(GPoint location){
+		type = pickPowerUP();
+		
+			
+			
+		
+		
+	}
 	
 	void setHPUP(playerShip player) {
 		int health = player.getHealth() + HPUP;
@@ -28,18 +38,21 @@ public class PowerUp {
 		player.setSpeed(spd);
 	}
 	
+	/**selects a random power up. Power ups have a weighted drop chance, meaning stronger power ups are more rare
+	 * 
+	 * @return the powerup type
+	 */
 	PowerUpType pickPowerUP() {
 		int randPower = rand.nextInt(40);
-		if(randPower == 5 || randPower == 0) {
+		if(randPower < 19) {
 			return PowerUpType.HP;
 		}
-		if(randPower == 10 || randPower == 15) {
+		if(randPower < 38) {
 			return PowerUpType.SPD;
 		}
-		if(randPower == 30) {
+		else{
 			return PowerUpType.MEGA;
 		}
-		return null;
 	}
 	
 	void dropPowerUp(GPoint location, PowerUpType pT) {
