@@ -334,7 +334,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		playArea.setLineWidth(2);
 		playArea.setColor(Color.red);		
 		background.sendBackward();
-		background.scale(0.417, 0.462);	// x,y		// Scales the background down to playArea
+		background.setSize(LEVEL_BOUNDS_RIGHT, LEVEL_BOUNDS_BOTTOM);	// x,y		// Scales the background down to playArea
 		backDrop = new GRect(0, 0, 800, 600);
 		backDrop.setFilled(true);
 		program.add(backDrop);
