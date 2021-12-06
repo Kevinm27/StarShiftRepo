@@ -14,8 +14,7 @@ public class Projectile {
 	private int damage;
 	private boolean friendly;
 	  
-	private GOval oval;		//placeholder for projectile image
-	public ArrayList<GOval> allProjOvals = new ArrayList<GOval>();
+	private GOval oval;
 	
 	private float angle;
 	  
@@ -28,8 +27,6 @@ public class Projectile {
 		damage = PROJECTILE_DAMAGE;
 		this.friendly = friendly;
 		speed = PROJECTILE_SPEED;
-		GOval projOval = makeProjOval(projectileLocation.getX(), projectileLocation.getY());
-		allProjOvals.add(projOval);
 		oval = new GOval(projectileLocation.getX(), projectileLocation.getY(), PROJECTILE_SIZE, PROJECTILE_SIZE);
 		oval.setFilled(true);
 		if(friendly) 
@@ -50,8 +47,6 @@ public class Projectile {
 		friendly = false;
 		speed = PROJECTILE_SPEED;
 		oval = new GOval(projectileLocation.getX(), projectileLocation.getY(), PROJECTILE_SIZE, PROJECTILE_SIZE);
-		GOval projOval = makeProjOval(projectileLocation.getX(), projectileLocation.getY());
-		allProjOvals.add(projOval);
 	}
 	
 	//************************************* Setter & Getters *************************************//
@@ -88,9 +83,7 @@ public class Projectile {
 	}
 	 
 	public void moveAllProjOval() {
-		for(GOval projOval:allProjOvals) {
-			projOval.movePolar(PROJECTILE_SPEED, angle);
-		}
+		oval.movePolar(PROJECTILE_SPEED, angle);
 	}
 	
 	// Edited so the projectiles return true if out of bounds
