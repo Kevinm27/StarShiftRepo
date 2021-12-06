@@ -27,7 +27,7 @@ public class MenuPane extends GraphicsPane {
 		Font space = new Font("Space", Font.PLAIN, 20);
 		Color purple = new Color(128,0,128);
 		
-		background = new GImage("Background.jpg");
+		background = new GImage("BackgroundTitle.png");
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		
 		playGame = new GLabel("Play Game", app.getWidth()/2 - 2 *50 + 40, app.getHeight()/2-50*2);
