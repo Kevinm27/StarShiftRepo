@@ -10,6 +10,8 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
 	public static final String MUSIC_FOLDER = "sounds";
+	
+	public playerShip player =  new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200));
 
 	private GraphicsPane curScreen;
 	private MenuPane menu;
@@ -85,7 +87,7 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 		options = new OptionsMenu(this);
 		shipCustom = new ShipCustomPane(this);
 		gameOver = new gameOverPane(this);
-		endless = new Level(this, new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200)));
+		endless = new Level(this, player);
 		setupInteractions();
 		switchToMenu();
 	}
