@@ -21,7 +21,7 @@ public class musicAndSFX {
             music.open(AudioSystem.getAudioInputStream(song));
             music.start();
             music.loop(Clip.LOOP_CONTINUOUSLY);
-            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            FloatControl gainControl = (FloatControl) music.getControl(FloatControl.Type.MASTER_GAIN);
             gainControl.setValue(-20.0f);
             //Thread.sleep(Audio.getMicrosecondLength()/1000);
         }
@@ -34,8 +34,7 @@ public class musicAndSFX {
                 clip = AudioSystem.getClip();
                 clip.open(AudioSystem.getAudioInputStream(SelectedAudio));
                 clip.start();
-                FloatControl gainControl = (FloatControl) 
-                clip.getControl(FloatControl.Type.MASTER_GAIN);
+                FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                 gainControl.setValue(-20.0f);
         	}
         }
