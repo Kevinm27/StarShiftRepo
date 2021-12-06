@@ -28,26 +28,26 @@ public class ShipCustomPane extends GraphicsPane {
 		background = new GImage("background.jpg");
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 
-		title = new GLabel("Ship Customization", app.getWidth() / 2 - 98, app.getHeight() / 2 - 200);
+		title = new GLabel("Ship Customization", app.getWidth() / 2 - 95, app.getHeight() / 2 - 200);
 		title.setFont(space);
 		title.setColor(Color.white);
 	
-		returnButton = new GLabel("Return and Save",app.getWidth()/2 - 250, app.getHeight()/2-SHIFT);
+		returnButton = new GLabel("Return and Save", app.getWidth() / 2 - 85, app.getHeight()/2);
 		returnButton.setFont(space);
 		returnButton.setColor(Color.white);
 		
 		
-		change = new GLabel("Ship Color", app.getWidth()/2 + 125, app.getHeight() / 2 - SHIFT + 25);
+		change = new GLabel("Use arrow keys to change color of the ship", app.getWidth()/2 - app.getWidth()/4, app.getHeight() / 2 + app.getHeight()/6);
 		change.setFont(space);
 		change.setColor(Color.white);
 		
-		leftArrow = new GImage("rightArrow.jpg", app.getWidth()/2 + 200, app.getHeight()/2-SHIFT + 50);
+		leftArrow = new GImage("rightArrow.jpg", app.getWidth()/2 - app.getWidth()/10 + SHIFT/2, app.getHeight() / 2 - 2*SHIFT);
 		leftArrow.setSize(55,40);
 		leftArrow.rotate(180);
 		leftArrow.movePolar(leftArrow.getWidth(), 180);
 		leftArrow.movePolar(leftArrow.getHeight()+1, 270);			// +1 is debatable on whether or not to include
 
-		rightArrow = new GImage("rightArrow.jpg", app.getWidth()/2 + 200, app.getHeight()/2-SHIFT + 50);
+		rightArrow = new GImage("rightArrow.jpg", app.getWidth()/2 + app.getWidth()/10, app.getHeight() / 2 - 2*SHIFT);
 		rightArrow.setSize(55,40);
 	
 		ship = new GImage("BigGreenShip.png", app.getWidth() / 2 - 50, app.getHeight() / 2 - 2*SHIFT - 25);
