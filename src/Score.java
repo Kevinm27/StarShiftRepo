@@ -11,7 +11,7 @@ public class Score {
 	private static final int comboReset = 4;
 	
 	GLabel text;
-	int score = 0;
+	public static int score = 0;
 	int combo = 1;
 	int comboTimer = 0;
 	GLabel comboText;
@@ -19,11 +19,11 @@ public class Score {
 	Score(GPoint location, int fontSize){
 		text = new GLabel("Score: " + score, location.getX(), location.getY());
 		text.setFont("Broadway-28");
-		text.setColor(Color.cyan);
+		text.setColor(new Color(128, 0, 128));
 		
 		comboText = new GLabel("Combo: x" + combo, location.getX(), location.getY() + 30);
 		comboText.setFont("Broadway-28");
-		comboText.setColor(Color.red);
+		comboText.setColor(new Color(128, 0, 128));
 		
 	}
 	
@@ -37,7 +37,9 @@ public class Score {
 		score += combo * addedScore;
 		text.setLabel("Score: " + score);
 		upCombo();
+		gameOverPane.scoreLabel.setLabel("Final score: " + score);
 	}
+	
 	
 	/**Every time you get a kill with your bullets, your combo increases by 1.
 	 * 
@@ -59,7 +61,11 @@ public class Score {
 			comboText.setLabel("Combo: x" + combo);
 		}
 	}
-
+	
+	public static int getScore() {return score;}
+	
+	public static void resetScore() {score = 0;}
+	
 	public GLabel getText() {return text;}
 	
 	public GLabel getComboText() {return comboText;}

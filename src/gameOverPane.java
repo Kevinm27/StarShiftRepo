@@ -10,10 +10,11 @@ public class gameOverPane extends GraphicsPane{
 	private GImage background;
 	private GLabel title;
 	private GLabel title1;
+	public static GLabel scoreLabel;
 	private GLabel yes;
 	private GLabel no;
 	private final int SHIFT = 50;
-
+	private Score score;
 	
 	public gameOverPane(MainApplication app) {
 		super();
@@ -22,7 +23,7 @@ public class gameOverPane extends GraphicsPane{
 		Font lose = new Font("Typewriter", Font.BOLD, 40);
 		background = new GImage("background.jpg");
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
-
+		
 		title = new GLabel("Game Over", app.getWidth() / 2 - 100, app.getHeight() / 2 - 150);
 		title.setFont(lose);
 		title.setColor(Color.red);
@@ -30,6 +31,10 @@ public class gameOverPane extends GraphicsPane{
 		title1 = new GLabel("Play Again?", app.getWidth() / 2 - 55, app.getHeight() / 2 - 80);
 		title1.setFont(space);
 		title1.setColor(Color.white);
+		
+		scoreLabel = new GLabel("Final Score: " + Score.getScore(), app.getWidth() / 2 - 100, app.getHeight() / 2 - 40);
+		scoreLabel.setFont(lose);
+		scoreLabel.setColor(new Color(128, 0, 128));
 		
 		yes = new GLabel("Yes", app.getWidth() / 2 - 75, app.getHeight() / 2 );
 		yes.setFont(space);
@@ -49,6 +54,7 @@ public class gameOverPane extends GraphicsPane{
 		program.add(title1);
 		program.add(yes);
 		program.add(no);
+		program.add(scoreLabel);
 	}
 
 	@Override
@@ -59,6 +65,7 @@ public class gameOverPane extends GraphicsPane{
 		program.remove(title1);
 		program.remove(yes);
 		program.remove(no);
+		program.remove(scoreLabel);
 	}
 	
 	@Override
