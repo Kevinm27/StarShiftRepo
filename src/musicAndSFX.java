@@ -45,7 +45,7 @@ public class musicAndSFX {
     static void pauseMusic () {
        if(pause == false){
     	   pause = true;
-    	   backgroundSongclipTimePosition = clip.getMicrosecondPosition();
+    	   backgroundSongclipTimePosition = music.getMicrosecondPosition();
     	   music.stop();
        }
     }
@@ -69,7 +69,7 @@ public class musicAndSFX {
     public static void main (String [] args) {
     	
     	//musicAndSFX.playMusic();
-		Scanner myObj = new Scanner(System.in);
+		/*Scanner myObj = new Scanner(System.in);
 
     	System.out.print("Enter 1 if you want to pause: ");
         int num = myObj.nextInt();
@@ -90,7 +90,7 @@ public class musicAndSFX {
         	musicAndSFX.pauseMusic();
         }
         
-    	
+    	*/
     }
 
 }
