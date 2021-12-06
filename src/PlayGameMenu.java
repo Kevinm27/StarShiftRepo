@@ -105,8 +105,8 @@ public class PlayGameMenu extends GraphicsPane {
 	@Override
 	public void hideContents() {
 		program.remove(background);
-		program.remove(levelSelect);
-		program.remove(endlessMode);
+		//program.remove(levelSelect);
+		//program.remove(endlessMode);
 		/*
 		program.remove(level1);
 		program.remove(level2);
@@ -114,7 +114,7 @@ public class PlayGameMenu extends GraphicsPane {
 		program.remove(level4);
 		program.remove(level5);
 		*/
-		program.remove(backButton);
+		//program.remove(backButton);
 		program.remove(yes);
 		program.remove(no);
 		program.remove(confirmText);
@@ -131,7 +131,7 @@ public class PlayGameMenu extends GraphicsPane {
 		else if(obj == no) {
 			program.switchToMenu();
 		}
-		}
+	}
 		
 		/*
 		if(obj == endlessMode) {
