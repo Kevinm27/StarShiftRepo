@@ -8,20 +8,19 @@ import javax.sound.sampled.FloatControl;
 public class musicAndSFX {
 
     static Clip clip;
+    static Clip music;
     static boolean muteSFX;
     static long backgroundSongclipTimePosition = 0;
     public static boolean pause = false;
     public static File song = new File("Media/song1.wav");
  
 
-    musicAndSFX() {}
-
-    static void playMusic () {
+    public musicAndSFX () {
         try {
-            clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(song));
-            clip.start();
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            music = AudioSystem.getClip();
+            music.open(AudioSystem.getAudioInputStream(song));
+            music.start();
+            music.loop(Clip.LOOP_CONTINUOUSLY);
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             gainControl.setValue(-20.0f);
             //Thread.sleep(Audio.getMicrosecondLength()/1000);
@@ -35,7 +34,8 @@ public class musicAndSFX {
                 clip = AudioSystem.getClip();
                 clip.open(AudioSystem.getAudioInputStream(SelectedAudio));
                 clip.start();
-                FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                FloatControl gainControl = (FloatControl) 
+                clip.getControl(FloatControl.Type.MASTER_GAIN);
                 gainControl.setValue(-20.0f);
         	}
         }
@@ -46,7 +46,7 @@ public class musicAndSFX {
        if(pause == false){
     	   pause = true;
     	   backgroundSongclipTimePosition = clip.getMicrosecondPosition();
-    	   clip.stop();
+    	   music.stop();
        }
     }
     static void resumeMusic(){
@@ -54,11 +54,12 @@ public class musicAndSFX {
     		pause = false;
     		
     		try {
-    			clip = AudioSystem.getClip();
-    			clip.open(AudioSystem.getAudioInputStream(song));
-    			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                gainControl.setValue(-20.0f);        		clip.setMicrosecondPosition(backgroundSongclipTimePosition);
-        		clip.start();
+    			music = AudioSystem.getClip();
+    			music.open(AudioSystem.getAudioInputStream(song));
+    			FloatControl gainControl = (FloatControl) music.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(-20.0f);        		
+                music.setMicrosecondPosition(backgroundSongclipTimePosition);
+        		music.start();
             }
             catch (Exception e) {}
     	}
@@ -67,7 +68,7 @@ public class musicAndSFX {
 
     public static void main (String [] args) {
     	
-    	musicAndSFX.playMusic();
+    	//musicAndSFX.playMusic();
 		Scanner myObj = new Scanner(System.in);
 
     	System.out.print("Enter 1 if you want to pause: ");

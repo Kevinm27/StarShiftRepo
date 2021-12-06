@@ -429,7 +429,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	}
 	
 	public static void main(String args[]) {
-		musicAndSFX.playMusic();
+		//musicAndSFX.playMusic();
 		//new Level(new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200))).start();
 	}
 }

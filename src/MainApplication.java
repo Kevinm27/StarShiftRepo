@@ -76,7 +76,7 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 	}
 
 	public void run() {
-		musicAndSFX.playMusic();
+		musicAndSFX music = new musicAndSFX();
 		menu = new MenuPane(this);
 		playGameScn = new PlayGameMenu(this);
 		options = new OptionsMenu(this);
