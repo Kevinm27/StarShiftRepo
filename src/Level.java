@@ -182,7 +182,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 								}
 							}
 							catch(Exception e) {
-								System.out.println("Index Error");
+								//System.out.println("Index Error");
 							}
 						}	 
 					}
