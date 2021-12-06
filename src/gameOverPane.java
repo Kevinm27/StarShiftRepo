@@ -32,7 +32,7 @@ public class gameOverPane extends GraphicsPane{
 		title1.setFont(space);
 		title1.setColor(Color.white);
 		
-		scoreLabel = new GLabel("Final Score: " + Score.getScore(), app.getWidth() / 2 - 100, app.getHeight() / 2 - 40);
+		scoreLabel = new GLabel("Final Score: " + Score.getScore(), app.getWidth() / 2 - 140, app.getHeight() / 2 - 110);
 		scoreLabel.setFont(lose);
 		scoreLabel.setColor(new Color(128, 0, 128));
 		
