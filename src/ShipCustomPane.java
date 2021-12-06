@@ -133,9 +133,10 @@ public class ShipCustomPane extends GraphicsPane {
 			//change the display for the ship temporarily
 			if(num == 0) {
 				num++;
-				ship.setImage("BigGreenShip.png");
+				ship.setImage("BigBrownShip.png");
 				ship.setSize(75,75);
-				shipColor = "Green";
+				shipColor = "Brown";
+				
 			}
 			else if(num == 1) {
 				num++;
@@ -145,9 +146,9 @@ public class ShipCustomPane extends GraphicsPane {
 			}
 			else {
 				num = 0;
-				ship.setImage("BigBrownShip.png");
+				ship.setImage("BigGreenShip.png");
 				ship.setSize(75,75);
-				shipColor = "Brown";
+				shipColor = "Green";
 			}
 		}
 		else if(obj == save) {
