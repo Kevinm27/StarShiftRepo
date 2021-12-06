@@ -254,6 +254,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		if(isLevelLost()) { //checks if player has died
 			uniTimer.stop();
 			gameOverLabel.sendToFront();
@@ -334,6 +335,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		playArea.setLineWidth(2);
 		playArea.setColor(Color.red);		
 		background.sendBackward();
+		player.setImage(ShipCustomPane.shipColor);
 		background.setSize(LEVEL_BOUNDS_RIGHT, LEVEL_BOUNDS_BOTTOM);	// x,y		// Scales the background down to playArea
 		backDrop = new GRect(0, 0, 800, 600);
 		backDrop.setFilled(true);
