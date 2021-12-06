@@ -25,7 +25,6 @@ private MainApplication program;
 	private GLabel underline1;
 
 	private GLabel backButton;
-	private final int SHIFT = 50;
 
 	public OptionsMenu(MainApplication app) {
 		super();
@@ -116,23 +115,23 @@ private MainApplication program;
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if(obj == onButton0 && !on0) {
 			on0 = true;
-			underline0.move(-1 * SHIFT - 18, 0);
+			underline0.move(-1 * 50 - 18, 0);
 			musicAndSFX.resumeMusic();//play music
 			
 		}
 		else if(obj == offButton0 && on0) {
 			on0 = false;
-			underline0.move(SHIFT + 18, 0);
+			underline0.move(50 + 18, 0);
 			musicAndSFX.pauseMusic();//mute/pause music
 		}
 		else if(obj == onButton1 && !on1) {
 			on1 = true;
-			underline1.move(-1 * SHIFT - 18, 0);
+			underline1.move(-1 * 50 - 18, 0);
 			musicAndSFX.muteSFX = false;//unmute sound effects
 		}
 		else if(obj == offButton1 && on1) {
 			on1 = false;
-			underline1.move(SHIFT + 18, 0);
+			underline1.move(50 + 18, 0);
 			musicAndSFX.muteSFX = true;//mute/pause sfx
 		}
 		

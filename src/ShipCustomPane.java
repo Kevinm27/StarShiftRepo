@@ -24,6 +24,7 @@ public class ShipCustomPane extends GraphicsPane {
 	public ShipCustomPane(MainApplication app) {
 		super();
 		program = app;
+		Color purple = new Color(128,0,128);
 		Font space = new Font("Space", Font.PLAIN, 20);
 		background = new GImage("background.jpg");
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
@@ -34,7 +35,7 @@ public class ShipCustomPane extends GraphicsPane {
 	
 		returnButton = new GLabel("Return and Save", app.getWidth() / 2 - 85, app.getHeight()/2);
 		returnButton.setFont(space);
-		returnButton.setColor(Color.white);
+		returnButton.setColor(purple);
 		
 		
 		change = new GLabel("Use arrow keys to change color of the ship", app.getWidth()/2 - app.getWidth()/4, app.getHeight() / 2 + app.getHeight()/6);

@@ -20,6 +20,7 @@ public class gameOverPane extends GraphicsPane{
 		program = app;
 		Font space = new Font("Space", Font.PLAIN, 20);
 		Font lose = new Font("Typewriter", Font.BOLD, 40);
+		Color purple = new Color(128,0,128);
 		background = new GImage("background.jpg");
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 
@@ -29,15 +30,15 @@ public class gameOverPane extends GraphicsPane{
 		
 		title1 = new GLabel("Play Again?", app.getWidth() / 2 - 55, app.getHeight() / 2 - 80);
 		title1.setFont(space);
-		title1.setColor(Color.white);
+		title1.setColor(purple);
 		
 		yes = new GLabel("Yes", app.getWidth() / 2 - 75, app.getHeight() / 2 );
 		yes.setFont(space);
-		yes.setColor(Color.white);
+		yes.setColor(Color.green);
 		
 		no = new GLabel("No", app.getWidth() / 2  + 50, app.getHeight() / 2);
 		no.setFont(space);
-		no.setColor(Color.white);
+		no.setColor(Color.red);
 		
 	}
 

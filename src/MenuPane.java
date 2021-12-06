@@ -20,45 +20,45 @@ public class MenuPane extends GraphicsPane {
 	private GLabel confirm;
 	private GLabel yes;
 	private GLabel no;
-	private final int SHIFT = 50;
 
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
 		Font space = new Font("Space", Font.PLAIN, 20);
+		Color purple = new Color(128,0,128);
 		
 		background = new GImage("Background.jpg");
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		
-		playGame = new GLabel("Play Game", app.getWidth()/2 - 2 *SHIFT + 40, app.getHeight()/2-SHIFT*2);
+		playGame = new GLabel("Play Game", app.getWidth()/2 - 2 *50 + 40, app.getHeight()/2-50*2);
 		playGame.setFont(space);
-		playGame.setColor(Color.GREEN);
+		playGame.setColor(purple);
 		
-		shipCustom = new GLabel("Customize",app.getWidth()/2- 2 *SHIFT + 40, app.getHeight()/2-SHIFT);
+		shipCustom = new GLabel("Customize",app.getWidth()/2- 2 *50 + 40, app.getHeight()/2-50);
 		shipCustom.setFont(space);
-		shipCustom.setColor(Color.PINK);
+		shipCustom.setColor(purple);
 		
-		options = new GLabel("Options", app.getWidth()/2- 2* SHIFT + 50, app.getHeight()/2);
+		options = new GLabel("Options", app.getWidth()/2- 2* 50 + 50, app.getHeight()/2);
 		options.setFont(space);
-		options.setColor(Color.CYAN);
+		options.setColor(purple);
 		
-		exit = new GLabel("Exit", app.getWidth()/2-SHIFT/2 - 10, app.getHeight()/2 + SHIFT);
+		exit = new GLabel("Exit", app.getWidth()/2-50/2 - 10, app.getHeight()/2 + 50);
 		exit.setFont(space);
-		exit.setColor(Color.RED);
+		exit.setColor(purple);
 		
-		confirm = new GLabel("Are You Sure?", app.getWidth()/2 - 2*SHIFT, app.getHeight()/2-SHIFT*2);
-		confirm.setFont(space);
-		confirm.setColor(Color.WHITE);
+		confirm = new GLabel("Are You Sure?", app.getWidth()/2 - 85, app.getHeight()/2-50*2);
+		confirm.setFont(new Font("space", Font.PLAIN, 25));
+		confirm.setColor(Color.white);
 		confirm.sendToBack();
 		
-		yes = new GLabel("Yes", app.getWidth()/2 - 2*SHIFT, app.getHeight()/2 - SHIFT);
+		yes = new GLabel("Yes", app.getWidth()/2 - 75, app.getHeight()/2 - 50);
 		yes.setFont(new Font("Space", Font.BOLD, 20));
-		yes.setColor(Color.WHITE);
+		yes.setColor(Color.GREEN);
 		yes.sendToBack();
 		
-		no = new GLabel("No", app.getWidth()/2 - 2*SHIFT + 100, app.getHeight()/2 - SHIFT);
+		no = new GLabel("No", app.getWidth()/2 + 25 , app.getHeight()/2 - 50);
 		no.setFont(space);
-		no.setColor(Color.WHITE);
+		no.setColor(Color.RED);
 		no.sendToBack();
 	
 	}
