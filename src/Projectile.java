@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.awt.Color;
 import acm.graphics.GOval;
 import acm.graphics.GPoint;

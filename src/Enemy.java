@@ -1,6 +1,3 @@
-import java.awt.Color;
-import java.util.Random;
-
 import acm.graphics.GImage;
 import acm.graphics.GPoint;
 
