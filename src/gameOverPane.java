@@ -13,8 +13,6 @@ public class gameOverPane extends GraphicsPane{
 	public static GLabel scoreLabel;
 	private GLabel yes;
 	private GLabel no;
-	private final int SHIFT = 50;
-	private Score score;
 	
 	public gameOverPane(MainApplication app) {
 		super();
@@ -25,23 +23,23 @@ public class gameOverPane extends GraphicsPane{
 		background = new GImage("background.jpg");
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		
-		title = new GLabel("Game Over", app.getWidth() / 2 - 100, app.getHeight() / 2 - 150);
+		title = new GLabel("Game Over",app.getWidth() / 2 - 100 , app.getHeight() / 2 - 200);
 		title.setFont(lose);
 		title.setColor(Color.red);
+
+		scoreLabel = new GLabel("Final Score: " + Score.getScore(), app.getWidth() / 2 - 125,app.getHeight() / 2 - 150);
+		scoreLabel.setFont(lose);
+		scoreLabel.setColor(purple);
 		
-		title1 = new GLabel("Play Again?", app.getWidth() / 2 - 55, app.getHeight() / 2 - 80);
-		title1.setFont(space);
+		title1 = new GLabel("Play Again?", app.getWidth() / 2 - 55  ,  app.getHeight() / 2 - 50);
+		title1.setFont(new Font("space", Font.PLAIN, 25));
 		title1.setColor(purple);
 		
-		scoreLabel = new GLabel("Final Score: " + Score.getScore(), app.getWidth() / 2 - 140, app.getHeight() / 2 - 110);
-		scoreLabel.setFont(lose);
-		scoreLabel.setColor(new Color(128, 0, 128));
-		
-		yes = new GLabel("Yes", app.getWidth() / 2 - 75, app.getHeight() / 2 );
+		yes = new GLabel("Yes", app.getWidth() / 2 - 75, app.getHeight() / 2 + 50);
 		yes.setFont(space);
 		yes.setColor(Color.green);
 		
-		no = new GLabel("No", app.getWidth() / 2  + 50, app.getHeight() / 2);
+		no = new GLabel("No", app.getWidth() / 2  + 50, app.getHeight() / 2 + 50);
 		no.setFont(space);
 		no.setColor(Color.red);
 		

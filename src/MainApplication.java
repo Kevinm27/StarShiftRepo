@@ -11,7 +11,7 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 	public static final int WINDOW_HEIGHT = 600;
 	public static final String MUSIC_FOLDER = "sounds";
 	
-	public playerShip player =  new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200));
+	public playerShip player =  new playerShip(8, 1000, EntityType.PLAYER, new GPoint(375, 360));
 
 	private GraphicsPane curScreen;
 	private MenuPane menu;
