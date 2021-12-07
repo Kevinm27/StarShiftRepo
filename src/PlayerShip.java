@@ -28,7 +28,7 @@ public class PlayerShip extends OurEntity implements KeyListener{
 	
 	//getPlayerLocation is for the EnemySpawner Class
 	public GPoint getPlayerLocation() {
-		return playerLocation;
+		return image.getLocation();
 	}
 
 	/**This is the move function that playerShip will be using. It mostly just runs through movePolar 
