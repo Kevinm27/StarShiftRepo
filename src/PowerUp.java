@@ -9,18 +9,18 @@ public class PowerUp {
 	//TODO: change the static GImages to string
 	private GImage image;
 	static String HPUPP = "media/healthup.png";
-	static GImage SPDUPP = new GImage("media/speedup.png");
-	static GImage MEGAUPP = new GImage("media/megaup.png");
+	static String SPDUPP = "media/speedup.png";
+	static String MEGAUPP = "media/megaup.png";
 	
 	static String getHPUP() {
 		return HPUPP;
 	}
 	
-	static GImage getSPDUP() {
+	static String getSPDUP() {
 		return SPDUPP;
 	}
 	
-	static GImage getMEGAUP() {
+	static String getMEGAUP() {
 		return MEGAUPP;
 	}
 	
@@ -33,7 +33,12 @@ public class PowerUp {
 		if(pT == PowerUpType.HP) {
 			image = new GImage(HPUPP, location.getX(), location.getY());
 		}
-		//TODO: finish the constructor foe different image types
+		if(pT == PowerUpType.SPD) {
+			image = new GImage(SPDUPP, location.getX(), location.getY());
+		}
+		if(pT == PowerUpType.MEGA) {
+			image = new GImage(MEGAUPP, location.getX(), location.getY());
+		}
 		image.setSize(35, 35);
 	}
 	
@@ -64,7 +69,7 @@ public class PowerUp {
 	 */
 	private PowerUpType pickPowerUP() {
 		int randPower =  (int)(Math.random()*(40-1+1)+1);
-		if(randPower <= 500) {
+		if(randPower <= 15) {
 			return PowerUpType.HP;
 		}
 		else if(randPower <= 30) {

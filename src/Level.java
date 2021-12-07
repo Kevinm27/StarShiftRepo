@@ -179,7 +179,6 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 												program.add(powerUp.getImage());
 												powerUps.add(powerUp);
 											}
-											
 											program.remove(enemies.get(j).getImage());
 											enemies.remove(j);
 											score.updateScore(10);
@@ -244,22 +243,19 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	}
 	
 	private void controlPowerUps() {
-		
 		for (int i = 0; i < powerUps.size(); i++) {
 			if(powerUps.get(i) != null) {
 				if(Logic.isCollidedEnemy(player.getImage(), powerUps.get(i).getImage())) {
 					if (powerUps.get(i).getpT() == PowerUpType.HP) {
 						PowerUp.setHPUP(player);
 						playerHP.modifyHealthBar(player.getHealth());
-					} //TODO: fix these
-					/*
-					if(powerUps.get(i) == PowerUp.getSPDUP()) {
+					} 
+					if (powerUps.get(i).getpT() == PowerUpType.SPD) {
 						PowerUp.setSPDUP(player);
 					}
-					if(powerUps.get(i) == PowerUp.getMEGAUP()) {
+					if (powerUps.get(i).getpT() == PowerUpType.HP) {
 						PowerUp.setMEGAUP(player);
 					}
-					*/
 					program.remove(powerUps.get(i).getImage());
 					powerUps.remove(i);
 				}
