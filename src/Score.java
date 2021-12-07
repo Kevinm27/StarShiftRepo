@@ -8,7 +8,7 @@ import acm.graphics.*;
  *
  */
 public class Score {
-	private static final int comboReset = 4;
+	private static final int COMBO_RESET = 4;
 	
 	GLabel text;
 	public static int score = 0;
@@ -55,11 +55,15 @@ public class Score {
 	 */
 	public void controlComboTimer() {
 		comboTimer++;
-		if(comboTimer >= comboReset) {
-			comboTimer = 0;
-			combo = 1;
-			comboText.setLabel("Combo: x" + combo);
+		if(comboTimer >= COMBO_RESET) {
+			resetCombo();
 		}
+	}
+	
+	public void resetCombo() {
+		comboTimer = 0;
+		combo = 1;
+		comboText.setLabel("Combo: x" + combo);
 	}
 	
 	public static int getScore() {return score;}
