@@ -173,7 +173,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 										enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
 										if(enemies.get(j).isDead()) {
 											MusicAndSFX.playSFX(giveDamage);
-											int randPower =  (int)(Math.random()*(10)); //there's a 1 in 20 chance of spawning a powerup
+											int randPower =  (int)(Math.random()*(8)); //there's a 1 in 20 chance of spawning a powerup
 											if(randPower == 1) { //if the random number is 1, a powerup drops
 												powerUp = new PowerUp(enemies.get(j).getImage().getLocation());
 												program.add(powerUp.getImage());
