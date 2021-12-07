@@ -108,7 +108,7 @@ public class EnemySpawner {
 			//subtracting 100 so enemies range to spawn is smaller
 			int disFromScreenY = (int)(LEVEL_BOUNDS_BOTTOM - y - 100);
 			
-			eLocation = new GPoint(rng.nextInt(disFromScreenX) + y + 100, rng.nextInt(disFromScreenY) + y + 100);
+			eLocation = new GPoint(rng.nextInt(disFromScreenX) + x + 100, rng.nextInt(disFromScreenY) + y + 100);
 		}
 		else if(x + 100 <= LEVEL_BOUNDS_RIGHT && y - 100 >= 0 && quad <= 4) {
 			//subtracting 100 so enemies domain to spawn is smaller
