@@ -459,6 +459,8 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		timeCounter = 0;
 		player.setHealth(1000);
 		player.setSpeed(4.5);
+		player.setFireDelay(8);
+		player.getImage().setLocation(375, 360);
 	}
 	
 	@Override
