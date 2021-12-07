@@ -40,7 +40,7 @@ public class ourEntity {
 				setImage(ShipCustomPane.shipColor);
 				break;
 			case SCOOTER:
-				speed = 5;
+				speed = 4.5;
 				friendly = false;
 				break;
 			case SHOOTER:
@@ -99,15 +99,24 @@ public class ourEntity {
 		return this.newBullet;
 	}
 	
+	public int getFireDelay() {
+		return fireDelay;
+	}
+
+	public void setFireDelay(int fireDelay) {
+		this.fireDelay = fireDelay;
+	}
+	
 	//************************************* Functions *************************************//
 	
-	/**This function iterates through all of the Projectiles inside of the bullets ArrayList and
-	 * moves them all once.
-	 */
 	public boolean canShoot() {
 		return (curFireTime >= fireDelay && canShoot);
 	}
 	
+	/**Checks if the ship's health is less than 1
+	 * 
+	 * @return true if the ship's health is less than 1
+	 */
 	public boolean isDead() {
 		return health < 1;
 	}

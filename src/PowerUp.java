@@ -4,7 +4,7 @@ import java.lang.Math;
 
 public class PowerUp {
 	PowerUpType pT;
-	static int HPUP = 100;
+	static int HPUP = 200;
 	
 	//TODO: change the static GImages to string
 	private GImage image;
@@ -43,10 +43,10 @@ public class PowerUp {
 	}
 	
 	static void setHPUP(playerShip player) {
-		if(player.getHealth() < 1000) {
+//		if(player.getHealth() < 1000) {
 			int health = player.getHealth() + HPUP;
 			player.setHealth(health);
-		}
+//		}
 	}
 	
 	static void setSPDUP(playerShip player) {
@@ -55,24 +55,28 @@ public class PowerUp {
 	}
 	
 	static void setMEGAUP(playerShip player) {
-		if(player.getHealth() < 1000) {
+//		if(player.getHealth() < 1000) {
 			int health = player.getHealth() + HPUP;
 			player.setHealth(health);
-		}
+//		}
 		double spd = player.getSpeed() * 1.2;
 		player.setSpeed(spd);
+		player.setFireDelay(player.getFireDelay() - 1);
 	}
 	
-	/**selects a random power up. Power ups have a weighted drop chance, meaning stronger power ups are more rare
+	/**selects a random power up. Power ups have a weighted drop chance, meaning stronger power ups are more rare.
+	 * There is a 5/8ths chance of spawning a HP PowerUp. 
+	 * There is a 1 in 4 chance of spawning a speed PowerUp. 
+	 * Finally, there is a 1 in 8 chance of spawning a MEGA PowerUp.
 	 * 
 	 * @return the powerup type
 	 */
 	private PowerUpType pickPowerUP() {
 		int randPower =  (int)(Math.random()*(40-1+1)+1);
-		if(randPower <= 15) {
+		if(randPower <= 25) {
 			return PowerUpType.HP;
 		}
-		else if(randPower <= 30) {
+		else if(randPower <= 35) {
 			return PowerUpType.SPD;
 		}
 		else{

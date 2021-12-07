@@ -253,8 +253,9 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 					if (powerUps.get(i).getpT() == PowerUpType.SPD) {
 						PowerUp.setSPDUP(player);
 					}
-					if (powerUps.get(i).getpT() == PowerUpType.HP) {
+					if (powerUps.get(i).getpT() == PowerUpType.MEGA) {
 						PowerUp.setMEGAUP(player);
+						playerHP.modifyHealthBar(player.getHealth());
 					}
 					program.remove(powerUps.get(i).getImage());
 					powerUps.remove(i);
@@ -432,6 +433,13 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 				program.remove(p.getOval());
 			}
 			allBullets.clear();
+		}
+		
+		if(powerUps.size() != 0) {
+			for(PowerUp p:powerUps) {
+				program.remove(p.getImage());
+			}
+			powerUps.clear();
 		}
 		
 		if(isLevelLost() == true) {
