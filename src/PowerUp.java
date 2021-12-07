@@ -4,34 +4,24 @@ import java.util.Random;
 
 public class PowerUp {
 	PowerUpType pT;
-	Random rand = new Random();
-	int HPUP = 100;
+	static Random rand = new Random();
+	static int HPUP = 100;
 	
-	GImage HPUPP = new GImage("media/healthup.png");
-	GImage SPDUPP = new GImage("media/speedup.png");
-	GImage MEGAUPP = new GImage("media/megaup.png");
-	PowerUpType type;
+	static GImage HPUPP = new GImage("media/healthup.png");
+	static GImage SPDUPP = new GImage("media/speedup.png");
+	static GImage MEGAUPP = new GImage("media/megaup.png");
 	
-	PowerUp(GPoint location){
-		type = pickPowerUP();
-		
-			
-			
-		
-		
-	}
-	
-	void setHPUP(playerShip player) {
+	static void setHPUP(playerShip player) {
 		int health = player.getHealth() + HPUP;
 		player.setHealth(health);
 	}
 	
-	void setSPDUP(playerShip player) {
+	static void setSPDUP(playerShip player) {
 		double spd = player.getSpeed() * 1.2;
 		player.setSpeed(spd);
 	}
 	
-	void setMEGAUP(playerShip player) {
+	static void setMEGAUP(playerShip player) {
 		int health = player.getHealth() + HPUP;
 		player.setHealth(health);
 		double spd = player.getSpeed() * 1.2;
@@ -42,28 +32,36 @@ public class PowerUp {
 	 * 
 	 * @return the powerup type
 	 */
-	PowerUpType pickPowerUP() {
+	static PowerUpType pickPowerUP() {
 		int randPower = rand.nextInt(40);
-		if(randPower < 19) {
+		if(randPower == 5 || randPower == 10) {
 			return PowerUpType.HP;
 		}
-		if(randPower < 38) {
+		if(randPower == 15 || randPower == 20) {
 			return PowerUpType.SPD;
 		}
 		else{
-			return PowerUpType.MEGA;
+			return PowerUpType.SPD;
 		}
+		//return null;
 	}
 	
-	void dropPowerUp(GPoint location, PowerUpType pT) {
+	static GImage dropPowerUp(GPoint location) {
 		switch(pickPowerUP()){
 			case HP:
+				HPUPP.setSize(35,35);
 				HPUPP.setLocation(location);
+				return HPUPP;
 			case SPD:
+				SPDUPP.setSize(35,35);
 				SPDUPP.setLocation(location);
+				return SPDUPP;
 			case MEGA:
+				MEGAUPP.setSize(35,35);
 				MEGAUPP.setLocation(location);
+				return MEGAUPP;
 		}
+		return null;
 	}
 	
 }

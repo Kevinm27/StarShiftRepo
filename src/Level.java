@@ -170,6 +170,23 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 										enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
 										if(enemies.get(j).isDead()) {
 											musicAndSFX.playSFX(giveDamage);
+											/*
+											GImage PUP = PowerUp.dropPowerUp(enemies.get(j).getImage().getLocation());
+											program.add(PUP);
+											if(Logic.isCollidedEnemy(player.getImage(), PUP)) {
+												if (PUP == new GImage("media/healthup.png")) {
+													PowerUp.setHPUP(player);
+												}
+												if(PUP == new GImage("media/speedup.png")) {
+													PowerUp.setSPDUP(player);
+												}
+												if(PUP == new GImage("media/megaup.png")) {
+													PowerUp.setMEGAUP(player);
+												}
+												score.updateScore(100);
+												program.remove(PUP);
+											}
+											*/
 											program.remove(enemies.get(j).getImage());
 											enemies.remove(j);
 											score.updateScore(10);
