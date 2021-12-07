@@ -30,7 +30,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	
 	private ArrayList<Enemy> enemies = new ArrayList<>();
 	private ArrayList<Projectile> allBullets = new ArrayList<>();
-	private ArrayList<GImage> PowerUps = new ArrayList<>();
+	private ArrayList<PowerUp> powerUps = new ArrayList<>();
 	
 	private Score score;
 	private playerShip player;
@@ -38,6 +38,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	private Projectile newBullet;
 	private Timer uniTimer;
 	private EnemySpawner enemySpawner;
+	private PowerUp powerUp;
 	private GRect playArea;		//outlines the playable margin of the screen in black
 	private GRect backDrop;
 	private GImage background = new GImage("media/background.jpg");
@@ -172,13 +173,13 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 										enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
 										if(enemies.get(j).isDead()) {
 											musicAndSFX.playSFX(giveDamage);
-											/*
-											GImage PUP = PowerUp.dropPowerUp(enemies.get(j).getImage().getLocation());
-											if(PUP != null){
-												program.add(PUP);
-												PowerUps.add(PUP);
+											int randPower =  (int)(Math.random()*(20));
+											if(randPower == 5) { //as long as it equals any random number in the range it'll be fine
+												powerUp = new PowerUp(enemies.get(j).getImage().getLocation());
+												program.add(powerUp.getImage());
+												powerUps.add(powerUp);
 											}
-											*/
+											
 											program.remove(enemies.get(j).getImage());
 											enemies.remove(j);
 											score.updateScore(10);
@@ -227,7 +228,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		for(int i = 0; i < enemies.size(); i++) {
 			if(enemies.get(i) != null) {
 				if(Logic.isCollidedEnemy(player.getImage(), enemies.get(i).getImage())){
-					//When the player collides with an enemy currently the player is damaged by 100
+					//When the player collides with an enemy currently the player is damaged by 200
 					musicAndSFX.playSFX(damage);
 					damagePlayer(200);
 					program.remove(enemies.get(i).getImage());
@@ -238,26 +239,32 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 			}
 		}
 		
-		/*
-		for (int i = 0; i < PowerUps.size(); i++) {
-			if(PowerUps.get(i) != null) {
-				if(Logic.isCollidedEnemy(player.getImage(), PowerUps.get(i))) {
-					if (PowerUps.get(i) == PowerUp.getHPUP()) {
+		
+		
+	}
+	
+	private void controlPowerUps() {
+		
+		for (int i = 0; i < powerUps.size(); i++) {
+			if(powerUps.get(i) != null) {
+				if(Logic.isCollidedEnemy(player.getImage(), powerUps.get(i).getImage())) {
+					if (powerUps.get(i).getpT() == PowerUpType.HP) {
 						PowerUp.setHPUP(player);
 						playerHP.modifyHealthBar(player.getHealth());
-					}
-					if(PowerUps.get(i) == PowerUp.getSPDUP()) {
+					} //TODO: fix these
+					/*
+					if(powerUps.get(i) == PowerUp.getSPDUP()) {
 						PowerUp.setSPDUP(player);
 					}
-					if(PowerUps.get(i) == PowerUp.getMEGAUP()) {
+					if(powerUps.get(i) == PowerUp.getMEGAUP()) {
 						PowerUp.setMEGAUP(player);
 					}
-					program.remove(PowerUps.get(i));
-					PowerUps.remove(i);
+					*/
+					program.remove(powerUps.get(i).getImage());
+					powerUps.remove(i);
 				}
 			}	
 		}
-		*/
 		
 	}
 	
@@ -265,7 +272,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	 * the enemies ArrayList
 	 * @param enemy the current enemy you are controlling
 	 */
-	public void controlEnemy(Enemy enemy) {
+	private void controlEnemy(Enemy enemy) {
 		float towardsPlayer = Logic.getAngle(enemy.getImage(), player.getImage()); //calculates angle towards playerShip
 		enemy.operateEnemy(towardsPlayer);
 		if(enemy.canShoot()) {
@@ -275,6 +282,8 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 			program.add(newBullet.getOval());
 		}
 	}
+	
+	
 	
 	//Listeners
 	/** As long as the game isn't paused, This is all of what the clock is going to execute once the
@@ -325,6 +334,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 				controlEnemy(enemies.get(i));
 			}
 		}
+		controlPowerUps();
 	}
 	
 	/**This class was taken from an outside source. It overrides the KeyListeners of your choosing.

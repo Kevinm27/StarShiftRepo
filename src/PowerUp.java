@@ -6,11 +6,13 @@ public class PowerUp {
 	PowerUpType pT;
 	static int HPUP = 100;
 	
-	static GImage HPUPP = new GImage("media/healthup.png");
+	//TODO: change the static GImages to string
+	private GImage image;
+	static String HPUPP = "media/healthup.png";
 	static GImage SPDUPP = new GImage("media/speedup.png");
 	static GImage MEGAUPP = new GImage("media/megaup.png");
 	
-	static GImage getHPUP() {
+	static String getHPUP() {
 		return HPUPP;
 	}
 	
@@ -22,6 +24,18 @@ public class PowerUp {
 		return MEGAUPP;
 	}
 	
+	/**
+	 * 
+	 * @param location
+	 */
+	PowerUp(GPoint location){
+		pT = pickPowerUP();
+		if(pT == PowerUpType.HP) {
+			image = new GImage(HPUPP, location.getX(), location.getY());
+		}
+		//TODO: finish the constructor foe different image types
+		image.setSize(35, 35);
+	}
 	
 	static void setHPUP(playerShip player) {
 		if(player.getHealth() < 1000) {
@@ -48,36 +62,25 @@ public class PowerUp {
 	 * 
 	 * @return the powerup type
 	 */
-	static PowerUpType pickPowerUP() {
-		int randPower =  (int)(Math.random()*(40-1+1)+1);;
-		if(randPower == 5 || randPower == 10) {
+	private PowerUpType pickPowerUP() {
+		int randPower =  (int)(Math.random()*(40-1+1)+1);
+		if(randPower <= 500) {
 			return PowerUpType.HP;
 		}
-		if(randPower == 15 || randPower == 20) {
+		else if(randPower <= 30) {
 			return PowerUpType.SPD;
 		}
-		if(randPower == 30){
+		else{
 			return PowerUpType.MEGA;
 		}
-		return null;
 	}
 	
-	static GImage dropPowerUp(GPoint location) {
-		switch(pickPowerUP()){
-			case HP:
-				HPUPP.setSize(35,35);
-				HPUPP.setLocation(location);
-				return HPUPP;
-			case SPD:
-				SPDUPP.setSize(35,35);
-				SPDUPP.setLocation(location);
-				return SPDUPP;
-			case MEGA:
-				MEGAUPP.setSize(35,35);
-				MEGAUPP.setLocation(location);
-				return MEGAUPP;
-		}
-		return null;
+	public PowerUpType getpT() {
+		return pT;
+	}
+
+	GImage getImage() {
+		return image;
 	}
 	
 }
