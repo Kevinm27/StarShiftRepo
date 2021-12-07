@@ -20,6 +20,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	private static final int DELAY_MS = 20;
 	private int timeCounter = 0;
 	private int secondCounter = 0;
+
 	
 	//Change these values below to match the bounds of the playable margin of the screen
 	public static final int LEVEL_BOUNDS_BOTTOM = 500;
@@ -29,6 +30,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	
 	private ArrayList<Enemy> enemies = new ArrayList<>();
 	private ArrayList<Projectile> allBullets = new ArrayList<>();
+	private ArrayList<GImage> PowerUps = new ArrayList<>();
 	
 	private Score score;
 	private playerShip player;
@@ -172,19 +174,9 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 											musicAndSFX.playSFX(giveDamage);
 											/*
 											GImage PUP = PowerUp.dropPowerUp(enemies.get(j).getImage().getLocation());
-											program.add(PUP);
-											if(Logic.isCollidedEnemy(player.getImage(), PUP)) {
-												if (PUP == new GImage("media/healthup.png")) {
-													PowerUp.setHPUP(player);
-												}
-												if(PUP == new GImage("media/speedup.png")) {
-													PowerUp.setSPDUP(player);
-												}
-												if(PUP == new GImage("media/megaup.png")) {
-													PowerUp.setMEGAUP(player);
-												}
-												score.updateScore(100);
-												program.remove(PUP);
+											if(PUP != null){
+												program.add(PUP);
+												PowerUps.add(PUP);
 											}
 											*/
 											program.remove(enemies.get(j).getImage());
@@ -242,8 +234,31 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 					enemies.remove(enemies.get(i));
 					
 				}
+				
 			}
 		}
+		
+		/*
+		for (int i = 0; i < PowerUps.size(); i++) {
+			if(PowerUps.get(i) != null) {
+				if(Logic.isCollidedEnemy(player.getImage(), PowerUps.get(i))) {
+					if (PowerUps.get(i) == PowerUp.getHPUP()) {
+						PowerUp.setHPUP(player);
+						playerHP.modifyHealthBar(player.getHealth());
+					}
+					if(PowerUps.get(i) == PowerUp.getSPDUP()) {
+						PowerUp.setSPDUP(player);
+					}
+					if(PowerUps.get(i) == PowerUp.getMEGAUP()) {
+						PowerUp.setMEGAUP(player);
+					}
+					program.remove(PowerUps.get(i));
+					PowerUps.remove(i);
+				}
+			}	
+		}
+		*/
+		
 	}
 	
 	/**This helper function is used inside the timer to control a single Enemy inside 
@@ -429,6 +444,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		
 		timeCounter = 0;
 		player.setHealth(1000);
+		player.setSpeed(4.5);
 	}
 	
 	@Override

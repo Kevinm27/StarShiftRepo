@@ -1,19 +1,33 @@
 import acm.graphics.GImage;
 import acm.graphics.GPoint;
-import java.util.Random;
+import java.lang.Math;
 
 public class PowerUp {
 	PowerUpType pT;
-	static Random rand = new Random();
 	static int HPUP = 100;
 	
 	static GImage HPUPP = new GImage("media/healthup.png");
 	static GImage SPDUPP = new GImage("media/speedup.png");
 	static GImage MEGAUPP = new GImage("media/megaup.png");
 	
+	static GImage getHPUP() {
+		return HPUPP;
+	}
+	
+	static GImage getSPDUP() {
+		return SPDUPP;
+	}
+	
+	static GImage getMEGAUP() {
+		return MEGAUPP;
+	}
+	
+	
 	static void setHPUP(playerShip player) {
-		int health = player.getHealth() + HPUP;
-		player.setHealth(health);
+		if(player.getHealth() < 1000) {
+			int health = player.getHealth() + HPUP;
+			player.setHealth(health);
+		}
 	}
 	
 	static void setSPDUP(playerShip player) {
@@ -22,8 +36,10 @@ public class PowerUp {
 	}
 	
 	static void setMEGAUP(playerShip player) {
-		int health = player.getHealth() + HPUP;
-		player.setHealth(health);
+		if(player.getHealth() < 1000) {
+			int health = player.getHealth() + HPUP;
+			player.setHealth(health);
+		}
 		double spd = player.getSpeed() * 1.2;
 		player.setSpeed(spd);
 	}
@@ -33,17 +49,17 @@ public class PowerUp {
 	 * @return the powerup type
 	 */
 	static PowerUpType pickPowerUP() {
-		int randPower = rand.nextInt(40);
+		int randPower =  (int)(Math.random()*(40-1+1)+1);;
 		if(randPower == 5 || randPower == 10) {
 			return PowerUpType.HP;
 		}
 		if(randPower == 15 || randPower == 20) {
 			return PowerUpType.SPD;
 		}
-		else{
-			return PowerUpType.SPD;
+		if(randPower == 30){
+			return PowerUpType.MEGA;
 		}
-		//return null;
+		return null;
 	}
 	
 	static GImage dropPowerUp(GPoint location) {
