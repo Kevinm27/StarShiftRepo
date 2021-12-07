@@ -11,14 +11,14 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 	public static final int WINDOW_HEIGHT = 600;
 	public static final String MUSIC_FOLDER = "sounds";
 	
-	public playerShip player =  new playerShip(8, 1000, EntityType.PLAYER, new GPoint(375, 360));
+	public PlayerShip player =  new PlayerShip(8, 1000, EntityType.PLAYER, new GPoint(375, 360));
 
 	private GraphicsPane curScreen;
 	private MenuPane menu;
 	private PlayGameMenu playGameScn;
 	private ShipCustomPane shipCustom;
 	private OptionsMenu options;
-	private gameOverPane gameOver;
+	private GameOverPane gameOver;
 	private Level endless;	
 	
 	/* Method: setupInteractions
@@ -76,12 +76,12 @@ public class MainApplication extends GraphicsProgram implements KeyListener{
 	}
 
 	public void run() {
-		musicAndSFX music = new musicAndSFX();
+		MusicAndSFX music = new MusicAndSFX();
 		menu = new MenuPane(this);
 		playGameScn = new PlayGameMenu(this);
 		options = new OptionsMenu(this);
 		shipCustom = new ShipCustomPane(this);
-		gameOver = new gameOverPane(this);
+		gameOver = new GameOverPane(this);
 		endless = new Level(this, player);
 		setupInteractions();
 		switchToMenu();

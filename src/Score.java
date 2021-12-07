@@ -37,7 +37,7 @@ public class Score {
 		score += combo * addedScore;
 		text.setLabel("Score: " + score);
 		upCombo();
-		gameOverPane.scoreLabel.setLabel("Final score: " + score);
+		GameOverPane.scoreLabel.setLabel("Final score: " + score);
 	}
 	
 	

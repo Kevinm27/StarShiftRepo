@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
-public class gameOverPane extends GraphicsPane{
+public class GameOverPane extends GraphicsPane{
 
 	private MainApplication program;
 	private GImage background;
@@ -14,7 +14,7 @@ public class gameOverPane extends GraphicsPane{
 	private GLabel yes;
 	private GLabel no;
 	
-	public gameOverPane(MainApplication app) {
+	public GameOverPane(MainApplication app) {
 		super();
 		program = app;
 		Font space = new Font("Space", Font.PLAIN, 20);

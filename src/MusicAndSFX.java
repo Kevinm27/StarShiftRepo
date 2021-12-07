@@ -5,7 +5,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
-public class musicAndSFX {
+public class MusicAndSFX {
 
     static Clip clip;
     static Clip music;
@@ -15,7 +15,7 @@ public class musicAndSFX {
     public static File song = new File("Media/song1.wav");
  
 
-    public musicAndSFX () {
+    public MusicAndSFX () {
         try {
             music = AudioSystem.getClip();
             music.open(AudioSystem.getAudioInputStream(song));
@@ -64,32 +64,4 @@ public class musicAndSFX {
     	}
     }
     
-
-    public static void main (String [] args) {
-    	
-    	//musicAndSFX.playMusic();
-		/*Scanner myObj = new Scanner(System.in);
-
-    	System.out.print("Enter 1 if you want to pause: ");
-        int num = myObj.nextInt();
-        if(num == 1) {
-        	musicAndSFX.pauseMusic();
-        }
-        
-        
-        
-        num = myObj.nextInt();
-        if(num == 1) {
-        	musicAndSFX.resumeMusic();
-
-        }
-        
-        num = myObj.nextInt();
-        if(num == 1) {
-        	musicAndSFX.pauseMusic();
-        }
-        
-    	*/
-    }
-
 }

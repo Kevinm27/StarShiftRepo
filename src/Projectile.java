@@ -1,7 +1,6 @@
 import java.awt.Color;
 import acm.graphics.GOval;
 import acm.graphics.GPoint;
-import acm.graphics.GRect;
 
 public class Projectile {
 	//************************************* Variables *************************************//
@@ -34,19 +33,6 @@ public class Projectile {
 			oval.setColor(Color.RED);
 		this.angle = angle;
 	}
-	  
-	  
-	/*
-	 * This is the default constructor for enemy projectiles. The firing method is going to work
-	 * by grabbing the player's starting angle at the time the projectile fired, and it will then
-	 * continue traveling in that direction until it hits the player or leaves the screen
-	 */
-	Projectile(GPoint projectileLocation, GRect target){
-		damage = PROJECTILE_DAMAGE;
-		friendly = false;
-		speed = PROJECTILE_SPEED;
-		oval = new GOval(projectileLocation.getX(), projectileLocation.getY(), PROJECTILE_SIZE, PROJECTILE_SIZE);
-	}
 	
 	//************************************* Setter & Getters *************************************//
 	public int getDamage(){
@@ -74,16 +60,6 @@ public class Projectile {
 	}
 	
 	//************************************* Functions *************************************//
-	public GOval makeProjOval(double x, double y) {
-		GOval temp = new GOval(x, y, PROJECTILE_SIZE, PROJECTILE_SIZE);
-		temp.setColor(Color.BLUE);
-		temp.setFilled(true);
-		return temp;
-	}
-	 
-	public void moveAllProjOval() {
-		oval.movePolar(PROJECTILE_SPEED, angle);
-	}
 	
 	// Edited so the projectiles return true if out of bounds
 	public boolean operateProjectile() {
@@ -106,12 +82,4 @@ public class Projectile {
 		return false;
 	}
 	
-	/*this class grabs the angle of a target relative to the position of the projectile
-	 * 
-	 */
-	public float getAngle(GRect target) {
-		return (float) Math.toDegrees(Math.atan2(
-				(target.getX() + (target.getWidth() / 2)) - (oval.getX() + (oval.getWidth() / 2)),
-				(target.getY() + (target.getHeight() / 2)) - (oval.getY() + (oval.getHeight() / 2))));
-	}
 }

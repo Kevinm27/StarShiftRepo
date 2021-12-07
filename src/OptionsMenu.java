@@ -114,23 +114,23 @@ private MainApplication program;
 		if(obj == onButton0 && !on0) {
 			on0 = true;
 			underline0.move(-1 * 50 - 18, 0);
-			musicAndSFX.resumeMusic();//play music
+			MusicAndSFX.resumeMusic();//play music
 			
 		}
 		else if(obj == offButton0 && on0) {
 			on0 = false;
 			underline0.move(50 + 18, 0);
-			musicAndSFX.pauseMusic();//mute/pause music
+			MusicAndSFX.pauseMusic();//mute/pause music
 		}
 		else if(obj == onButton1 && !on1) {
 			on1 = true;
 			underline1.move(-1 * 50 - 18, 0);
-			musicAndSFX.muteSFX = false;//unmute sound effects
+			MusicAndSFX.muteSFX = false;//unmute sound effects
 		}
 		else if(obj == offButton1 && on1) {
 			on1 = false;
 			underline1.move(50 + 18, 0);
-			musicAndSFX.muteSFX = true;//mute/pause sfx
+			MusicAndSFX.muteSFX = true;//mute/pause sfx
 		}
 		
 		if (obj == backButton) {

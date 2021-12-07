@@ -3,7 +3,7 @@ import acm.graphics.GPoint;
 
 public class Levels {
 	
-	private playerShip player = new playerShip(5, 300, EntityType.PLAYER, new GPoint(0, 0));
+	private PlayerShip player = new PlayerShip(5, 300, EntityType.PLAYER, new GPoint(0, 0));
 	
 	/*
 	 * ArrayLists for Levels 1-5

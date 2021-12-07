@@ -3,28 +3,16 @@ import acm.graphics.GPoint;
 import java.lang.Math;
 
 public class PowerUp {
+	
+	private static final String HPUPP = "media/healthup.png";
+	private static final String SPDUPP = "media/speedup.png";
+	private static final String MEGAUPP = "media/megaup.png";
+	
 	PowerUpType pT;
 	static int HPUP = 200;
-	
-	//TODO: change the static GImages to string
 	private GImage image;
-	static String HPUPP = "media/healthup.png";
-	static String SPDUPP = "media/speedup.png";
-	static String MEGAUPP = "media/megaup.png";
 	
-	static String getHPUP() {
-		return HPUPP;
-	}
-	
-	static String getSPDUP() {
-		return SPDUPP;
-	}
-	
-	static String getMEGAUP() {
-		return MEGAUPP;
-	}
-	
-	/**
+	/**default constructor for PowerUp
 	 * 
 	 * @param location
 	 */
@@ -42,17 +30,17 @@ public class PowerUp {
 		image.setSize(35, 35);
 	}
 	
-	static void setHPUP(playerShip player) {
+	static void setHPUP(PlayerShip player) {
 			int health = player.getHealth() + HPUP;
 			player.setHealth(health);
 	}
 	
-	static void setSPDUP(playerShip player) {
+	static void setSPDUP(PlayerShip player) {
 		if(player.getSpeed() > 10)
 			player.setSpeed(player.getSpeed() * 1.2);
 	}
 	
-	static void setMEGAUP(playerShip player) {
+	static void setMEGAUP(PlayerShip player) {
 		int health = player.getHealth() + HPUP;
 		player.setHealth(health);
 			
@@ -64,7 +52,7 @@ public class PowerUp {
 	}
 	
 	/**selects a random power up. Power ups have a weighted drop chance, meaning stronger power ups are more rare.
-	 * There is a 5/8ths chance of spawning a HP PowerUp. 
+	 * There is a 5 in 8 chance of spawning a HP PowerUp. 
 	 * There is a 1 in 4 chance of spawning a speed PowerUp. 
 	 * Finally, there is a 1 in 8 chance of spawning a MEGA PowerUp.
 	 * 

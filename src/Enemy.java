@@ -8,7 +8,7 @@ import acm.graphics.GPoint;
  * Objects can access projectile objects and will utilize timers to control all types of its movement.
  */
 
-public class Enemy extends ourEntity {
+public class Enemy extends OurEntity {
 	
 	Enemy(int fD, int life, EntityType eT, GPoint entityLocation) {					// easier to have input be EntityType and location
 		super(fD, life, eT);														// based on type, assign fD and life value
@@ -92,25 +92,8 @@ public class Enemy extends ourEntity {
 	 * @param angle the angle at which you plan on moving the ship
 	 * @return true if the ship moved, otherwise false
 	 */
-	public boolean move(float angle) {				// takes in Type to change move rates
-		if(movePolar(angle))
-			return true;
-		else
-			return false;
-	}
-	
-	/**this is the shoot function that playerShip will be using. It essentially runs ourEntity's movePolar
-	 * function, only that this one starts the shootTimer once a bullet is fired.
-	 * 
-	 * @param angle the direction the shot is fired
-	 * @return true if a bullet was fired
-	 * @return false if no bullet was fired
-	 */
-	public boolean shoot(float angle) {
-		if(movePolar(angle))
-			return true;
-		else
-			return false;
+	public void move(float angle) {				// takes in Type to change move rates
+		movePolar(angle);
 	}
 
 }

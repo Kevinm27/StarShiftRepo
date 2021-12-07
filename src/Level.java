@@ -33,7 +33,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	private ArrayList<PowerUp> powerUps = new ArrayList<>();
 	
 	private Score score;
-	private playerShip player;
+	private PlayerShip player;
 	private PlayerHealthBar playerHP;
 	private Projectile newBullet;
 	private Timer uniTimer;
@@ -58,14 +58,14 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	 * 
 	 * @return
 	 */
-	public Level(ArrayList<Enemy> enemies, playerShip player, boolean infinite) {
+	public Level(ArrayList<Enemy> enemies, PlayerShip player, boolean infinite) {
 		this.player = player;
 		this.enemies = enemies;
 		isInfinite = infinite;
 		
 		initLevel();
 	}
-	public Level(MainApplication app, playerShip player, ArrayList<Enemy> enemies) {
+	public Level(MainApplication app, PlayerShip player, ArrayList<Enemy> enemies) {
 		this.player = player;
 		this.enemies = enemies;
 		isInfinite = false;
@@ -77,18 +77,18 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 	 * 
 	 * @return
 	 */
-	Level(MainApplication app, playerShip player){
+	Level(MainApplication app, PlayerShip player){
 		super();
 		program = app;
 		this.player = player;
 	}
 	
 	//************************************* Setter & Getters *************************************//
-	public playerShip getPlayer() {
+	public PlayerShip getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(playerShip player) {
+	public void setPlayer(PlayerShip player) {
 		this.player = player;
 	}
 	
@@ -157,7 +157,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 				//projectiles check if they can collide with the player
 				else if(allBullets.get(i).getFriendly() != player.getFriendly()) { //sees if the bullet is able to collide w/ player
 					if(Logic.isCollided(allBullets.get(i).getOval(), player.getImage())) {
-						musicAndSFX.playSFX(damage);
+						MusicAndSFX.playSFX(damage);
 						damagePlayer(allBullets.get(i).getDamage());
 						program.remove(allBullets.get(i).getOval());
 						allBullets.remove(i);
@@ -172,7 +172,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 									if(Logic.isCollided(allBullets.get(i).getOval(), enemies.get(j).getImage())) { //checks if the enemy and projectile are colliding
 										enemies.get(j).setHealth(enemies.get(j).getHealth() - allBullets.get(i).getDamage());
 										if(enemies.get(j).isDead()) {
-											musicAndSFX.playSFX(giveDamage);
+											MusicAndSFX.playSFX(giveDamage);
 											int randPower =  (int)(Math.random()*(10)); //there's a 1 in 20 chance of spawning a powerup
 											if(randPower == 1) { //if the random number is 1, a powerup drops
 												powerUp = new PowerUp(enemies.get(j).getImage().getLocation());
@@ -220,7 +220,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		float fireAngle = player.getFiringAngle(); //checks the angle the player is trying to shoot in
 		
 		if(fireAngle != -1 && player.canShoot()) {
-			musicAndSFX.playSFX(bullet);
+			MusicAndSFX.playSFX(bullet);
 			newBullet = player.shootProjectile(newBullet, fireAngle);
 			program.add(newBullet.getOval());
 			allBullets.add(newBullet);
@@ -229,7 +229,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 			if(enemies.get(i) != null) {
 				if(Logic.isCollidedEnemy(player.getImage(), enemies.get(i).getImage())){
 					//When the player collides with an enemy currently the player is damaged by 200
-					musicAndSFX.playSFX(damage);
+					MusicAndSFX.playSFX(damage);
 					damagePlayer(200);
 					program.remove(enemies.get(i).getImage());
 					enemies.remove(enemies.get(i));
@@ -274,7 +274,7 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		float towardsPlayer = Logic.getAngle(enemy.getImage(), player.getImage()); //calculates angle towards playerShip
 		enemy.operateEnemy(towardsPlayer);
 		if(enemy.canShoot()) {
-			musicAndSFX.playSFX(enemyBullet);
+			MusicAndSFX.playSFX(enemyBullet);
 			newBullet = enemy.shootProjectile(newBullet, towardsPlayer);
 			allBullets.add(newBullet);
 			program.add(newBullet.getOval());
@@ -483,7 +483,3 @@ public class Level extends GraphicsPane implements KeyListener, ActionListener{
 		//new Level(new playerShip(8, 1000, EntityType.PLAYER, new GPoint(200, 200))).start();
 	}
 }
-
-
-
-

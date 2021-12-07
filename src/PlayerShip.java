@@ -2,7 +2,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import acm.graphics.GPoint;
 
-public class playerShip extends ourEntity implements KeyListener{
+public class PlayerShip extends OurEntity implements KeyListener{
 	//These booleans tell us whether or not one of the keys on the keyboard is currently held down
 	private boolean wKeyDown = false;
 	private boolean aKeyDown = false;
@@ -20,7 +20,7 @@ public class playerShip extends ourEntity implements KeyListener{
 	 * 
 	 * @param entityLocation the starting location of the playerShip
 	 */
-	playerShip(int fD, int life, EntityType eT, GPoint entityLocation) {
+	PlayerShip(int fD, int life, EntityType eT, GPoint entityLocation) {
 		super(fD, life, eT);
 		playerLocation = entityLocation;
 		image.setLocation(entityLocation.getX(), entityLocation.getY());
@@ -37,22 +37,8 @@ public class playerShip extends ourEntity implements KeyListener{
 	 * @param angle the angle at which you plan on moving the ship
 	 * @return true if the ship moved, otherwise false
 	 */
-	public boolean move(float angle) {
-		return(movePolar(angle));
-	}
-	
-	/**this is the shoot function that playerShip will be using. It essentially runs ourEntity's movePolar
-	 * function, only that this one starts the shootTimer once a bullet is fired.
-	 * 
-	 * @param angle the direction the shot is fired
-	 * @return true if a bullet was fired
-	 * @return false if no bullet was fired
-	 */
-	public boolean shoot(float angle) {
-		if(shootPolar(angle))
-			return true;
-		else 
-			return false;
+	public void move(float angle) {
+		movePolar(angle);
 	}
 	
 	/**This is the function that the gameTimer in Level will be calling to operate the playerShip. It 

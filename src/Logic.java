@@ -1,21 +1,14 @@
 import acm.graphics.GImage;
-import acm.graphics.GObject;
 import acm.graphics.GOval;
 import acm.graphics.GPoint;
 
+/**This class is full of static helper functions that check for collision between objects and 
+ * calculate angles of trajectory
+ * 
+ * 
+ *
+ */
 public class Logic {
-	//	private boolean friendly; should be in ourEntity 
-	private double angleRotation = 90;
-	
-	public void rotateShip(GObject ship,double angle) {
-		GPoint shipStart;
-		if(angleRotation != angle) {
-			shipStart = ship.getLocation();
-			ship.rotate(Math.abs(angleRotation - angle));
-			angleRotation = angle;
-			ship.setLocation(shipStart);
-		}
-	}
 	
 	/*This function will take in two GObjects. The first being the player ship and the second being
 	 * the enemy ship. There is a nested for loop which will check if there is any overlap between

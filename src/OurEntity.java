@@ -9,7 +9,7 @@
 import acm.graphics.GImage;
 import acm.graphics.GPoint;
 
-public class ourEntity {
+public class OurEntity {
 	//************************************* Variables *************************************//	
 	protected int fireDelay;
 	protected int curFireTime = 0;
@@ -28,7 +28,7 @@ public class ourEntity {
 	
 	//************************************* Constructor *************************************//
 	
-	public ourEntity(int fD, int life, EntityType eT) {
+	public OurEntity(int fD, int life, EntityType eT) {
 		fireDelay = fD;
 		health = life;
 		eType = eT;
@@ -62,10 +62,6 @@ public class ourEntity {
 	
 	void setIsFriendly(boolean isFriendly) {
 		this.friendly = isFriendly; 
-	}
-	
-	void setEntityType(EntityType type) {
-		this.type = type;
 	}
 	
 	void setImage(String color) {						// help with graphics
@@ -152,43 +148,20 @@ public class ourEntity {
 		return new GPoint(nextPosition.getX(), nextPosition.getY());
 	}
 	
-	/**
+	/**Moves the ship
 	 * 
-	 * @param angle the angle at which you are moving the ship
-	 * @return false & does nothing if the move timer has not reset
 	 */
-	protected boolean movePolar(float angle) {
-		if(canMove == false) {		//checks if enough time has passed since the last move
-			return false;			//returns false if not enough time has passed
-		}
-		else {
-			//moves the ship to a position within the bounds of the screen
-
+	protected void movePolar(float angle) {
 			image.setLocation(moveWithinBounds(angle));
-			return true;
-		}
 	}
 	
 	/**Fires a projectile in the direction of parameter angle. Also adds this new Projectile to the 
 	 * ArrayList bullets.
 	 * 
 	 * @param angle the angle at which the player wants to fire the projectile
-	 * @return true if a projectile has been successfully fired
-	 * @return false if the firing cooldown has not finished
+	 * @param bullet the bullet object being fired
+	 * @return the bullet after it is fired
 	 */
-	protected boolean shootPolar(float angle) {
-		//shoots a projectile based on the angle input to the function
-		if(canShoot) {
-			newBullet = new Projectile(new GPoint(image.getX() + (image.getWidth() / 2),
-					image.getY() + (image.getHeight() / 2)), angle, friendly);
-			curFireTime = 0;
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
 	public Projectile shootProjectile(Projectile bullet, float angle) {		
 		bullet = new Projectile(new GPoint(image.getX() + (image.getWidth() / 2), 
 				image.getY() + (image.getHeight() / 2)), angle, friendly);
