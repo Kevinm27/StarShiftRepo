@@ -43,25 +43,24 @@ public class PowerUp {
 	}
 	
 	static void setHPUP(playerShip player) {
-//		if(player.getHealth() < 1000) {
 			int health = player.getHealth() + HPUP;
 			player.setHealth(health);
-//		}
 	}
 	
 	static void setSPDUP(playerShip player) {
-		double spd = player.getSpeed() * 1.2;
-		player.setSpeed(spd);
+		if(player.getSpeed() > 10)
+			player.setSpeed(player.getSpeed() * 1.2);
 	}
 	
 	static void setMEGAUP(playerShip player) {
-//		if(player.getHealth() < 1000) {
-			int health = player.getHealth() + HPUP;
-			player.setHealth(health);
-//		}
-		double spd = player.getSpeed() * 1.2;
-		player.setSpeed(spd);
-		player.setFireDelay(player.getFireDelay() - 1);
+		int health = player.getHealth() + HPUP;
+		player.setHealth(health);
+			
+		if(player.getSpeed() < 10)
+			player.setSpeed(player.getSpeed() * 1.2);
+
+		if(player.getFireDelay() > 5)
+			player.setFireDelay(player.getFireDelay() - 1);
 	}
 	
 	/**selects a random power up. Power ups have a weighted drop chance, meaning stronger power ups are more rare.
