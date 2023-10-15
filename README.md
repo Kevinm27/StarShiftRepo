@@ -19,7 +19,7 @@ StarShiftRepo is a dynamic top-down game built using Java. This project offers a
   - **GraphicsPane**: Manages game graphics.
   - **Interfaceable**: Ensures class-method compliance.
   - **Level & Levels**: Game levels and progression.
-  - **Logi**: Game logic (additional info needed).
+  - **Logic**: Game logic such as collision and damage.
   - **MainApplication**: Game's entry point.
   - **MusicAndSFX**: In-game audio management.
   - **OptionMenu & PlayGameMenu**: Game settings and play menu.
