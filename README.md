@@ -44,6 +44,10 @@ StarShiftRepo is a dynamic top-down game built using Java. This project offers a
     Compile and execute the `MainApplication` class.
 
 ## Contribution
+Megan Acosta
+Brian Huante
+Luke Blaydes @baeblaydes
+Marco Mitic @marcomitic
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**. Simply fork the repo and create a pull request.
 
 ## License
